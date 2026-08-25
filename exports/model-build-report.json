@@ -1,0 +1,56 @@
+{
+  "name": "bamboo-crane-maiden",
+  "parts": 24,
+  "parameters": 31,
+  "physicsChains": 7,
+  "lintWarnings": 0,
+  "lintErrors": 0,
+  "parameterSweepPassed": true,
+  "landmarks": {
+    "faceOval": true,
+    "eyeLeft": true,
+    "eyeRight": true,
+    "mouth": true
+  },
+  "outputs": {
+    "inp": "model\\bamboo-crane-maiden.inp",
+    "cmo3": "model\\bamboo-crane-maiden.cmo3",
+    "model3": "model\\live2d\\bamboo-crane-maiden.model3.json",
+    "moc3": "model\\live2d\\bamboo-crane-maiden.moc3"
+  },
+  "moc3": {
+    "bytes": 7202432,
+    "decodedVersion": 1,
+    "roundtripByteIdentical": true,
+    "counts": {
+      "parts": 24,
+      "deformers": 1,
+      "warpDeformers": 1,
+      "rotationDeformers": 0,
+      "artMeshes": 24,
+      "parameters": 31,
+      "partKeyforms": 24,
+      "warpDeformerKeyforms": 27,
+      "rotationDeformerKeyforms": 0,
+      "artMeshKeyforms": 5517,
+      "keyformPositions": 1761696,
+      "parameterBindingIndices": 126,
+      "keyformBindings": 49,
+      "parameterBindings": 31,
+      "keys": 86,
+      "uvs": 8264,
+      "positionIndices": 20316,
+      "drawableMasks": 0,
+      "drawOrderGroups": 1,
+      "drawOrderGroupObjects": 24,
+      "glue": 0,
+      "glueInfo": 0,
+      "glueKeyforms": 0
+    }
+  },
+  "exactBlinkMotion": {
+    "durationSeconds": 1.52,
+    "loop": true,
+    "file": "model\\live2d\\bamboo-crane-maiden.autoblink.motion3.json"
+  }
+}

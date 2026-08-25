@@ -1,0 +1,24 @@
+# Rebuildable large release artifacts (published as GitHub Release assets)
+exports/bamboo-crane-maiden-live2d-delivery.zip
+exports/character-master-8k.png
+assets/runtime/character-master-4k.png
+
+# Browser evidence frames; retain JSON reports and the contact sheet
+exports/visual-acceptance/*.png
+!exports/visual-acceptance/state-contact-sheet.png
+exports/player-sim/*.png
+exports/viewer-model.png
+exports/viewer-reference.png
+
+# Local caches and nested upstream repository metadata
+**/__pycache__/
+**/*.py[cod]
+image2live2d-upstream/.git/
+image2live2d-upstream/.git-upstream-backup/
+image2live2d-upstream/media/
+.pytest_cache/
+node_modules/
+*.log
+*.tmp
+.DS_Store
+Thumbs.db

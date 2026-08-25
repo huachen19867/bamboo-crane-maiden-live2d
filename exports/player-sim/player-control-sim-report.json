@@ -1,0 +1,3546 @@
+{
+  "schemaVersion": 1,
+  "agent": "player-control-sim",
+  "startedAt": "2026-08-25T01:05:32.333Z",
+  "finishedAt": "2026-08-25T01:05:52.524Z",
+  "target": {
+    "root": "D:\\AI\\Codex\\Design\\live 2d",
+    "url": "http://127.0.0.1:55152/viewer/",
+    "api": {
+      "present": true,
+      "methods": [
+        "getSnapshot",
+        "dispatchInput",
+        "reset",
+        "tick",
+        "getBindings"
+      ],
+      "version": "2.0.0",
+      "bindings": {
+        "keyboard": {
+          "movement": [
+            "W",
+            "A",
+            "S",
+            "D"
+          ],
+          "turn": [
+            "Q",
+            "E"
+          ],
+          "actions": {
+            "Z": "wave",
+            "X": "sleeve",
+            "C": "bow",
+            "V": "point"
+          },
+          "expressions": {
+            "1": "neutral",
+            "2": "smile",
+            "3": "surprised",
+            "4": "focused"
+          }
+        },
+        "pointer": {
+          "move": "gaze/head",
+          "drag": "directional wind",
+          "shiftDrag": "2x wind",
+          "clickPetal": "catch",
+          "clickCrane": "crane response"
+        },
+        "gamepad": {
+          "leftStick": "movement",
+          "rightStick": "head/arm",
+          "buttons": [
+            "wave",
+            "bow",
+            "sleeve",
+            "point"
+          ],
+          "leftTrigger": "gust"
+        },
+        "drivers": [
+          "auto",
+          "puppet",
+          "mocap",
+          "show"
+        ],
+        "priority": [
+          "keyboard-action",
+          "timeline",
+          "mocap",
+          "gamepad",
+          "auto",
+          "secondary-physics"
+        ]
+      }
+    }
+  },
+  "summary": {
+    "pass": 26,
+    "fail": 0,
+    "blocked": 0,
+    "skipped": 0,
+    "total": 26,
+    "verdict": "pass"
+  },
+  "requirements": [
+    {
+      "id": "REQ-INPUT-01",
+      "description": "Mouse gaze and directional wind drag are distinct and observable.",
+      "evidencePath": "tests.mouse-gaze + tests.pointer-wind-drag-and-rebound"
+    },
+    {
+      "id": "REQ-INPUT-02",
+      "description": "WASD moves/steps; Q/E turns; releases decay without snapping.",
+      "evidencePath": "tests.keyboard-*"
+    },
+    {
+      "id": "REQ-BODY-01",
+      "description": "Walking changes body/hip/leg/foot parameters with support-foot lock <= 2 px.",
+      "evidencePath": "tests.foot-lock-and-weight-transfer"
+    },
+    {
+      "id": "REQ-ACTION-01",
+      "description": "Z/X/C/V trigger arm/hand actions and numeric keys select expressions.",
+      "evidencePath": "tests.action-* + tests.expression-*"
+    },
+    {
+      "id": "REQ-DRIVER-01",
+      "description": "Gamepad and mocap equivalent inputs participate in priority-based channel blending.",
+      "evidencePath": "tests.gamepad-equivalent-input + tests.mixed-driver-priority"
+    },
+    {
+      "id": "REQ-STABILITY-01",
+      "description": "Randomized mixed inputs recover without non-finite state or console errors.",
+      "evidencePath": "tests.randomized-input-stability + tests.console-clean"
+    },
+    {
+      "id": "REQ-UX-01",
+      "description": "The UI teaches keyboard, gamepad, mocap and drag-to-wind interaction.",
+      "evidencePath": "tests.ui-control-discoverability"
+    }
+  ],
+  "tests": [
+    {
+      "name": "viewer-loads",
+      "status": "pass",
+      "requirement": "P0: viewer loads and exposes observable state",
+      "evidence": {
+        "url": "http://127.0.0.1:55152/viewer/",
+        "httpStatus": 200,
+        "snapshotSource": "live2dControl",
+        "screenshot": "D:\\AI\\Codex\\Design\\live 2d\\exports\\player-sim\\baseline.png"
+      }
+    },
+    {
+      "name": "ui-control-discoverability",
+      "status": "pass",
+      "requirement": "P0: UI explains keyboard, gamepad, mocap and pointer wind interaction",
+      "evidence": {
+        "interactive": [
+          {
+            "tag": "button",
+            "id": null,
+            "text": "自动待机",
+            "type": null,
+            "ariaLabel": null
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "text": "人工操偶",
+            "type": null,
+            "ariaLabel": null
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "text": "摄像头动捕",
+            "type": null,
+            "ariaLabel": null
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "text": "编排演出",
+            "type": null,
+            "ariaLabel": null
+          },
+          {
+            "tag": "button",
+            "id": "cameraToggle",
+            "text": "启用摄像头动捕",
+            "type": null,
+            "ariaLabel": null
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "text": "Z · 挥袖招手",
+            "type": null,
+            "ariaLabel": null
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "text": "X · 双袖舒展",
+            "type": null,
+            "ariaLabel": null
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "text": "C · 欠身行礼",
+            "type": null,
+            "ariaLabel": null
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "text": "V · 指鹤引风",
+            "type": null,
+            "ariaLabel": null
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "text": "W · 半步前移",
+            "type": null,
+            "ariaLabel": null
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "text": "衣袂猎猎",
+            "type": null,
+            "ariaLabel": null
+          },
+          {
+            "tag": "input",
+            "id": "wind",
+            "text": "",
+            "type": "range",
+            "ariaLabel": null
+          },
+          {
+            "tag": "input",
+            "id": "turbulence",
+            "text": "",
+            "type": "range",
+            "ariaLabel": null
+          },
+          {
+            "tag": "input",
+            "id": "motionScale",
+            "text": "",
+            "type": "range",
+            "ariaLabel": null
+          },
+          {
+            "tag": "input",
+            "id": "blink",
+            "text": "1.52 秒自动眨眼",
+            "type": "checkbox",
+            "ariaLabel": null
+          },
+          {
+            "tag": "input",
+            "id": "highlights",
+            "text": "虹膜高光追踪",
+            "type": "checkbox",
+            "ariaLabel": null
+          },
+          {
+            "tag": "input",
+            "id": "debugRig",
+            "text": "骨骼 / 脚底锚点",
+            "type": "checkbox",
+            "ariaLabel": null
+          },
+          {
+            "tag": "button",
+            "id": "referenceToggle",
+            "text": "参考图校对",
+            "type": null,
+            "ariaLabel": null
+          },
+          {
+            "tag": "button",
+            "id": "snapshot",
+            "text": "导出当前帧 PNG",
+            "type": null,
+            "ariaLabel": null
+          }
+        ],
+        "documentsKeyboard": true,
+        "documentsGamepad": true,
+        "documentsMocap": true,
+        "documentsWindDrag": true
+      }
+    },
+    {
+      "name": "debug-control-api",
+      "status": "pass",
+      "requirement": "P0: stable automation/debug API is present",
+      "evidence": {
+        "present": true,
+        "methods": [
+          "getSnapshot",
+          "dispatchInput",
+          "reset",
+          "tick",
+          "getBindings"
+        ],
+        "version": "2.0.0",
+        "bindings": {
+          "keyboard": {
+            "movement": [
+              "W",
+              "A",
+              "S",
+              "D"
+            ],
+            "turn": [
+              "Q",
+              "E"
+            ],
+            "actions": {
+              "Z": "wave",
+              "X": "sleeve",
+              "C": "bow",
+              "V": "point"
+            },
+            "expressions": {
+              "1": "neutral",
+              "2": "smile",
+              "3": "surprised",
+              "4": "focused"
+            }
+          },
+          "pointer": {
+            "move": "gaze/head",
+            "drag": "directional wind",
+            "shiftDrag": "2x wind",
+            "clickPetal": "catch",
+            "clickCrane": "crane response"
+          },
+          "gamepad": {
+            "leftStick": "movement",
+            "rightStick": "head/arm",
+            "buttons": [
+              "wave",
+              "bow",
+              "sleeve",
+              "point"
+            ],
+            "leftTrigger": "gust"
+          },
+          "drivers": [
+            "auto",
+            "puppet",
+            "mocap",
+            "show"
+          ],
+          "priority": [
+            "keyboard-action",
+            "timeline",
+            "mocap",
+            "gamepad",
+            "auto",
+            "secondary-physics"
+          ]
+        }
+      }
+    },
+    {
+      "name": "mouse-gaze",
+      "status": "pass",
+      "requirement": "P0: pointer movement controls gaze/head parameters",
+      "evidence": {
+        "changes": [
+          {
+            "path": "input.pointer.x",
+            "before": 0,
+            "after": 0.64,
+            "delta": 0.64
+          },
+          {
+            "path": "input.pointer.y",
+            "before": 0,
+            "after": -0.52,
+            "delta": -0.52
+          },
+          {
+            "path": "params.eyeOpenR",
+            "before": 1,
+            "after": 0.63862,
+            "delta": -0.36138000000000003
+          },
+          {
+            "path": "params.eyeOpenL",
+            "before": 1,
+            "after": 0.6457,
+            "delta": -0.35429999999999995
+          },
+          {
+            "path": "params.eyeBallX",
+            "before": 0,
+            "after": 0.35266,
+            "delta": 0.35266
+          },
+          {
+            "path": "params.eyeBallY",
+            "before": 0,
+            "after": -0.28654,
+            "delta": -0.28654
+          },
+          {
+            "path": "params.headX",
+            "before": 0,
+            "after": 0.1199,
+            "delta": 0.1199
+          },
+          {
+            "path": "params.headY",
+            "before": 0,
+            "after": -0.05731,
+            "delta": -0.05731
+          },
+          {
+            "path": "params.headZ",
+            "before": 0.03616,
+            "after": 0.03778,
+            "delta": 0.0016200000000000034
+          }
+        ]
+      }
+    },
+    {
+      "name": "mode-switch-ui",
+      "status": "pass",
+      "requirement": "P1: visible mode switch changes runtime mode",
+      "evidence": {
+        "count": 5,
+        "transitions": [
+          {
+            "index": 0,
+            "snapshot": {
+              "__source": "live2dControl",
+              "timeMs": 1683.5,
+              "mode": "auto",
+              "input": {
+                "keys": [],
+                "pointer": {
+                  "x": 0,
+                  "y": 0,
+                  "down": false,
+                  "dragging": false
+                },
+                "gamepad": {
+                  "connected": false,
+                  "index": 0,
+                  "axes": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "buttons": []
+                },
+                "camera": {
+                  "active": false,
+                  "confidence": 0
+                }
+              },
+              "driver": {
+                "activeSources": [
+                  "auto",
+                  "secondary-physics"
+                ],
+                "activeMode": "auto",
+                "priority": [
+                  "keyboard-action",
+                  "timeline",
+                  "mocap",
+                  "gamepad",
+                  "auto",
+                  "secondary-physics"
+                ],
+                "channelBlend": {
+                  "face": "auto",
+                  "arms": "auto",
+                  "body": "auto",
+                  "physics": "secondary-physics"
+                }
+              },
+              "params": {
+                "rootX": 0,
+                "rootY": 0,
+                "headX": 0.08928,
+                "headY": -0.04267,
+                "headZ": 0.0388,
+                "bodyX": 0.05285,
+                "bodyY": 0,
+                "bodyZ": 0.01748,
+                "breath": 0.75835,
+                "shoulderL": 0,
+                "shoulderR": 0,
+                "elbowL": 0,
+                "elbowR": 0,
+                "wristL": 0,
+                "wristR": 0,
+                "hipX": 0,
+                "hipY": 0,
+                "kneeL": 0,
+                "kneeR": 0,
+                "footL": 0,
+                "footR": 0,
+                "weightShift": 0,
+                "eyeOpenL": 0.28868,
+                "eyeOpenR": 0.27686,
+                "eyeBallX": 0.2626,
+                "eyeBallY": -0.21336,
+                "mouthOpen": 0
+              },
+              "feet": {
+                "left": {
+                  "contact": true,
+                  "anchor": {
+                    "x": 572.4,
+                    "y": 1235.87
+                  },
+                  "slidePx": 0,
+                  "liftPx": 0
+                },
+                "right": {
+                  "contact": true,
+                  "anchor": {
+                    "x": 677.16,
+                    "y": 1174.76
+                  },
+                  "slidePx": 0.55,
+                  "liftPx": 0
+                }
+              },
+              "physics": {
+                "wind": {
+                  "base": 1.2,
+                  "turbulence": 0.06,
+                  "dragX": 0,
+                  "dragY": 0,
+                  "impulseX": 0,
+                  "impulseY": 0,
+                  "effectiveX": 14.40283
+                },
+                "hair": {
+                  "left": {
+                    "offset": 9.7584,
+                    "velocity": 8.6413,
+                    "target": 12.9634
+                  },
+                  "right": {
+                    "offset": 11.5861,
+                    "velocity": 11.2186,
+                    "target": 15.5544
+                  },
+                  "tips": {
+                    "offset": 12.7539,
+                    "velocity": 14.8547,
+                    "target": 19.0124
+                  }
+                },
+                "cloth": {
+                  "sleeveLeft": {
+                    "offset": 5.9429,
+                    "velocity": 6.6846,
+                    "target": 8.9301
+                  },
+                  "sleeveRight": {
+                    "offset": 7.0341,
+                    "velocity": 8.3415,
+                    "target": 10.6578
+                  },
+                  "hemLeft": {
+                    "offset": 4.6854,
+                    "velocity": 6.0207,
+                    "target": 7.4897
+                  },
+                  "hemCenter": {
+                    "offset": 3.9962,
+                    "velocity": 4.6245,
+                    "target": 6.0493
+                  },
+                  "hemRight": {
+                    "offset": 5.5693,
+                    "velocity": 7.5076,
+                    "target": 9.218
+                  },
+                  "ribbonUpper": {
+                    "offset": 12.8428,
+                    "velocity": 17.9155,
+                    "target": 21.6034
+                  },
+                  "ribbonLower": {
+                    "offset": 9.4841,
+                    "velocity": 14.3969,
+                    "target": 17.572
+                  }
+                }
+              },
+              "action": {
+                "name": "idle",
+                "amount": 0,
+                "source": "auto"
+              },
+              "expression": {
+                "index": 0,
+                "name": "neutral",
+                "label": "平静"
+              },
+              "options": {
+                "blink": true,
+                "highlights": true,
+                "motionScale": 1,
+                "debugRig": false
+              }
+            }
+          },
+          {
+            "index": 1,
+            "snapshot": {
+              "__source": "live2dControl",
+              "timeMs": 1766.8,
+              "mode": "puppet",
+              "input": {
+                "keys": [],
+                "pointer": {
+                  "x": 0,
+                  "y": 0,
+                  "down": false,
+                  "dragging": false
+                },
+                "gamepad": {
+                  "connected": false,
+                  "index": 0,
+                  "axes": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "buttons": []
+                },
+                "camera": {
+                  "active": false,
+                  "confidence": 0
+                }
+              },
+              "driver": {
+                "activeSources": [
+                  "auto",
+                  "secondary-physics"
+                ],
+                "activeMode": "puppet",
+                "priority": [
+                  "keyboard-action",
+                  "timeline",
+                  "mocap",
+                  "gamepad",
+                  "auto",
+                  "secondary-physics"
+                ],
+                "channelBlend": {
+                  "face": "auto",
+                  "arms": "auto",
+                  "body": "puppet",
+                  "physics": "secondary-physics"
+                }
+              },
+              "params": {
+                "rootX": 0,
+                "rootY": 0,
+                "headX": 0.04585,
+                "headY": -0.02191,
+                "headZ": 0.03923,
+                "bodyX": 0.05485,
+                "bodyY": 0,
+                "bodyZ": 0.0184,
+                "breath": 0.69846,
+                "shoulderL": 0,
+                "shoulderR": 0,
+                "elbowL": 0,
+                "elbowR": 0,
+                "wristL": 0,
+                "wristR": 0,
+                "hipX": 0,
+                "hipY": 0,
+                "kneeL": 0,
+                "kneeR": 0,
+                "footL": 0,
+                "footR": 0,
+                "weightShift": 0,
+                "eyeOpenL": 0.87404,
+                "eyeOpenR": 0.87172,
+                "eyeBallX": 0.13486,
+                "eyeBallY": -0.10957,
+                "mouthOpen": 0
+              },
+              "feet": {
+                "left": {
+                  "contact": true,
+                  "anchor": {
+                    "x": 572.4,
+                    "y": 1235.87
+                  },
+                  "slidePx": 0,
+                  "liftPx": 0
+                },
+                "right": {
+                  "contact": true,
+                  "anchor": {
+                    "x": 677.16,
+                    "y": 1174.76
+                  },
+                  "slidePx": 0.55,
+                  "liftPx": 0
+                }
+              },
+              "physics": {
+                "wind": {
+                  "base": 1.2,
+                  "turbulence": 0.06,
+                  "dragX": 0,
+                  "dragY": 0,
+                  "impulseX": 0,
+                  "impulseY": 0,
+                  "effectiveX": 15.985
+                },
+                "hair": {
+                  "left": {
+                    "offset": 10.5113,
+                    "velocity": 9.4914,
+                    "target": 14.862
+                  },
+                  "right": {
+                    "offset": 12.4811,
+                    "velocity": 10.5622,
+                    "target": 16.8993
+                  },
+                  "tips": {
+                    "offset": 13.9813,
+                    "velocity": 14.8321,
+                    "target": 21.4648
+                  }
+                },
+                "cloth": {
+                  "sleeveLeft": {
+                    "offset": 6.5022,
+                    "velocity": 6.821,
+                    "target": 10.1168
+                  },
+                  "sleeveRight": {
+                    "offset": 7.7058,
+                    "velocity": 7.9455,
+                    "target": 11.6387
+                  },
+                  "hemLeft": {
+                    "offset": 5.1818,
+                    "velocity": 5.9759,
+                    "target": 8.439
+                  },
+                  "hemCenter": {
+                    "offset": 4.3768,
+                    "velocity": 4.583,
+                    "target": 6.7613
+                  },
+                  "hemRight": {
+                    "offset": 6.1862,
+                    "velocity": 7.3954,
+                    "target": 10.3255
+                  },
+                  "ribbonUpper": {
+                    "offset": 14.2901,
+                    "velocity": 17.1034,
+                    "target": 23.502
+                  },
+                  "ribbonLower": {
+                    "offset": 10.6767,
+                    "velocity": 14.3508,
+                    "target": 19.787
+                  }
+                }
+              },
+              "action": {
+                "name": "idle",
+                "amount": 0,
+                "source": "auto"
+              },
+              "expression": {
+                "index": 0,
+                "name": "neutral",
+                "label": "平静"
+              },
+              "options": {
+                "blink": true,
+                "highlights": true,
+                "motionScale": 1,
+                "debugRig": false
+              }
+            }
+          },
+          {
+            "index": 2,
+            "snapshot": {
+              "__source": "live2dControl",
+              "timeMs": 1850.2,
+              "mode": "mocap",
+              "input": {
+                "keys": [],
+                "pointer": {
+                  "x": 0,
+                  "y": 0,
+                  "down": false,
+                  "dragging": false
+                },
+                "gamepad": {
+                  "connected": false,
+                  "index": 0,
+                  "axes": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "buttons": []
+                },
+                "camera": {
+                  "active": false,
+                  "confidence": 0
+                }
+              },
+              "driver": {
+                "activeSources": [
+                  "auto",
+                  "secondary-physics"
+                ],
+                "activeMode": "mocap",
+                "priority": [
+                  "keyboard-action",
+                  "timeline",
+                  "mocap",
+                  "gamepad",
+                  "auto",
+                  "secondary-physics"
+                ],
+                "channelBlend": {
+                  "face": "auto",
+                  "arms": "auto",
+                  "body": "mocap",
+                  "physics": "secondary-physics"
+                }
+              },
+              "params": {
+                "rootX": 0,
+                "rootY": 0,
+                "headX": 0.02353,
+                "headY": -0.01125,
+                "headZ": 0.03953,
+                "bodyX": 0.05638,
+                "bodyY": 0,
+                "bodyZ": 0.01919,
+                "breath": 0.63494,
+                "shoulderL": 0,
+                "shoulderR": 0,
+                "elbowL": 0,
+                "elbowR": 0,
+                "wristL": 0,
+                "wristR": 0,
+                "hipX": 0,
+                "hipY": 0,
+                "kneeL": 0,
+                "kneeR": 0,
+                "footL": 0,
+                "footR": 0,
+                "weightShift": 0,
+                "eyeOpenL": 0.98968,
+                "eyeOpenR": 0.98949,
+                "eyeBallX": 0.0692,
+                "eyeBallY": -0.05623,
+                "mouthOpen": 0
+              },
+              "feet": {
+                "left": {
+                  "contact": true,
+                  "anchor": {
+                    "x": 572.4,
+                    "y": 1235.87
+                  },
+                  "slidePx": 0,
+                  "liftPx": 0
+                },
+                "right": {
+                  "contact": true,
+                  "anchor": {
+                    "x": 677.16,
+                    "y": 1174.76
+                  },
+                  "slidePx": 0.55,
+                  "liftPx": 0
+                }
+              },
+              "physics": {
+                "wind": {
+                  "base": 1.2,
+                  "turbulence": 0.06,
+                  "dragX": 0,
+                  "dragY": 0,
+                  "impulseX": 0,
+                  "impulseY": 0,
+                  "effectiveX": 17.43291
+                },
+                "hair": {
+                  "left": {
+                    "offset": 11.387,
+                    "velocity": 11.2081,
+                    "target": 16.5995
+                  },
+                  "right": {
+                    "offset": 13.3624,
+                    "velocity": 10.6209,
+                    "target": 18.13
+                  },
+                  "tips": {
+                    "offset": 15.2611,
+                    "velocity": 15.7525,
+                    "target": 23.709
+                  }
+                },
+                "cloth": {
+                  "sleeveLeft": {
+                    "offset": 7.0988,
+                    "velocity": 7.4027,
+                    "target": 11.2027
+                  },
+                  "sleeveRight": {
+                    "offset": 8.366,
+                    "velocity": 7.9262,
+                    "target": 12.5364
+                  },
+                  "hemLeft": {
+                    "offset": 5.6923,
+                    "velocity": 6.2413,
+                    "target": 9.3077
+                  },
+                  "hemCenter": {
+                    "offset": 4.7694,
+                    "velocity": 4.8085,
+                    "target": 7.4128
+                  },
+                  "hemRight": {
+                    "offset": 6.8125,
+                    "velocity": 7.6126,
+                    "target": 11.339
+                  },
+                  "ribbonUpper": {
+                    "offset": 15.6995,
+                    "velocity": 16.8046,
+                    "target": 25.2395
+                  },
+                  "ribbonLower": {
+                    "offset": 11.8941,
+                    "velocity": 14.7995,
+                    "target": 21.8141
+                  }
+                }
+              },
+              "action": {
+                "name": "idle",
+                "amount": 0,
+                "source": "auto"
+              },
+              "expression": {
+                "index": 0,
+                "name": "neutral",
+                "label": "平静"
+              },
+              "options": {
+                "blink": true,
+                "highlights": true,
+                "motionScale": 1,
+                "debugRig": false
+              }
+            }
+          },
+          {
+            "index": 3,
+            "snapshot": {
+              "__source": "live2dControl",
+              "timeMs": 1933.3,
+              "mode": "show",
+              "input": {
+                "keys": [],
+                "pointer": {
+                  "x": 0,
+                  "y": 0,
+                  "down": false,
+                  "dragging": false
+                },
+                "gamepad": {
+                  "connected": false,
+                  "index": 0,
+                  "axes": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "buttons": []
+                },
+                "camera": {
+                  "active": false,
+                  "confidence": 0
+                }
+              },
+              "driver": {
+                "activeSources": [
+                  "auto",
+                  "timeline",
+                  "secondary-physics"
+                ],
+                "activeMode": "show",
+                "priority": [
+                  "keyboard-action",
+                  "timeline",
+                  "mocap",
+                  "gamepad",
+                  "auto",
+                  "secondary-physics"
+                ],
+                "channelBlend": {
+                  "face": "auto",
+                  "arms": "auto",
+                  "body": "show",
+                  "physics": "secondary-physics"
+                }
+              },
+              "params": {
+                "rootX": 0,
+                "rootY": 0,
+                "headX": 0.01662,
+                "headY": -0.00578,
+                "headZ": 0.03783,
+                "bodyX": 0.05755,
+                "bodyY": 0,
+                "bodyZ": 0.01989,
+                "breath": 0.56923,
+                "shoulderL": 0,
+                "shoulderR": 0,
+                "elbowL": 0,
+                "elbowR": 0,
+                "wristL": 0,
+                "wristR": 0,
+                "hipX": 0,
+                "hipY": 0,
+                "kneeL": 0,
+                "kneeR": 0,
+                "footL": 0,
+                "footR": 0,
+                "weightShift": 0,
+                "eyeOpenL": 0.99915,
+                "eyeOpenR": 0.99913,
+                "eyeBallX": 0.0356,
+                "eyeBallY": -0.02892,
+                "mouthOpen": 0
+              },
+              "feet": {
+                "left": {
+                  "contact": true,
+                  "anchor": {
+                    "x": 572.4,
+                    "y": 1235.87
+                  },
+                  "slidePx": 0,
+                  "liftPx": 0
+                },
+                "right": {
+                  "contact": true,
+                  "anchor": {
+                    "x": 677.16,
+                    "y": 1174.76
+                  },
+                  "slidePx": 0.55,
+                  "liftPx": 0
+                }
+              },
+              "physics": {
+                "wind": {
+                  "base": 1.2,
+                  "turbulence": 0.06,
+                  "dragX": 0,
+                  "dragY": 0,
+                  "impulseX": 0,
+                  "impulseY": 0,
+                  "effectiveX": 18.25829
+                },
+                "hair": {
+                  "left": {
+                    "offset": 12.3905,
+                    "velocity": 12.5157,
+                    "target": 17.5899
+                  },
+                  "right": {
+                    "offset": 14.2505,
+                    "velocity": 10.6825,
+                    "target": 18.8315
+                  },
+                  "tips": {
+                    "offset": 16.6163,
+                    "velocity": 16.5943,
+                    "target": 24.9884
+                  }
+                },
+                "cloth": {
+                  "sleeveLeft": {
+                    "offset": 7.741,
+                    "velocity": 7.895,
+                    "target": 11.8217
+                  },
+                  "sleeveRight": {
+                    "offset": 9.0257,
+                    "velocity": 7.922,
+                    "target": 13.0481
+                  },
+                  "hemLeft": {
+                    "offset": 6.225,
+                    "velocity": 6.4961,
+                    "target": 9.803
+                  },
+                  "hemCenter": {
+                    "offset": 5.1802,
+                    "velocity": 5.0073,
+                    "target": 7.7842
+                  },
+                  "hemRight": {
+                    "offset": 7.4572,
+                    "velocity": 7.8299,
+                    "target": 11.9168
+                  },
+                  "ribbonUpper": {
+                    "offset": 17.085,
+                    "velocity": 16.5537,
+                    "target": 26.2299
+                  },
+                  "ribbonLower": {
+                    "offset": 13.1483,
+                    "velocity": 15.2503,
+                    "target": 22.9696
+                  }
+                }
+              },
+              "action": {
+                "name": "idle",
+                "amount": 0,
+                "source": "auto"
+              },
+              "expression": {
+                "index": 0,
+                "name": "neutral",
+                "label": "平静"
+              },
+              "options": {
+                "blink": true,
+                "highlights": true,
+                "motionScale": 1,
+                "debugRig": false
+              }
+            }
+          },
+          {
+            "index": 4,
+            "snapshot": {
+              "__source": "live2dControl",
+              "timeMs": 2016.6,
+              "mode": "reference",
+              "input": {
+                "keys": [],
+                "pointer": {
+                  "x": 0,
+                  "y": 0,
+                  "down": false,
+                  "dragging": false
+                },
+                "gamepad": {
+                  "connected": false,
+                  "index": 0,
+                  "axes": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "buttons": []
+                },
+                "camera": {
+                  "active": false,
+                  "confidence": 0
+                }
+              },
+              "driver": {
+                "activeSources": [
+                  "auto",
+                  "secondary-physics"
+                ],
+                "activeMode": "reference",
+                "priority": [
+                  "keyboard-action",
+                  "timeline",
+                  "mocap",
+                  "gamepad",
+                  "auto",
+                  "secondary-physics"
+                ],
+                "channelBlend": {
+                  "face": "auto",
+                  "arms": "auto",
+                  "body": "reference",
+                  "physics": "secondary-physics"
+                }
+              },
+              "params": {
+                "rootX": 0,
+                "rootY": 0,
+                "headX": 0.01887,
+                "headY": -0.00297,
+                "headZ": 0.03453,
+                "bodyX": 0.05846,
+                "bodyY": 0,
+                "bodyZ": 0.02054,
+                "breath": 0.5021,
+                "shoulderL": 0,
+                "shoulderR": 0,
+                "elbowL": 0,
+                "elbowR": 0,
+                "wristL": 0,
+                "wristR": 0,
+                "hipX": 0,
+                "hipY": 0,
+                "kneeL": 0,
+                "kneeR": 0,
+                "footL": 0,
+                "footR": 0,
+                "weightShift": 0,
+                "eyeOpenL": 0.99993,
+                "eyeOpenR": 0.99993,
+                "eyeBallX": 0.01828,
+                "eyeBallY": -0.01485,
+                "mouthOpen": 0
+              },
+              "feet": {
+                "left": {
+                  "contact": true,
+                  "anchor": {
+                    "x": 572.4,
+                    "y": 1235.87
+                  },
+                  "slidePx": 0,
+                  "liftPx": 0
+                },
+                "right": {
+                  "contact": true,
+                  "anchor": {
+                    "x": 677.16,
+                    "y": 1174.76
+                  },
+                  "slidePx": 0.55,
+                  "liftPx": 0
+                }
+              },
+              "physics": {
+                "wind": {
+                  "base": 1.2,
+                  "turbulence": 0.06,
+                  "dragX": 0,
+                  "dragY": 0,
+                  "impulseX": 0,
+                  "impulseY": 0,
+                  "effectiveX": 18.15582
+                },
+                "hair": {
+                  "left": {
+                    "offset": 13.4337,
+                    "velocity": 12.2597,
+                    "target": 17.467
+                  },
+                  "right": {
+                    "offset": 15.1149,
+                    "velocity": 10.0382,
+                    "target": 18.7444
+                  },
+                  "tips": {
+                    "offset": 17.9938,
+                    "velocity": 16.2806,
+                    "target": 24.8295
+                  }
+                },
+                "cloth": {
+                  "sleeveLeft": {
+                    "offset": 8.3977,
+                    "velocity": 7.7607,
+                    "target": 11.7449
+                  },
+                  "sleeveRight": {
+                    "offset": 9.6702,
+                    "velocity": 7.5397,
+                    "target": 12.9846
+                  },
+                  "hemLeft": {
+                    "offset": 6.764,
+                    "velocity": 6.3845,
+                    "target": 9.7415
+                  },
+                  "hemCenter": {
+                    "offset": 5.5937,
+                    "velocity": 4.8745,
+                    "target": 7.7381
+                  },
+                  "hemRight": {
+                    "offset": 8.1052,
+                    "velocity": 7.6699,
+                    "target": 11.8451
+                  },
+                  "ribbonUpper": {
+                    "offset": 18.4305,
+                    "velocity": 15.7803,
+                    "target": 26.107
+                  },
+                  "ribbonLower": {
+                    "offset": 14.4172,
+                    "velocity": 15.1019,
+                    "target": 22.8262
+                  }
+                }
+              },
+              "action": {
+                "name": "idle",
+                "amount": 0,
+                "source": "auto"
+              },
+              "expression": {
+                "index": 0,
+                "name": "neutral",
+                "label": "平静"
+              },
+              "options": {
+                "blink": true,
+                "highlights": true,
+                "motionScale": 1,
+                "debugRig": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "wind-slider",
+      "status": "pass",
+      "requirement": "P1: visible wind control changes wind magnitude and readout",
+      "evidence": {
+        "present": true,
+        "snapshot": {
+          "__source": "live2dControl",
+          "timeMs": 2149.9,
+          "mode": "reference",
+          "input": {
+            "keys": [],
+            "pointer": {
+              "x": 0,
+              "y": 0,
+              "down": false,
+              "dragging": false
+            },
+            "gamepad": {
+              "connected": false,
+              "index": 0,
+              "axes": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "buttons": []
+            },
+            "camera": {
+              "active": false,
+              "confidence": 0
+            }
+          },
+          "driver": {
+            "activeSources": [
+              "auto",
+              "secondary-physics"
+            ],
+            "activeMode": "reference",
+            "priority": [
+              "keyboard-action",
+              "timeline",
+              "mocap",
+              "gamepad",
+              "auto",
+              "secondary-physics"
+            ],
+            "channelBlend": {
+              "face": "auto",
+              "arms": "auto",
+              "body": "reference",
+              "physics": "secondary-physics"
+            }
+          },
+          "params": {
+            "rootX": 0,
+            "rootY": 0,
+            "headX": 0.0065,
+            "headY": -0.00102,
+            "headZ": 0.0381,
+            "bodyX": 0.05939,
+            "bodyY": 0,
+            "bodyZ": 0.02147,
+            "breath": 0.39451,
+            "shoulderL": 0,
+            "shoulderR": 0,
+            "elbowL": 0,
+            "elbowR": 0,
+            "wristL": 0,
+            "wristR": 0,
+            "hipX": 0,
+            "hipY": 0,
+            "kneeL": 0,
+            "kneeR": 0,
+            "footL": 0,
+            "footR": 0,
+            "weightShift": 0,
+            "eyeOpenL": 1,
+            "eyeOpenR": 1,
+            "eyeBallX": 0.00629,
+            "eyeBallY": -0.00511,
+            "mouthOpen": 0
+          },
+          "feet": {
+            "left": {
+              "contact": true,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": 0,
+              "liftPx": 0
+            },
+            "right": {
+              "contact": true,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": 0.55,
+              "liftPx": 0
+            }
+          },
+          "physics": {
+            "wind": {
+              "base": 2.1,
+              "turbulence": 0.06,
+              "dragX": 0,
+              "dragY": 0,
+              "impulseX": 0,
+              "impulseY": 0,
+              "effectiveX": 26.88948
+            },
+            "hair": {
+              "left": {
+                "offset": 15.608,
+                "velocity": 20.4071,
+                "target": 24.7074
+              },
+              "right": {
+                "offset": 17.0556,
+                "velocity": 19.4614,
+                "target": 28.6521
+              },
+              "tips": {
+                "offset": 20.7119,
+                "velocity": 24.8715,
+                "target": 35.8827
+              }
+            },
+            "cloth": {
+              "sleeveLeft": {
+                "offset": 9.7059,
+                "velocity": 11.9947,
+                "target": 16.8911
+              },
+              "sleeveRight": {
+                "offset": 10.9725,
+                "velocity": 12.2938,
+                "target": 19.6955
+              },
+              "hemLeft": {
+                "offset": 7.7976,
+                "velocity": 9.2785,
+                "target": 14.1177
+              },
+              "hemCenter": {
+                "offset": 6.4205,
+                "velocity": 7.6498,
+                "target": 11.3443
+              },
+              "hemRight": {
+                "offset": 9.332,
+                "velocity": 10.9469,
+                "target": 17.3106
+              },
+              "ribbonUpper": {
+                "offset": 20.9662,
+                "velocity": 22.9244,
+                "target": 39.8274
+              },
+              "ribbonLower": {
+                "offset": 16.74,
+                "velocity": 20.0971,
+                "target": 33.1093
+              }
+            }
+          },
+          "action": {
+            "name": "idle",
+            "amount": 0,
+            "source": "auto"
+          },
+          "expression": {
+            "index": 0,
+            "name": "neutral",
+            "label": "平静"
+          },
+          "options": {
+            "blink": true,
+            "highlights": true,
+            "motionScale": 1,
+            "debugRig": false
+          }
+        },
+        "output": "2.1 m/s"
+      }
+    },
+    {
+      "name": "pointer-wind-drag-and-rebound",
+      "status": "pass",
+      "requirement": "P0: pointer drag creates directional wind; release produces decaying physical rebound",
+      "evidence": {
+        "duringDragChanges": [
+          {
+            "path": "physics.cloth.ribbonUpper.target",
+            "before": 0,
+            "after": 250.4882,
+            "delta": 250.4882
+          },
+          {
+            "path": "physics.hair.tips.target",
+            "before": 0,
+            "after": 218.7831,
+            "delta": 218.7831
+          },
+          {
+            "path": "physics.hair.tips.velocity",
+            "before": 0,
+            "after": 208.7755,
+            "delta": 208.7755
+          },
+          {
+            "path": "physics.cloth.ribbonLower.target",
+            "before": 0,
+            "after": 202.3172,
+            "delta": 202.3172
+          },
+          {
+            "path": "physics.hair.right.velocity",
+            "before": 0,
+            "after": 199.9503,
+            "delta": 199.9503
+          },
+          {
+            "path": "physics.hair.left.velocity",
+            "before": 0,
+            "after": 195.8322,
+            "delta": 195.8322
+          },
+          {
+            "path": "physics.hair.right.target",
+            "before": 0,
+            "after": 180.3982,
+            "delta": 180.3982
+          },
+          {
+            "path": "physics.cloth.ribbonUpper.velocity",
+            "before": 0,
+            "after": 175.0543,
+            "delta": 175.0543
+          },
+          {
+            "path": "physics.hair.left.target",
+            "before": 0,
+            "after": 148.693,
+            "delta": 148.693
+          },
+          {
+            "path": "physics.wind.effectiveX",
+            "before": 26.51478,
+            "after": 166.32554,
+            "delta": 139.81076
+          },
+          {
+            "path": "physics.cloth.ribbonLower.velocity",
+            "before": 0,
+            "after": 127.9112,
+            "delta": 127.9112
+          },
+          {
+            "path": "physics.cloth.sleeveRight.target",
+            "before": 0,
+            "after": 123.4809,
+            "delta": 123.4809
+          },
+          {
+            "path": "physics.cloth.sleeveRight.velocity",
+            "before": 0,
+            "after": 108.5636,
+            "delta": 108.5636
+          },
+          {
+            "path": "physics.cloth.hemRight.target",
+            "before": 0,
+            "after": 106.2484,
+            "delta": 106.2484
+          },
+          {
+            "path": "physics.cloth.sleeveLeft.target",
+            "before": 0,
+            "after": 102.6885,
+            "delta": 102.6885
+          },
+          {
+            "path": "physics.cloth.sleeveLeft.velocity",
+            "before": 0,
+            "after": 101.6249,
+            "delta": 101.6249
+          },
+          {
+            "path": "physics.cloth.hemLeft.target",
+            "before": 0,
+            "after": 86.2226,
+            "delta": 86.2226
+          },
+          {
+            "path": "physics.cloth.hemRight.velocity",
+            "before": 0,
+            "after": 81.4581,
+            "delta": 81.4581
+          },
+          {
+            "path": "physics.cloth.hemLeft.velocity",
+            "before": 0,
+            "after": 71.615,
+            "delta": 71.615
+          },
+          {
+            "path": "physics.cloth.hemCenter.target",
+            "before": 0,
+            "after": 69.7567,
+            "delta": 69.7567
+          }
+        ],
+        "reboundChanges": [
+          {
+            "path": "physics.hair.tips.velocity",
+            "before": 257.7078,
+            "after": -72.2239,
+            "delta": -329.93170000000003
+          },
+          {
+            "path": "physics.hair.right.velocity",
+            "before": 236.1788,
+            "after": -71.7822,
+            "delta": -307.961
+          },
+          {
+            "path": "physics.hair.left.velocity",
+            "before": 220.4276,
+            "after": -73.084,
+            "delta": -293.51160000000004
+          },
+          {
+            "path": "physics.cloth.ribbonUpper.velocity",
+            "before": 230.1022,
+            "after": -39.2936,
+            "delta": -269.3958
+          },
+          {
+            "path": "physics.cloth.ribbonLower.velocity",
+            "before": 171.2693,
+            "after": -21.0903,
+            "delta": -192.3596
+          },
+          {
+            "path": "physics.cloth.sleeveRight.velocity",
+            "before": 135.1195,
+            "after": -33.4204,
+            "delta": -168.5399
+          },
+          {
+            "path": "physics.cloth.sleeveLeft.velocity",
+            "before": 122.4324,
+            "after": -33.7077,
+            "delta": -156.14010000000002
+          },
+          {
+            "path": "physics.cloth.ribbonUpper.target",
+            "before": 198.9541,
+            "after": 60.2938,
+            "delta": -138.6603
+          },
+          {
+            "path": "physics.cloth.hemRight.velocity",
+            "before": 105.1977,
+            "after": -21.8663,
+            "delta": -127.064
+          },
+          {
+            "path": "physics.hair.tips.target",
+            "before": 173.3071,
+            "after": 52.4767,
+            "delta": -120.8304
+          },
+          {
+            "path": "physics.cloth.hemLeft.velocity",
+            "before": 90.9787,
+            "after": -21.5357,
+            "delta": -112.5144
+          },
+          {
+            "path": "physics.cloth.ribbonLower.target",
+            "before": 160.2947,
+            "after": 48.5395,
+            "delta": -111.7552
+          },
+          {
+            "path": "physics.cloth.hemCenter.velocity",
+            "before": 79.9243,
+            "after": -21.0427,
+            "delta": -100.967
+          },
+          {
+            "path": "physics.hair.right.target",
+            "before": 143.2972,
+            "after": 43.428,
+            "delta": -99.8692
+          },
+          {
+            "path": "physics.wind.effectiveX",
+            "before": 131.91846,
+            "after": 39.96028,
+            "delta": -91.95818000000001
+          },
+          {
+            "path": "physics.hair.left.target",
+            "before": 117.6502,
+            "after": 35.6109,
+            "delta": -82.0393
+          },
+          {
+            "path": "physics.cloth.ribbonUpper.offset",
+            "before": 40.1561,
+            "after": 110.5028,
+            "delta": 70.3467
+          },
+          {
+            "path": "physics.cloth.sleeveRight.target",
+            "before": 98.0502,
+            "after": 29.7119,
+            "delta": -68.3383
+          },
+          {
+            "path": "physics.cloth.ribbonLower.offset",
+            "before": 29.4134,
+            "after": 88.7852,
+            "delta": 59.37180000000001
+          },
+          {
+            "path": "physics.cloth.hemRight.target",
+            "before": 84.2125,
+            "after": 25.5039,
+            "delta": -58.708600000000004
+          }
+        ]
+      }
+    },
+    {
+      "name": "keyboard-W",
+      "status": "pass",
+      "requirement": "P0: W changes locomotion/turn parameters and releases smoothly",
+      "evidence": {
+        "keyRecorded": true,
+        "heldChanges": [
+          {
+            "path": "params.rootY",
+            "before": 0,
+            "after": -2.70753,
+            "delta": -2.70753
+          },
+          {
+            "path": "params.kneeL",
+            "before": 0,
+            "after": 0.20113,
+            "delta": 0.20113
+          },
+          {
+            "path": "params.footL",
+            "before": 0,
+            "after": 0.20113,
+            "delta": 0.20113
+          },
+          {
+            "path": "params.breath",
+            "before": 0,
+            "after": 0.1902,
+            "delta": 0.1902
+          },
+          {
+            "path": "params.kneeR",
+            "before": 0,
+            "after": 0.15494,
+            "delta": 0.15494
+          },
+          {
+            "path": "params.footR",
+            "before": 0,
+            "after": 0.15494,
+            "delta": 0.15494
+          },
+          {
+            "path": "params.weightShift",
+            "before": 0,
+            "after": -0.11441,
+            "delta": -0.11441
+          },
+          {
+            "path": "params.hipY",
+            "before": 0,
+            "after": 0.04247,
+            "delta": 0.04247
+          },
+          {
+            "path": "params.bodyX",
+            "before": 0,
+            "after": 0.03364,
+            "delta": 0.03364
+          },
+          {
+            "path": "params.headZ",
+            "before": 0,
+            "after": 0.02969,
+            "delta": 0.02969
+          },
+          {
+            "path": "params.bodyZ",
+            "before": 0,
+            "after": 0.02219,
+            "delta": 0.02219
+          }
+        ],
+        "releaseChanges": [
+          {
+            "path": "params.rootY",
+            "before": -2.70753,
+            "after": -0.00588,
+            "delta": 2.7016500000000003
+          },
+          {
+            "path": "params.breath",
+            "before": 0.1902,
+            "after": 0.77379,
+            "delta": 0.5835899999999999
+          },
+          {
+            "path": "params.kneeL",
+            "before": 0.20113,
+            "after": 0,
+            "delta": -0.20113
+          },
+          {
+            "path": "params.footL",
+            "before": 0.20113,
+            "after": 0,
+            "delta": -0.20113
+          },
+          {
+            "path": "params.kneeR",
+            "before": 0.15494,
+            "after": 0.02943,
+            "delta": -0.12550999999999998
+          },
+          {
+            "path": "params.footR",
+            "before": 0.15494,
+            "after": 0.02943,
+            "delta": -0.12550999999999998
+          },
+          {
+            "path": "params.weightShift",
+            "before": -0.11441,
+            "after": -0.01582,
+            "delta": 0.09859
+          },
+          {
+            "path": "params.hipY",
+            "before": 0.04247,
+            "after": 0.0049,
+            "delta": -0.03757
+          },
+          {
+            "path": "params.bodyX",
+            "before": 0.03364,
+            "after": 0.00844,
+            "delta": -0.025200000000000004
+          },
+          {
+            "path": "params.headZ",
+            "before": 0.02969,
+            "after": 0.02417,
+            "delta": -0.005520000000000001
+          },
+          {
+            "path": "params.bodyZ",
+            "before": 0.02219,
+            "after": 0.02121,
+            "delta": -0.0009800000000000017
+          }
+        ]
+      }
+    },
+    {
+      "name": "keyboard-A",
+      "status": "pass",
+      "requirement": "P0: A changes locomotion/turn parameters and releases smoothly",
+      "evidence": {
+        "keyRecorded": true,
+        "heldChanges": [
+          {
+            "path": "params.rootX",
+            "before": 0,
+            "after": -10.75578,
+            "delta": -10.75578
+          },
+          {
+            "path": "params.breath",
+            "before": 0,
+            "after": 0.8581,
+            "delta": 0.8581
+          },
+          {
+            "path": "params.weightShift",
+            "before": 0,
+            "after": -0.36141,
+            "delta": -0.36141
+          },
+          {
+            "path": "params.hipX",
+            "before": 0,
+            "after": -0.26889,
+            "delta": -0.26889
+          },
+          {
+            "path": "params.kneeL",
+            "before": 0,
+            "after": 0.22118,
+            "delta": 0.22118
+          },
+          {
+            "path": "params.footL",
+            "before": 0,
+            "after": 0.22118,
+            "delta": 0.22118
+          },
+          {
+            "path": "params.eyeOpenR",
+            "before": 1,
+            "after": 0.86428,
+            "delta": -0.13571999999999995
+          },
+          {
+            "path": "params.eyeOpenL",
+            "before": 1,
+            "after": 0.86694,
+            "delta": -0.13305999999999996
+          },
+          {
+            "path": "params.kneeR",
+            "before": 0,
+            "after": 0.11168,
+            "delta": 0.11168
+          },
+          {
+            "path": "params.footR",
+            "before": 0,
+            "after": 0.11168,
+            "delta": 0.11168
+          },
+          {
+            "path": "params.hipY",
+            "before": 0,
+            "after": 0.04077,
+            "delta": 0.04077
+          },
+          {
+            "path": "params.headZ",
+            "before": 0,
+            "after": 0.01755,
+            "delta": 0.01755
+          },
+          {
+            "path": "params.bodyZ",
+            "before": 0,
+            "after": 0.01692,
+            "delta": 0.01692
+          },
+          {
+            "path": "params.bodyX",
+            "before": 0,
+            "after": -0.00521,
+            "delta": -0.00521
+          }
+        ],
+        "releaseChanges": [
+          {
+            "path": "params.rootX",
+            "before": -10.75578,
+            "after": -0.02336,
+            "delta": 10.73242
+          },
+          {
+            "path": "params.weightShift",
+            "before": -0.36141,
+            "after": -0.01706,
+            "delta": 0.34435
+          },
+          {
+            "path": "params.hipX",
+            "before": -0.26889,
+            "after": -0.00058,
+            "delta": 0.26831
+          },
+          {
+            "path": "params.kneeL",
+            "before": 0.22118,
+            "after": 0,
+            "delta": -0.22118
+          },
+          {
+            "path": "params.footL",
+            "before": 0.22118,
+            "after": 0,
+            "delta": -0.22118
+          },
+          {
+            "path": "params.eyeOpenR",
+            "before": 0.86428,
+            "after": 1,
+            "delta": 0.13571999999999995
+          },
+          {
+            "path": "params.eyeOpenL",
+            "before": 0.86694,
+            "after": 1,
+            "delta": 0.13305999999999996
+          },
+          {
+            "path": "params.kneeR",
+            "before": 0.11168,
+            "after": 0.02415,
+            "delta": -0.08753
+          },
+          {
+            "path": "params.footR",
+            "before": 0.11168,
+            "after": 0.02415,
+            "delta": -0.08753
+          },
+          {
+            "path": "params.hipY",
+            "before": 0.04077,
+            "after": 0.00404,
+            "delta": -0.03673
+          },
+          {
+            "path": "params.bodyX",
+            "before": -0.00521,
+            "after": -0.03501,
+            "delta": -0.0298
+          },
+          {
+            "path": "params.breath",
+            "before": 0.8581,
+            "after": 0.8472,
+            "delta": -0.01090000000000002
+          },
+          {
+            "path": "params.headZ",
+            "before": 0.01755,
+            "after": 0.0076,
+            "delta": -0.00995
+          },
+          {
+            "path": "params.bodyZ",
+            "before": 0.01692,
+            "after": 0.01136,
+            "delta": -0.005560000000000001
+          }
+        ]
+      }
+    },
+    {
+      "name": "keyboard-S",
+      "status": "pass",
+      "requirement": "P0: S changes locomotion/turn parameters and releases smoothly",
+      "evidence": {
+        "keyRecorded": true,
+        "heldChanges": [
+          {
+            "path": "params.rootY",
+            "before": 0,
+            "after": 1.8033,
+            "delta": 1.8033
+          },
+          {
+            "path": "params.breath",
+            "before": 0,
+            "after": 0.55909,
+            "delta": 0.55909
+          },
+          {
+            "path": "params.kneeL",
+            "before": 0,
+            "after": 0.20408,
+            "delta": 0.20408
+          },
+          {
+            "path": "params.footL",
+            "before": 0,
+            "after": 0.20408,
+            "delta": 0.20408
+          },
+          {
+            "path": "params.kneeR",
+            "before": 0,
+            "after": 0.14871,
+            "delta": 0.14871
+          },
+          {
+            "path": "params.footR",
+            "before": 0,
+            "after": 0.14871,
+            "delta": 0.14871
+          },
+          {
+            "path": "params.weightShift",
+            "before": 0,
+            "after": -0.1139,
+            "delta": -0.1139
+          },
+          {
+            "path": "params.hipY",
+            "before": 0,
+            "after": 0.04224,
+            "delta": 0.04224
+          },
+          {
+            "path": "params.bodyX",
+            "before": 0,
+            "after": -0.04109,
+            "delta": -0.04109
+          },
+          {
+            "path": "params.bodyZ",
+            "before": 0,
+            "after": 0.00674,
+            "delta": 0.00674
+          },
+          {
+            "path": "params.headZ",
+            "before": 0,
+            "after": 0.00177,
+            "delta": 0.00177
+          }
+        ],
+        "releaseChanges": [
+          {
+            "path": "params.rootY",
+            "before": 1.8033,
+            "after": 0.00447,
+            "delta": -1.79883
+          },
+          {
+            "path": "params.breath",
+            "before": 0.55909,
+            "after": 0.10334,
+            "delta": -0.45575
+          },
+          {
+            "path": "params.kneeL",
+            "before": 0.20408,
+            "after": 0.00001,
+            "delta": -0.20407
+          },
+          {
+            "path": "params.footL",
+            "before": 0.20408,
+            "after": 0.00001,
+            "delta": -0.20407
+          },
+          {
+            "path": "params.kneeR",
+            "before": 0.14871,
+            "after": 0.03065,
+            "delta": -0.11806000000000001
+          },
+          {
+            "path": "params.footR",
+            "before": 0.14871,
+            "after": 0.03065,
+            "delta": -0.11806000000000001
+          },
+          {
+            "path": "params.weightShift",
+            "before": -0.1139,
+            "after": -0.01698,
+            "delta": 0.09692
+          },
+          {
+            "path": "params.hipY",
+            "before": 0.04224,
+            "after": 0.0051,
+            "delta": -0.03714
+          },
+          {
+            "path": "params.bodyX",
+            "before": -0.04109,
+            "after": -0.05869,
+            "delta": -0.017599999999999998
+          },
+          {
+            "path": "params.eyeOpenR",
+            "before": 1,
+            "after": 0.98487,
+            "delta": -0.015129999999999977
+          },
+          {
+            "path": "params.eyeOpenL",
+            "before": 1,
+            "after": 0.98515,
+            "delta": -0.01485000000000003
+          },
+          {
+            "path": "params.headZ",
+            "before": 0.00177,
+            "after": -0.01026,
+            "delta": -0.01203
+          },
+          {
+            "path": "params.bodyZ",
+            "before": 0.00674,
+            "after": -0.00156,
+            "delta": -0.0083
+          }
+        ]
+      }
+    },
+    {
+      "name": "keyboard-D",
+      "status": "pass",
+      "requirement": "P0: D changes locomotion/turn parameters and releases smoothly",
+      "evidence": {
+        "keyRecorded": true,
+        "heldChanges": [
+          {
+            "path": "params.rootX",
+            "before": 0,
+            "after": 10.85968,
+            "delta": 10.85968
+          },
+          {
+            "path": "params.hipX",
+            "before": 0,
+            "after": 0.27149,
+            "delta": 0.27149
+          },
+          {
+            "path": "params.kneeL",
+            "before": 0,
+            "after": 0.19205,
+            "delta": 0.19205
+          },
+          {
+            "path": "params.footL",
+            "before": 0,
+            "after": 0.19205,
+            "delta": 0.19205
+          },
+          {
+            "path": "params.kneeR",
+            "before": 0,
+            "after": 0.17296,
+            "delta": 0.17296
+          },
+          {
+            "path": "params.footR",
+            "before": 0,
+            "after": 0.17296,
+            "delta": 0.17296
+          },
+          {
+            "path": "params.weightShift",
+            "before": 0,
+            "after": 0.13767,
+            "delta": 0.13767
+          },
+          {
+            "path": "params.bodyX",
+            "before": 0,
+            "after": -0.05412,
+            "delta": -0.05412
+          },
+          {
+            "path": "params.hipY",
+            "before": 0,
+            "after": 0.04308,
+            "delta": 0.04308
+          },
+          {
+            "path": "params.headZ",
+            "before": 0,
+            "after": -0.0144,
+            "delta": -0.0144
+          },
+          {
+            "path": "params.bodyZ",
+            "before": 0,
+            "after": -0.00537,
+            "delta": -0.00537
+          },
+          {
+            "path": "params.breath",
+            "before": 0,
+            "after": 0.00413,
+            "delta": 0.00413
+          }
+        ],
+        "releaseChanges": [
+          {
+            "path": "params.rootX",
+            "before": 10.85968,
+            "after": 0.02367,
+            "delta": -10.836010000000002
+          },
+          {
+            "path": "params.breath",
+            "before": 0.00413,
+            "after": 0.30424,
+            "delta": 0.30011
+          },
+          {
+            "path": "params.hipX",
+            "before": 0.27149,
+            "after": 0.00059,
+            "delta": -0.27090000000000003
+          },
+          {
+            "path": "params.kneeL",
+            "before": 0.19205,
+            "after": 0,
+            "delta": -0.19205
+          },
+          {
+            "path": "params.footL",
+            "before": 0.19205,
+            "after": 0,
+            "delta": -0.19205
+          },
+          {
+            "path": "params.weightShift",
+            "before": 0.13767,
+            "after": -0.01495,
+            "delta": -0.15261999999999998
+          },
+          {
+            "path": "params.kneeR",
+            "before": 0.17296,
+            "after": 0.0316,
+            "delta": -0.14135999999999999
+          },
+          {
+            "path": "params.footR",
+            "before": 0.17296,
+            "after": 0.0316,
+            "delta": -0.14135999999999999
+          },
+          {
+            "path": "params.hipY",
+            "before": 0.04308,
+            "after": 0.00526,
+            "delta": -0.03782
+          },
+          {
+            "path": "params.headZ",
+            "before": -0.0144,
+            "after": -0.0265,
+            "delta": -0.0121
+          },
+          {
+            "path": "params.bodyZ",
+            "before": -0.00537,
+            "after": -0.01439,
+            "delta": -0.00902
+          },
+          {
+            "path": "params.bodyX",
+            "before": -0.05412,
+            "after": -0.04962,
+            "delta": 0.004500000000000004
+          }
+        ]
+      }
+    },
+    {
+      "name": "keyboard-Q",
+      "status": "pass",
+      "requirement": "P0: Q changes locomotion/turn parameters and releases smoothly",
+      "evidence": {
+        "keyRecorded": true,
+        "heldChanges": [
+          {
+            "path": "params.breath",
+            "before": 0.00609,
+            "after": 0.52599,
+            "delta": 0.5198999999999999
+          },
+          {
+            "path": "params.eyeOpenR",
+            "before": 1,
+            "after": 0.52957,
+            "delta": -0.47043
+          },
+          {
+            "path": "params.eyeOpenL",
+            "before": 1,
+            "after": 0.53818,
+            "delta": -0.46182
+          },
+          {
+            "path": "params.bodyZ",
+            "before": -0.00024,
+            "after": -0.12528,
+            "delta": -0.12504
+          },
+          {
+            "path": "params.bodyX",
+            "before": -0.0007,
+            "after": -0.03643,
+            "delta": -0.03573
+          },
+          {
+            "path": "params.headZ",
+            "before": -0.00043,
+            "after": -0.02792,
+            "delta": -0.02749
+          }
+        ],
+        "releaseChanges": [
+          {
+            "path": "params.eyeOpenR",
+            "before": 0.52957,
+            "after": 1,
+            "delta": 0.47043
+          },
+          {
+            "path": "params.eyeOpenL",
+            "before": 0.53818,
+            "after": 1,
+            "delta": 0.46182
+          },
+          {
+            "path": "params.breath",
+            "before": 0.52599,
+            "after": 0.98039,
+            "delta": 0.4544
+          },
+          {
+            "path": "params.bodyZ",
+            "before": -0.12528,
+            "after": -0.02318,
+            "delta": 0.1021
+          },
+          {
+            "path": "params.bodyX",
+            "before": -0.03643,
+            "after": -0.01187,
+            "delta": 0.02456
+          },
+          {
+            "path": "params.headZ",
+            "before": -0.02792,
+            "after": -0.03709,
+            "delta": -0.009169999999999998
+          }
+        ]
+      }
+    },
+    {
+      "name": "keyboard-E",
+      "status": "pass",
+      "requirement": "P0: E changes locomotion/turn parameters and releases smoothly",
+      "evidence": {
+        "keyRecorded": true,
+        "heldChanges": [
+          {
+            "path": "params.breath",
+            "before": 0.02683,
+            "after": 0.87717,
+            "delta": 0.85034
+          },
+          {
+            "path": "params.bodyZ",
+            "before": -0.00063,
+            "after": 0.08695,
+            "delta": 0.08758
+          },
+          {
+            "path": "params.headZ",
+            "before": -0.00102,
+            "after": -0.03549,
+            "delta": -0.03447
+          },
+          {
+            "path": "params.bodyX",
+            "before": -0.00017,
+            "after": 0.00266,
+            "delta": 0.00283
+          }
+        ],
+        "releaseChanges": [
+          {
+            "path": "params.breath",
+            "before": 0.87717,
+            "after": 0.48948,
+            "delta": -0.38769
+          },
+          {
+            "path": "params.bodyZ",
+            "before": 0.08695,
+            "after": -0.02443,
+            "delta": -0.11138
+          },
+          {
+            "path": "params.bodyX",
+            "before": 0.00266,
+            "after": 0.03272,
+            "delta": 0.03006
+          },
+          {
+            "path": "params.headZ",
+            "before": -0.03549,
+            "after": -0.03979,
+            "delta": -0.004299999999999998
+          }
+        ]
+      }
+    },
+    {
+      "name": "foot-lock-and-weight-transfer",
+      "status": "pass",
+      "requirement": "P0: walking transfers weight while contact foot stays within 2px of anchor",
+      "evidence": {
+        "feetAvailable": true,
+        "maxSupportSlidePx": 0.5492,
+        "contactTransitions": 8,
+        "samples": [
+          {
+            "left": {
+              "contact": false,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": 0,
+              "liftPx": 9.8486
+            },
+            "right": {
+              "contact": true,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": 0.4616,
+              "liftPx": 0
+            }
+          },
+          {
+            "left": {
+              "contact": false,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": 0,
+              "liftPx": 10.2936
+            },
+            "right": {
+              "contact": true,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": 0.1976,
+              "liftPx": 0
+            }
+          },
+          {
+            "left": {
+              "contact": true,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": 0.5315,
+              "liftPx": 0
+            },
+            "right": {
+              "contact": false,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": 0,
+              "liftPx": 8.4622
+            }
+          },
+          {
+            "left": {
+              "contact": true,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": 0.346,
+              "liftPx": 0
+            },
+            "right": {
+              "contact": false,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": 0,
+              "liftPx": 17.2547
+            }
+          },
+          {
+            "left": {
+              "contact": true,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": 0.0297,
+              "liftPx": 0
+            },
+            "right": {
+              "contact": true,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": -0.5492,
+              "liftPx": 1.9272
+            }
+          },
+          {
+            "left": {
+              "contact": false,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": 0,
+              "liftPx": 16.3934
+            },
+            "right": {
+              "contact": true,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": -0.4614,
+              "liftPx": 0
+            }
+          },
+          {
+            "left": {
+              "contact": false,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": 0,
+              "liftPx": 12.0604
+            },
+            "right": {
+              "contact": true,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": -0.1976,
+              "liftPx": 0
+            }
+          },
+          {
+            "left": {
+              "contact": true,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": -0.5313,
+              "liftPx": 0
+            },
+            "right": {
+              "contact": false,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": 0,
+              "liftPx": 8.9837
+            }
+          },
+          {
+            "left": {
+              "contact": true,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": -0.3466,
+              "liftPx": 0
+            },
+            "right": {
+              "contact": false,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": 0,
+              "liftPx": 17.6121
+            }
+          },
+          {
+            "left": {
+              "contact": true,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": -0.0297,
+              "liftPx": 0
+            },
+            "right": {
+              "contact": true,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": 0.5492,
+              "liftPx": 1.9414
+            }
+          },
+          {
+            "left": {
+              "contact": false,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": 0,
+              "liftPx": 16.4189
+            },
+            "right": {
+              "contact": true,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": 0.4618,
+              "liftPx": 0
+            }
+          },
+          {
+            "left": {
+              "contact": false,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": 0,
+              "liftPx": 12.1392
+            },
+            "right": {
+              "contact": true,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": 0.1989,
+              "liftPx": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "action-Z-wave",
+      "status": "pass",
+      "requirement": "P0: Z triggers wave action and arm/hand parameters",
+      "evidence": {
+        "actionState": {
+          "name": "wave",
+          "amount": 0.9236,
+          "source": "keyboard-action"
+        },
+        "changes": [
+          {
+            "path": "action.amount",
+            "before": 0,
+            "after": 0.9236,
+            "delta": 0.9236
+          },
+          {
+            "path": "params.elbowR",
+            "before": 0,
+            "after": 0.15765,
+            "delta": 0.15765
+          },
+          {
+            "path": "params.shoulderR",
+            "before": 0,
+            "after": -0.14452,
+            "delta": -0.14452
+          },
+          {
+            "path": "params.wristR",
+            "before": 0,
+            "after": -0.02484,
+            "delta": -0.02484
+          }
+        ]
+      }
+    },
+    {
+      "name": "action-X-sleeve",
+      "status": "pass",
+      "requirement": "P0: X triggers sleeve action and arm/hand parameters",
+      "evidence": {
+        "actionState": {
+          "name": "sleeve",
+          "amount": 0.9229,
+          "source": "keyboard-action"
+        },
+        "changes": [
+          {
+            "path": "action.amount",
+            "before": 0,
+            "after": 0.9229,
+            "delta": 0.9229
+          },
+          {
+            "path": "params.elbowR",
+            "before": 0,
+            "after": 0.15722,
+            "delta": 0.15722
+          },
+          {
+            "path": "params.elbowL",
+            "before": 0,
+            "after": -0.14412,
+            "delta": -0.14412
+          },
+          {
+            "path": "params.shoulderL",
+            "before": 0,
+            "after": 0.13102,
+            "delta": 0.13102
+          },
+          {
+            "path": "params.shoulderR",
+            "before": 0,
+            "after": -0.11792,
+            "delta": -0.11792
+          }
+        ]
+      }
+    },
+    {
+      "name": "action-C-bow",
+      "status": "pass",
+      "requirement": "P0: C triggers bow action and arm/hand parameters",
+      "evidence": {
+        "actionState": {
+          "name": "bow",
+          "amount": 0.9291,
+          "source": "keyboard-action"
+        },
+        "changes": [
+          {
+            "path": "action.amount",
+            "before": 0,
+            "after": 0.9291,
+            "delta": 0.9291
+          },
+          {
+            "path": "params.shoulderL",
+            "before": 0,
+            "after": 0.08053,
+            "delta": 0.08053
+          },
+          {
+            "path": "params.shoulderR",
+            "before": 0,
+            "after": -0.06711,
+            "delta": -0.06711
+          }
+        ]
+      }
+    },
+    {
+      "name": "action-V-point",
+      "status": "pass",
+      "requirement": "P0: V triggers point action and arm/hand parameters",
+      "evidence": {
+        "actionState": {
+          "name": "point",
+          "amount": 0.9231,
+          "source": "keyboard-action"
+        },
+        "changes": [
+          {
+            "path": "action.amount",
+            "before": 0,
+            "after": 0.9231,
+            "delta": 0.9231
+          },
+          {
+            "path": "params.shoulderR",
+            "before": 0,
+            "after": -0.17044,
+            "delta": -0.17044
+          },
+          {
+            "path": "params.elbowR",
+            "before": 0,
+            "after": 0.13111,
+            "delta": 0.13111
+          },
+          {
+            "path": "params.wristR",
+            "before": 0,
+            "after": -0.09177,
+            "delta": -0.09177
+          }
+        ]
+      }
+    },
+    {
+      "name": "expression-1",
+      "status": "pass",
+      "requirement": "P1: numeric key 1 selects a visible expression state",
+      "evidence": {
+        "expression": {
+          "index": 0,
+          "name": "neutral",
+          "label": "平静"
+        }
+      }
+    },
+    {
+      "name": "expression-2",
+      "status": "pass",
+      "requirement": "P1: numeric key 2 selects a visible expression state",
+      "evidence": {
+        "expression": {
+          "index": 1,
+          "name": "smile",
+          "label": "浅笑"
+        }
+      }
+    },
+    {
+      "name": "expression-3",
+      "status": "pass",
+      "requirement": "P1: numeric key 3 selects a visible expression state",
+      "evidence": {
+        "expression": {
+          "index": 2,
+          "name": "surprised",
+          "label": "惊喜"
+        }
+      }
+    },
+    {
+      "name": "expression-4",
+      "status": "pass",
+      "requirement": "P1: numeric key 4 selects a visible expression state",
+      "evidence": {
+        "expression": {
+          "index": 3,
+          "name": "focused",
+          "label": "凝神"
+        }
+      }
+    },
+    {
+      "name": "gamepad-equivalent-input",
+      "status": "pass",
+      "requirement": "P0: injected gamepad state drives character and returns smoothly on release",
+      "evidence": {
+        "dispatchSupported": true,
+        "activeChanges": [
+          {
+            "path": "params.rootX",
+            "before": 0,
+            "after": 7.18293,
+            "delta": 7.18293
+          },
+          {
+            "path": "params.rootY",
+            "before": 0,
+            "after": -1.31687,
+            "delta": -1.31687
+          },
+          {
+            "path": "input.gamepad.axes.0",
+            "before": 0,
+            "after": 0.75,
+            "delta": 0.75
+          },
+          {
+            "path": "input.gamepad.axes.1",
+            "before": 0,
+            "after": -0.55,
+            "delta": -0.55
+          },
+          {
+            "path": "params.kneeL",
+            "before": 0,
+            "after": 0.52347,
+            "delta": 0.52347
+          },
+          {
+            "path": "params.footL",
+            "before": 0,
+            "after": 0.52347,
+            "delta": 0.52347
+          },
+          {
+            "path": "input.gamepad.axes.2",
+            "before": 0,
+            "after": 0.35,
+            "delta": 0.35
+          },
+          {
+            "path": "params.headX",
+            "before": 0,
+            "after": 0.20151,
+            "delta": 0.20151
+          },
+          {
+            "path": "input.gamepad.axes.3",
+            "before": 0,
+            "after": -0.2,
+            "delta": -0.2
+          },
+          {
+            "path": "params.hipX",
+            "before": 0,
+            "after": 0.17957,
+            "delta": 0.17957
+          },
+          {
+            "path": "params.weightShift",
+            "before": 0,
+            "after": 0.14059,
+            "delta": 0.14059
+          },
+          {
+            "path": "params.elbowR",
+            "before": 0,
+            "after": 0.13832,
+            "delta": 0.13832
+          },
+          {
+            "path": "params.shoulderR",
+            "before": 0,
+            "after": -0.07571,
+            "delta": -0.07571
+          },
+          {
+            "path": "params.wristR",
+            "before": 0,
+            "after": 0.07426,
+            "delta": 0.07426
+          },
+          {
+            "path": "params.breath",
+            "before": 0,
+            "after": 0.06664,
+            "delta": 0.06664
+          },
+          {
+            "path": "params.hipY",
+            "before": 0,
+            "after": 0.05038,
+            "delta": 0.05038
+          },
+          {
+            "path": "params.bodyX",
+            "before": 0,
+            "after": -0.04355,
+            "delta": -0.04355
+          },
+          {
+            "path": "params.bodyZ",
+            "before": 0,
+            "after": 0.03885,
+            "delta": 0.03885
+          },
+          {
+            "path": "params.headZ",
+            "before": 0,
+            "after": 0.02109,
+            "delta": 0.02109
+          }
+        ],
+        "releaseChanges": [
+          {
+            "path": "params.rootX",
+            "before": 7.18293,
+            "after": 0.07734,
+            "delta": -7.105589999999999
+          },
+          {
+            "path": "params.rootY",
+            "before": -1.31687,
+            "after": -0.01418,
+            "delta": 1.30269
+          },
+          {
+            "path": "input.gamepad.axes.0",
+            "before": 0.75,
+            "after": 0,
+            "delta": -0.75
+          },
+          {
+            "path": "input.gamepad.axes.1",
+            "before": -0.55,
+            "after": 0,
+            "delta": 0.55
+          },
+          {
+            "path": "params.eyeOpenR",
+            "before": 1,
+            "after": 0.46029,
+            "delta": -0.53971
+          },
+          {
+            "path": "params.eyeOpenL",
+            "before": 1,
+            "after": 0.47088,
+            "delta": -0.52912
+          },
+          {
+            "path": "params.kneeL",
+            "before": 0.52347,
+            "after": 0.07001,
+            "delta": -0.45346
+          },
+          {
+            "path": "params.footL",
+            "before": 0.52347,
+            "after": 0.07001,
+            "delta": -0.45346
+          },
+          {
+            "path": "params.breath",
+            "before": 0.06664,
+            "after": 0.43224,
+            "delta": 0.36560000000000004
+          },
+          {
+            "path": "input.gamepad.axes.2",
+            "before": 0.35,
+            "after": 0,
+            "delta": -0.35
+          },
+          {
+            "path": "input.gamepad.axes.3",
+            "before": -0.2,
+            "after": 0,
+            "delta": 0.2
+          },
+          {
+            "path": "params.headX",
+            "before": 0.20151,
+            "after": 0.00217,
+            "delta": -0.19934
+          },
+          {
+            "path": "params.hipX",
+            "before": 0.17957,
+            "after": 0.00193,
+            "delta": -0.17764000000000002
+          },
+          {
+            "path": "params.weightShift",
+            "before": 0.14059,
+            "after": -0.02349,
+            "delta": -0.16408
+          },
+          {
+            "path": "params.elbowR",
+            "before": 0.13832,
+            "after": 0.00149,
+            "delta": -0.13683
+          },
+          {
+            "path": "params.shoulderR",
+            "before": -0.07571,
+            "after": -0.00082,
+            "delta": 0.07489
+          },
+          {
+            "path": "params.wristR",
+            "before": 0.07426,
+            "after": 0.0008,
+            "delta": -0.07346000000000001
+          },
+          {
+            "path": "params.hipY",
+            "before": 0.05038,
+            "after": 0.0113,
+            "delta": -0.039080000000000004
+          },
+          {
+            "path": "params.bodyX",
+            "before": -0.04355,
+            "after": -0.05942,
+            "delta": -0.015870000000000002
+          },
+          {
+            "path": "params.bodyZ",
+            "before": 0.03885,
+            "after": 0.02491,
+            "delta": -0.013940000000000001
+          }
+        ]
+      }
+    },
+    {
+      "name": "mixed-driver-priority",
+      "status": "pass",
+      "requirement": "P0: action input overrides relevant arm channels while mocap retains face/head and physics remains active",
+      "evidence": {
+        "dispatchSupported": true,
+        "driverState": {
+          "activeSources": [
+            "auto",
+            "mocap",
+            "keyboard",
+            "keyboard-action",
+            "secondary-physics"
+          ],
+          "activeMode": "auto",
+          "priority": [
+            "keyboard-action",
+            "timeline",
+            "mocap",
+            "gamepad",
+            "auto",
+            "secondary-physics"
+          ],
+          "channelBlend": {
+            "face": "mocap",
+            "arms": "keyboard-action",
+            "body": "auto",
+            "physics": "secondary-physics"
+          }
+        },
+        "changes": [
+          {
+            "path": "action.amount",
+            "before": 0,
+            "after": 0.8893,
+            "delta": 0.8893
+          },
+          {
+            "path": "params.headX",
+            "before": 0.22135,
+            "after": 0.42783,
+            "delta": 0.20648
+          },
+          {
+            "path": "params.mouthOpen",
+            "before": 0.1581,
+            "after": 0.23146,
+            "delta": 0.07336000000000001
+          },
+          {
+            "path": "params.headY",
+            "before": -0.09486,
+            "after": -0.13888,
+            "delta": -0.044020000000000004
+          },
+          {
+            "path": "params.headZ",
+            "before": 0.02153,
+            "after": 0.03272,
+            "delta": 0.011189999999999999
+          },
+          {
+            "path": "params.eyeOpenL",
+            "before": 0.56055,
+            "after": 0.55003,
+            "delta": -0.010519999999999974
+          },
+          {
+            "path": "params.eyeOpenR",
+            "before": 0.60938,
+            "after": 0.60002,
+            "delta": -0.009360000000000035
+          }
+        ]
+      }
+    },
+    {
+      "name": "randomized-input-stability",
+      "status": "pass",
+      "requirement": "P0: 180 deterministic out-of-order inputs do not produce NaN, crash or console errors",
+      "evidence": {
+        "events": 180,
+        "seed": "0x2d5a2026",
+        "nonFinite": [],
+        "consoleErrors": [],
+        "screenshot": "D:\\AI\\Codex\\Design\\live 2d\\exports\\player-sim\\after-randomized-input.png",
+        "finalSnapshot": {
+          "__source": "live2dControl",
+          "timeMs": 18412.2,
+          "mode": "auto",
+          "input": {
+            "keys": [],
+            "pointer": {
+              "x": -0.3647,
+              "y": -0.4314,
+              "down": false,
+              "dragging": false
+            },
+            "gamepad": {
+              "connected": false,
+              "index": 0,
+              "axes": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "buttons": []
+            },
+            "camera": {
+              "active": false,
+              "confidence": 0
+            }
+          },
+          "driver": {
+            "activeSources": [
+              "auto",
+              "pointer-wind",
+              "secondary-physics"
+            ],
+            "activeMode": "auto",
+            "priority": [
+              "keyboard-action",
+              "timeline",
+              "mocap",
+              "gamepad",
+              "auto",
+              "secondary-physics"
+            ],
+            "channelBlend": {
+              "face": "auto",
+              "arms": "auto",
+              "body": "auto",
+              "physics": "secondary-physics"
+            }
+          },
+          "params": {
+            "rootX": 0.00238,
+            "rootY": -0.00012,
+            "headX": -0.12387,
+            "headY": -0.08627,
+            "headZ": 0.03021,
+            "bodyX": 0.03406,
+            "bodyY": 0.00001,
+            "bodyZ": 0.00233,
+            "breath": 0.03916,
+            "shoulderL": 0,
+            "shoulderR": -0.00007,
+            "elbowL": 0,
+            "elbowR": 0.00006,
+            "wristL": 0,
+            "wristR": -0.00003,
+            "hipX": 0.00006,
+            "hipY": 0.00212,
+            "kneeL": 0.01248,
+            "kneeR": 0,
+            "footL": 0.01248,
+            "footR": 0,
+            "weightShift": -0.0046,
+            "eyeOpenL": 0.3475,
+            "eyeOpenR": 0.33617,
+            "eyeBallX": -0.36462,
+            "eyeBallY": -0.43138,
+            "mouthOpen": 0
+          },
+          "feet": {
+            "left": {
+              "contact": true,
+              "anchor": {
+                "x": 572.4,
+                "y": 1235.87
+              },
+              "slidePx": -0.5175,
+              "liftPx": 0.1658
+            },
+            "right": {
+              "contact": true,
+              "anchor": {
+                "x": 677.16,
+                "y": 1174.76
+              },
+              "slidePx": -0.1863,
+              "liftPx": 0
+            }
+          },
+          "physics": {
+            "wind": {
+              "base": 0.8,
+              "turbulence": 0.02,
+              "dragX": 0,
+              "dragY": 0,
+              "impulseX": 0.0326,
+              "impulseY": 0,
+              "effectiveX": 9.98101
+            },
+            "hair": {
+              "left": {
+                "offset": 12.0787,
+                "velocity": -13.0589,
+                "target": 8.7647
+              },
+              "right": {
+                "offset": 16.1246,
+                "velocity": -17.1009,
+                "target": 10.9468
+              },
+              "tips": {
+                "offset": 20.8761,
+                "velocity": -24.2816,
+                "target": 13.0076
+              }
+            },
+            "cloth": {
+              "sleeveLeft": {
+                "offset": 9.9186,
+                "velocity": -10.9848,
+                "target": 6.0937
+              },
+              "sleeveRight": {
+                "offset": 12.5253,
+                "velocity": -13.4671,
+                "target": 7.4732
+              },
+              "hemLeft": {
+                "offset": 8.895,
+                "velocity": -10.2271,
+                "target": 5.1319
+              },
+              "hemCenter": {
+                "offset": 6.8977,
+                "velocity": -7.5768,
+                "target": 4.1702
+              },
+              "hemRight": {
+                "offset": 11.4144,
+                "velocity": -12.9231,
+                "target": 6.3442
+              },
+              "ribbonUpper": {
+                "offset": 28.0341,
+                "velocity": -30.2195,
+                "target": 15.1897
+              },
+              "ribbonLower": {
+                "offset": 23.9427,
+                "velocity": -26.2102,
+                "target": 12.0459
+              }
+            }
+          },
+          "action": {
+            "name": "idle",
+            "amount": 0.0103,
+            "source": "auto"
+          },
+          "expression": {
+            "index": 2,
+            "name": "surprised",
+            "label": "惊喜"
+          },
+          "options": {
+            "blink": true,
+            "highlights": true,
+            "motionScale": 1,
+            "debugRig": false
+          }
+        }
+      }
+    },
+    {
+      "name": "console-clean",
+      "status": "pass",
+      "requirement": "P0: no browser console/page errors during all scenarios",
+      "evidence": {
+        "consoleErrors": [],
+        "consoleWarnings": []
+      }
+    }
+  ],
+  "console": {
+    "errors": [],
+    "warnings": []
+  }
+}

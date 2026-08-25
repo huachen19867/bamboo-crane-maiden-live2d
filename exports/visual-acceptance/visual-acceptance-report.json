@@ -1,0 +1,1988 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-25T01:05:31.249Z",
+  "result": "pass",
+  "summary": {
+    "result": "pass",
+    "pass": 20,
+    "fail": 0,
+    "unsupported": 0,
+    "requiredTotal": 19
+  },
+  "environment": {
+    "url": "http://127.0.0.1:50131/viewer/",
+    "browser": "Microsoft Edge via Playwright",
+    "viewport": {
+      "width": 1600,
+      "height": 1100
+    },
+    "canvas": {
+      "width": 1254,
+      "height": 1254
+    },
+    "debug": {
+      "available": true,
+      "version": "2.0",
+      "capabilities": {
+        "states": [
+          "idle",
+          "wind",
+          "arm",
+          "step",
+          "blink"
+        ],
+        "regions": {
+          "hair": {
+            "x": 0.3,
+            "y": 0.07,
+            "width": 0.43,
+            "height": 0.34,
+            "normalized": true
+          },
+          "face": {
+            "x": 0.42,
+            "y": 0.17,
+            "width": 0.16,
+            "height": 0.18,
+            "normalized": true
+          },
+          "eyeLeft": {
+            "x": 0.45,
+            "y": 0.2,
+            "width": 0.05,
+            "height": 0.06,
+            "normalized": true
+          },
+          "eyeRight": {
+            "x": 0.5,
+            "y": 0.195,
+            "width": 0.05,
+            "height": 0.06,
+            "normalized": true
+          },
+          "arms": {
+            "x": 0.23,
+            "y": 0.25,
+            "width": 0.54,
+            "height": 0.36,
+            "normalized": true
+          },
+          "cloth": {
+            "x": 0.17,
+            "y": 0.4,
+            "width": 0.81,
+            "height": 0.56,
+            "normalized": true
+          },
+          "legsFeet": {
+            "x": 0.3,
+            "y": 0.7,
+            "width": 0.38,
+            "height": 0.3,
+            "normalized": true
+          },
+          "anchors": {
+            "x": 0.487,
+            "y": 0.443,
+            "width": 0.024,
+            "height": 0.024,
+            "normalized": true
+          }
+        }
+      },
+      "legacy": null
+    }
+  },
+  "thresholds": {
+    "referenceDisplaySimilarityPercent": 99,
+    "characterAlignedSimilarityPercent": 95,
+    "minimumChangedPixels": 20,
+    "minimumChangedRatioWithinRegion": 0.002,
+    "maximumAnchorChangedRatio": 0.02,
+    "maximumAnchorHoleRatio": 0.001,
+    "maximumBlinkDiffAspectRatio": 0.65,
+    "minimumFps": 45,
+    "maximumP95FrameTimeMs": 28
+  },
+  "regions": {
+    "hair": {
+      "x": 0.3,
+      "y": 0.07,
+      "width": 0.43,
+      "height": 0.34,
+      "normalized": true
+    },
+    "face": {
+      "x": 0.42,
+      "y": 0.17,
+      "width": 0.16,
+      "height": 0.18,
+      "normalized": true
+    },
+    "eyeLeft": {
+      "x": 0.45,
+      "y": 0.2,
+      "width": 0.05,
+      "height": 0.06,
+      "normalized": true
+    },
+    "eyeRight": {
+      "x": 0.5,
+      "y": 0.195,
+      "width": 0.05,
+      "height": 0.06,
+      "normalized": true
+    },
+    "arms": {
+      "x": 0.23,
+      "y": 0.25,
+      "width": 0.54,
+      "height": 0.36,
+      "normalized": true
+    },
+    "cloth": {
+      "x": 0.17,
+      "y": 0.4,
+      "width": 0.81,
+      "height": 0.56,
+      "normalized": true
+    },
+    "legsFeet": {
+      "x": 0.3,
+      "y": 0.7,
+      "width": 0.38,
+      "height": 0.3,
+      "normalized": true
+    },
+    "anchors": {
+      "x": 0.487,
+      "y": 0.443,
+      "width": 0.024,
+      "height": 0.024,
+      "normalized": true
+    },
+    "staticBackground": {
+      "x": 0,
+      "y": 0,
+      "width": 150,
+      "height": 1254
+    }
+  },
+  "stateSupport": {
+    "idle": true,
+    "wind": true,
+    "arm": true,
+    "step": true,
+    "blink": true
+  },
+  "gates": [
+    {
+      "id": "browser-console-clean",
+      "status": "pass",
+      "severity": "required",
+      "actual": [],
+      "expected": [],
+      "note": ""
+    },
+    {
+      "id": "fps-minimum",
+      "status": "pass",
+      "severity": "required",
+      "actual": 60.01589825119237,
+      "expected": ">= 45",
+      "note": ""
+    },
+    {
+      "id": "p95-frame-time",
+      "status": "pass",
+      "severity": "required",
+      "actual": 16.800000000000182,
+      "expected": "<= 28 ms",
+      "note": ""
+    },
+    {
+      "id": "reference-display-integrity",
+      "status": "pass",
+      "severity": "diagnostic",
+      "actual": 100,
+      "expected": ">= 99%",
+      "note": "Not a character-fidelity score."
+    },
+    {
+      "id": "character-reference-similarity",
+      "status": "pass",
+      "severity": "required",
+      "actual": 100,
+      "expected": ">= 95%",
+      "note": ""
+    },
+    {
+      "id": "face-reference-similarity",
+      "status": "pass",
+      "severity": "required",
+      "actual": 100,
+      "expected": ">= 95%",
+      "note": ""
+    },
+    {
+      "id": "wind-hair-visible",
+      "status": "pass",
+      "severity": "required",
+      "actual": 34702,
+      "expected": ">= 20 changed pixels",
+      "note": ""
+    },
+    {
+      "id": "wind-cloth-visible",
+      "status": "pass",
+      "severity": "required",
+      "actual": 0.1693529418353289,
+      "expected": ">= 0.002",
+      "note": ""
+    },
+    {
+      "id": "arm-motion-visible",
+      "status": "pass",
+      "severity": "required",
+      "actual": 0.12309760618163781,
+      "expected": ">= 0.002",
+      "note": ""
+    },
+    {
+      "id": "leg-foot-motion-visible",
+      "status": "pass",
+      "severity": "required",
+      "actual": 0.1282162498818322,
+      "expected": ">= 0.002",
+      "note": ""
+    },
+    {
+      "id": "blink-left-visible",
+      "status": "pass",
+      "severity": "required",
+      "actual": 240,
+      "expected": ">= 20 changed pixels",
+      "note": ""
+    },
+    {
+      "id": "blink-left-shape",
+      "status": "pass",
+      "severity": "required",
+      "actual": 0.49056603773584906,
+      "expected": "<= 0.65 diff-bounds height/width",
+      "note": "Tall change bounds usually indicate a skin-colour oval covering the eye rather than eyelid deformation."
+    },
+    {
+      "id": "blink-right-visible",
+      "status": "pass",
+      "severity": "required",
+      "actual": 382,
+      "expected": ">= 20 changed pixels",
+      "note": ""
+    },
+    {
+      "id": "blink-right-shape",
+      "status": "pass",
+      "severity": "required",
+      "actual": 0.6078431372549019,
+      "expected": "<= 0.65 diff-bounds height/width",
+      "note": "Tall change bounds usually indicate a skin-colour oval covering the eye rather than eyelid deformation."
+    },
+    {
+      "id": "wind-anchor-stability",
+      "status": "pass",
+      "severity": "required",
+      "actual": 0,
+      "expected": "<= 0.02",
+      "note": ""
+    },
+    {
+      "id": "wind-anchor-no-background-hole",
+      "status": "pass",
+      "severity": "required",
+      "actual": 0,
+      "expected": "<= 0.001",
+      "note": ""
+    },
+    {
+      "id": "arm-anchor-stability",
+      "status": "pass",
+      "severity": "required",
+      "actual": 0,
+      "expected": "<= 0.02",
+      "note": ""
+    },
+    {
+      "id": "arm-anchor-no-background-hole",
+      "status": "pass",
+      "severity": "required",
+      "actual": 0,
+      "expected": "<= 0.001",
+      "note": ""
+    },
+    {
+      "id": "step-anchor-stability",
+      "status": "pass",
+      "severity": "required",
+      "actual": 0,
+      "expected": "<= 0.02",
+      "note": ""
+    },
+    {
+      "id": "step-anchor-no-background-hole",
+      "status": "pass",
+      "severity": "required",
+      "actual": 0,
+      "expected": "<= 0.001",
+      "note": ""
+    }
+  ],
+  "identity": {
+    "referenceDisplay": {
+      "similarityPercent": 100,
+      "weightedPixels": 1572516,
+      "method": "normalized RGB absolute similarity",
+      "region": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 1254
+      }
+    },
+    "canvasAlignedWholeCharacter": {
+      "similarityPercent": 100,
+      "weightedPixels": 423715.7882353268,
+      "method": "alpha-weighted normalized RGB absolute similarity",
+      "region": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 1254
+      }
+    },
+    "canvasAlignedFace": {
+      "similarityPercent": 100,
+      "weightedPixels": 33512.18823529419,
+      "method": "alpha-weighted normalized RGB absolute similarity",
+      "region": {
+        "x": 526,
+        "y": 213,
+        "width": 201,
+        "height": 226
+      }
+    },
+    "caveat": "Reference-display similarity checks source presentation integrity only. The alpha-weighted character metrics compare the aligned extracted raster to the source and are the relevant fidelity evidence."
+  },
+  "stateMetrics": {
+    "idle": {
+      "pair": {
+        "region": {
+          "x": 0,
+          "y": 0,
+          "width": 1254,
+          "height": 1254
+        },
+        "changedPixels": 3487,
+        "changedRatio": 0.002217465513864406,
+        "meanAbsoluteRgbDelta": 0.17177440483912404,
+        "bounds": {
+          "x": 878,
+          "y": 238,
+          "width": 237,
+          "height": 280
+        },
+        "diffAspectRatio": 1.1814345991561181
+      },
+      "perRegion": {
+        "hair": {
+          "region": {
+            "x": 376,
+            "y": 87,
+            "width": 540,
+            "height": 427
+          },
+          "changedPixels": 178,
+          "changedRatio": 0.0007719663457368375,
+          "meanAbsoluteRgbDelta": 0.07764333420071125,
+          "bounds": {
+            "x": 878,
+            "y": 255,
+            "width": 38,
+            "height": 18
+          },
+          "diffAspectRatio": 0.47368421052631576
+        },
+        "face": {
+          "region": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "eyeLeft": {
+          "region": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "eyeRight": {
+          "region": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "arms": {
+          "region": {
+            "x": 288,
+            "y": 313,
+            "width": 678,
+            "height": 452
+          },
+          "changedPixels": 820,
+          "changedRatio": 0.0026757511681938027,
+          "meanAbsoluteRgbDelta": 0.22245281541232673,
+          "bounds": {
+            "x": 916,
+            "y": 313,
+            "width": 50,
+            "height": 124
+          },
+          "diffAspectRatio": 2.48
+        },
+        "cloth": {
+          "region": {
+            "x": 213,
+            "y": 501,
+            "width": 1016,
+            "height": 703
+          },
+          "changedPixels": 49,
+          "changedRatio": 0.00006860362227125592,
+          "meanAbsoluteRgbDelta": 0.004779852376205464,
+          "bounds": {
+            "x": 1000,
+            "y": 501,
+            "width": 48,
+            "height": 17
+          },
+          "diffAspectRatio": 0.3541666666666667
+        },
+        "legsFeet": {
+          "region": {
+            "x": 376,
+            "y": 877,
+            "width": 477,
+            "height": 377
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "anchors": {
+          "region": {
+            "x": 610,
+            "y": 555,
+            "width": 31,
+            "height": 31
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "staticBackground": {
+          "region": {
+            "x": 0,
+            "y": 0,
+            "width": 150,
+            "height": 1254
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        }
+      }
+    },
+    "wind": {
+      "pair": {
+        "region": {
+          "x": 0,
+          "y": 0,
+          "width": 1254,
+          "height": 1254
+        },
+        "changedPixels": 156741,
+        "changedRatio": 0.09967529742145707,
+        "meanAbsoluteRgbDelta": 4.894810397265698,
+        "bounds": {
+          "x": 252,
+          "y": 142,
+          "width": 976,
+          "height": 1015
+        },
+        "diffAspectRatio": 1.0399590163934427
+      },
+      "perRegion": {
+        "hair": {
+          "region": {
+            "x": 376,
+            "y": 87,
+            "width": 540,
+            "height": 427
+          },
+          "changedPixels": 34702,
+          "changedRatio": 0.15049874230202098,
+          "meanAbsoluteRgbDelta": 7.996961286032325,
+          "bounds": {
+            "x": 480,
+            "y": 142,
+            "width": 436,
+            "height": 372
+          },
+          "diffAspectRatio": 0.8532110091743119
+        },
+        "face": {
+          "region": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "changedPixels": 18356,
+          "changedRatio": 0.4040857658609607,
+          "meanAbsoluteRgbDelta": 24.46325892660591,
+          "bounds": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "diffAspectRatio": 1.1243781094527363
+        },
+        "eyeLeft": {
+          "region": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 1106,
+          "changedRatio": 0.2309941520467836,
+          "meanAbsoluteRgbDelta": 11.414717348927875,
+          "bounds": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "diffAspectRatio": 1.2063492063492063
+        },
+        "eyeRight": {
+          "region": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 1421,
+          "changedRatio": 0.29678362573099415,
+          "meanAbsoluteRgbDelta": 20.198621553884713,
+          "bounds": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "diffAspectRatio": 1.2063492063492063
+        },
+        "arms": {
+          "region": {
+            "x": 288,
+            "y": 313,
+            "width": 678,
+            "height": 452
+          },
+          "changedPixels": 52947,
+          "changedRatio": 0.17277194768580156,
+          "meanAbsoluteRgbDelta": 7.340684035119778,
+          "bounds": {
+            "x": 367,
+            "y": 313,
+            "width": 599,
+            "height": 452
+          },
+          "diffAspectRatio": 0.7545909849749582
+        },
+        "cloth": {
+          "region": {
+            "x": 213,
+            "y": 501,
+            "width": 1016,
+            "height": 703
+          },
+          "changedPixels": 120960,
+          "changedRatio": 0.1693529418353289,
+          "meanAbsoluteRgbDelta": 8.071301564722617,
+          "bounds": {
+            "x": 252,
+            "y": 501,
+            "width": 976,
+            "height": 656
+          },
+          "diffAspectRatio": 0.6721311475409836
+        },
+        "legsFeet": {
+          "region": {
+            "x": 376,
+            "y": 877,
+            "width": 477,
+            "height": 377
+          },
+          "changedPixels": 16210,
+          "changedRatio": 0.09014118968575703,
+          "meanAbsoluteRgbDelta": 3.5047369074695034,
+          "bounds": {
+            "x": 376,
+            "y": 877,
+            "width": 477,
+            "height": 280
+          },
+          "diffAspectRatio": 0.5870020964360587
+        },
+        "anchors": {
+          "region": {
+            "x": 610,
+            "y": 555,
+            "width": 31,
+            "height": 31
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "staticBackground": {
+          "region": {
+            "x": 0,
+            "y": 0,
+            "width": 150,
+            "height": 1254
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        }
+      }
+    },
+    "arm": {
+      "pair": {
+        "region": {
+          "x": 0,
+          "y": 0,
+          "width": 1254,
+          "height": 1254
+        },
+        "changedPixels": 51387,
+        "changedRatio": 0.032678204864052256,
+        "meanAbsoluteRgbDelta": 1.4812199049167067,
+        "bounds": {
+          "x": 494,
+          "y": 142,
+          "width": 621,
+          "height": 503
+        },
+        "diffAspectRatio": 0.8099838969404187
+      },
+      "perRegion": {
+        "hair": {
+          "region": {
+            "x": 376,
+            "y": 87,
+            "width": 540,
+            "height": 427
+          },
+          "changedPixels": 29497,
+          "changedRatio": 0.12792523202359268,
+          "meanAbsoluteRgbDelta": 5.453968253968254,
+          "bounds": {
+            "x": 494,
+            "y": 142,
+            "width": 422,
+            "height": 372
+          },
+          "diffAspectRatio": 0.8815165876777251
+        },
+        "face": {
+          "region": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "changedPixels": 12390,
+          "changedRatio": 0.2727512878087439,
+          "meanAbsoluteRgbDelta": 11.437818283215192,
+          "bounds": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "diffAspectRatio": 1.1243781094527363
+        },
+        "eyeLeft": {
+          "region": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 1541,
+          "changedRatio": 0.32184628237259816,
+          "meanAbsoluteRgbDelta": 15.755917571707045,
+          "bounds": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "diffAspectRatio": 1.2063492063492063
+        },
+        "eyeRight": {
+          "region": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 1975,
+          "changedRatio": 0.41248955722639935,
+          "meanAbsoluteRgbDelta": 20.724450013923697,
+          "bounds": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "diffAspectRatio": 1.2063492063492063
+        },
+        "arms": {
+          "region": {
+            "x": 288,
+            "y": 313,
+            "width": 678,
+            "height": 452
+          },
+          "changedPixels": 37724,
+          "changedRatio": 0.12309760618163781,
+          "meanAbsoluteRgbDelta": 5.355511612324989,
+          "bounds": {
+            "x": 498,
+            "y": 313,
+            "width": 468,
+            "height": 332
+          },
+          "diffAspectRatio": 0.7094017094017094
+        },
+        "cloth": {
+          "region": {
+            "x": 213,
+            "y": 501,
+            "width": 1016,
+            "height": 703
+          },
+          "changedPixels": 20559,
+          "changedRatio": 0.02878411980152552,
+          "meanAbsoluteRgbDelta": 1.2949232386136655,
+          "bounds": {
+            "x": 582,
+            "y": 501,
+            "width": 466,
+            "height": 144
+          },
+          "diffAspectRatio": 0.3090128755364807
+        },
+        "legsFeet": {
+          "region": {
+            "x": 376,
+            "y": 877,
+            "width": 477,
+            "height": 377
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "anchors": {
+          "region": {
+            "x": 610,
+            "y": 555,
+            "width": 31,
+            "height": 31
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "staticBackground": {
+          "region": {
+            "x": 0,
+            "y": 0,
+            "width": 150,
+            "height": 1254
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        }
+      }
+    },
+    "step": {
+      "pair": {
+        "region": {
+          "x": 0,
+          "y": 0,
+          "width": 1254,
+          "height": 1254
+        },
+        "changedPixels": 25872,
+        "changedRatio": 0.01645261479056493,
+        "meanAbsoluteRgbDelta": 0.6778915657032001,
+        "bounds": {
+          "x": 502,
+          "y": 238,
+          "width": 612,
+          "height": 1016
+        },
+        "diffAspectRatio": 1.6601307189542485
+      },
+      "perRegion": {
+        "hair": {
+          "region": {
+            "x": 376,
+            "y": 87,
+            "width": 540,
+            "height": 427
+          },
+          "changedPixels": 158,
+          "changedRatio": 0.0006852285540810131,
+          "meanAbsoluteRgbDelta": 0.059549830861306274,
+          "bounds": {
+            "x": 878,
+            "y": 255,
+            "width": 38,
+            "height": 17
+          },
+          "diffAspectRatio": 0.4473684210526316
+        },
+        "face": {
+          "region": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "eyeLeft": {
+          "region": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "eyeRight": {
+          "region": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "arms": {
+          "region": {
+            "x": 288,
+            "y": 313,
+            "width": 678,
+            "height": 452
+          },
+          "changedPixels": 668,
+          "changedRatio": 0.002179758268723732,
+          "meanAbsoluteRgbDelta": 0.15903424961495288,
+          "bounds": {
+            "x": 916,
+            "y": 313,
+            "width": 50,
+            "height": 123
+          },
+          "diffAspectRatio": 2.46
+        },
+        "cloth": {
+          "region": {
+            "x": 213,
+            "y": 501,
+            "width": 1016,
+            "height": 703
+          },
+          "changedPixels": 20497,
+          "changedRatio": 0.028697315218243525,
+          "meanAbsoluteRgbDelta": 1.0948610753314443,
+          "bounds": {
+            "x": 502,
+            "y": 501,
+            "width": 546,
+            "height": 703
+          },
+          "diffAspectRatio": 1.2875457875457876
+        },
+        "legsFeet": {
+          "region": {
+            "x": 376,
+            "y": 877,
+            "width": 477,
+            "height": 377
+          },
+          "changedPixels": 23057,
+          "changedRatio": 0.1282162498818322,
+          "meanAbsoluteRgbDelta": 4.858241255118288,
+          "bounds": {
+            "x": 502,
+            "y": 1021,
+            "width": 271,
+            "height": 233
+          },
+          "diffAspectRatio": 0.8597785977859779
+        },
+        "anchors": {
+          "region": {
+            "x": 610,
+            "y": 555,
+            "width": 31,
+            "height": 31
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "staticBackground": {
+          "region": {
+            "x": 0,
+            "y": 0,
+            "width": 150,
+            "height": 1254
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        }
+      }
+    },
+    "blink": {
+      "pair": {
+        "region": {
+          "x": 0,
+          "y": 0,
+          "width": 1254,
+          "height": 1254
+        },
+        "changedPixels": 2882,
+        "changedRatio": 0.0018327317496292567,
+        "meanAbsoluteRgbDelta": 0.10686250569151602,
+        "bounds": {
+          "x": 564,
+          "y": 237,
+          "width": 550,
+          "height": 279
+        },
+        "diffAspectRatio": 0.5072727272727273
+      },
+      "perRegion": {
+        "hair": {
+          "region": {
+            "x": 376,
+            "y": 87,
+            "width": 540,
+            "height": 427
+          },
+          "changedPixels": 746,
+          "changedRatio": 0.003235319628762252,
+          "meanAbsoluteRgbDelta": 0.22058721484950994,
+          "bounds": {
+            "x": 564,
+            "y": 254,
+            "width": 352,
+            "height": 39
+          },
+          "diffAspectRatio": 0.11079545454545454
+        },
+        "face": {
+          "region": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "changedPixels": 622,
+          "changedRatio": 0.013692598952141945,
+          "meanAbsoluteRgbDelta": 0.9212198594050397,
+          "bounds": {
+            "x": 564,
+            "y": 260,
+            "width": 121,
+            "height": 33
+          },
+          "diffAspectRatio": 0.2727272727272727
+        },
+        "eyeLeft": {
+          "region": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 240,
+          "changedRatio": 0.05012531328320802,
+          "meanAbsoluteRgbDelta": 4.008702311333891,
+          "bounds": {
+            "x": 564,
+            "y": 267,
+            "width": 53,
+            "height": 26
+          },
+          "diffAspectRatio": 0.49056603773584906
+        },
+        "eyeRight": {
+          "region": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 382,
+          "changedRatio": 0.0797827903091061,
+          "meanAbsoluteRgbDelta": 4.731342244500139,
+          "bounds": {
+            "x": 634,
+            "y": 260,
+            "width": 51,
+            "height": 31
+          },
+          "diffAspectRatio": 0.6078431372549019
+        },
+        "arms": {
+          "region": {
+            "x": 288,
+            "y": 313,
+            "width": 678,
+            "height": 452
+          },
+          "changedPixels": 553,
+          "changedRatio": 0.0018045004829404547,
+          "meanAbsoluteRgbDelta": 0.10329160901836915,
+          "bounds": {
+            "x": 916,
+            "y": 313,
+            "width": 50,
+            "height": 122
+          },
+          "diffAspectRatio": 2.44
+        },
+        "cloth": {
+          "region": {
+            "x": 213,
+            "y": 501,
+            "width": 1016,
+            "height": 703
+          },
+          "changedPixels": 31,
+          "changedRatio": 0.000043402291640998646,
+          "meanAbsoluteRgbDelta": 0.0019759709979353577,
+          "bounds": {
+            "x": 1000,
+            "y": 501,
+            "width": 48,
+            "height": 15
+          },
+          "diffAspectRatio": 0.3125
+        },
+        "legsFeet": {
+          "region": {
+            "x": 376,
+            "y": 877,
+            "width": 477,
+            "height": 377
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "anchors": {
+          "region": {
+            "x": 610,
+            "y": 555,
+            "width": 31,
+            "height": 31
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "staticBackground": {
+          "region": {
+            "x": 0,
+            "y": 0,
+            "width": 150,
+            "height": 1254
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        }
+      }
+    }
+  },
+  "transitionMetrics": {
+    "wind": {
+      "full": {
+        "region": {
+          "x": 0,
+          "y": 0,
+          "width": 1254,
+          "height": 1254
+        },
+        "changedPixels": 191947,
+        "changedRatio": 0.12206362288205652,
+        "meanAbsoluteRgbDelta": 6.463561790998205,
+        "bounds": {
+          "x": 252,
+          "y": 142,
+          "width": 976,
+          "height": 1015
+        },
+        "diffAspectRatio": 1.0399590163934427
+      },
+      "perRegion": {
+        "hair": {
+          "region": {
+            "x": 376,
+            "y": 87,
+            "width": 540,
+            "height": 427
+          },
+          "changedPixels": 44938,
+          "changedRatio": 0.19489114407147193,
+          "meanAbsoluteRgbDelta": 11.76842888946714,
+          "bounds": {
+            "x": 478,
+            "y": 142,
+            "width": 438,
+            "height": 372
+          },
+          "diffAspectRatio": 0.8493150684931506
+        },
+        "face": {
+          "region": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "changedPixels": 22415,
+          "changedRatio": 0.49343988024479374,
+          "meanAbsoluteRgbDelta": 33.31031421065762,
+          "bounds": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "diffAspectRatio": 1.1243781094527363
+        },
+        "eyeLeft": {
+          "region": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 1325,
+          "changedRatio": 0.27673350041771094,
+          "meanAbsoluteRgbDelta": 16.34663046505152,
+          "bounds": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "diffAspectRatio": 1.2063492063492063
+        },
+        "eyeRight": {
+          "region": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 1881,
+          "changedRatio": 0.39285714285714285,
+          "meanAbsoluteRgbDelta": 36.19750765803397,
+          "bounds": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "diffAspectRatio": 1.2063492063492063
+        },
+        "arms": {
+          "region": {
+            "x": 288,
+            "y": 313,
+            "width": 678,
+            "height": 452
+          },
+          "changedPixels": 76903,
+          "changedRatio": 0.2509430391312293,
+          "meanAbsoluteRgbDelta": 11.207916742805928,
+          "bounds": {
+            "x": 366,
+            "y": 313,
+            "width": 600,
+            "height": 452
+          },
+          "diffAspectRatio": 0.7533333333333333
+        },
+        "cloth": {
+          "region": {
+            "x": 213,
+            "y": 501,
+            "width": 1016,
+            "height": 703
+          },
+          "changedPixels": 146237,
+          "changedRatio": 0.20474261040982963,
+          "meanAbsoluteRgbDelta": 10.290977363604798,
+          "bounds": {
+            "x": 252,
+            "y": 501,
+            "width": 976,
+            "height": 656
+          },
+          "diffAspectRatio": 0.6721311475409836
+        },
+        "legsFeet": {
+          "region": {
+            "x": 376,
+            "y": 877,
+            "width": 477,
+            "height": 377
+          },
+          "changedPixels": 21104,
+          "changedRatio": 0.11735593258039582,
+          "meanAbsoluteRgbDelta": 4.836959926745223,
+          "bounds": {
+            "x": 376,
+            "y": 877,
+            "width": 477,
+            "height": 280
+          },
+          "diffAspectRatio": 0.5870020964360587
+        },
+        "anchors": {
+          "region": {
+            "x": 610,
+            "y": 555,
+            "width": 31,
+            "height": 31
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "staticBackground": {
+          "region": {
+            "x": 0,
+            "y": 0,
+            "width": 150,
+            "height": 1254
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        }
+      },
+      "anchorBackgroundAssimilation": {
+        "baselineOccupied": 961,
+        "backgroundAssimilated": 0,
+        "ratio": 0,
+        "interpretation": "Potential exposed background inside the idle silhouette; moving-region values are evidence, not an automatic tear verdict."
+      }
+    },
+    "arm": {
+      "full": {
+        "region": {
+          "x": 0,
+          "y": 0,
+          "width": 1254,
+          "height": 1254
+        },
+        "changedPixels": 51387,
+        "changedRatio": 0.032678204864052256,
+        "meanAbsoluteRgbDelta": 1.4812199049167067,
+        "bounds": {
+          "x": 494,
+          "y": 142,
+          "width": 621,
+          "height": 503
+        },
+        "diffAspectRatio": 0.8099838969404187
+      },
+      "perRegion": {
+        "hair": {
+          "region": {
+            "x": 376,
+            "y": 87,
+            "width": 540,
+            "height": 427
+          },
+          "changedPixels": 29497,
+          "changedRatio": 0.12792523202359268,
+          "meanAbsoluteRgbDelta": 5.453968253968254,
+          "bounds": {
+            "x": 494,
+            "y": 142,
+            "width": 422,
+            "height": 372
+          },
+          "diffAspectRatio": 0.8815165876777251
+        },
+        "face": {
+          "region": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "changedPixels": 12390,
+          "changedRatio": 0.2727512878087439,
+          "meanAbsoluteRgbDelta": 11.437818283215192,
+          "bounds": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "diffAspectRatio": 1.1243781094527363
+        },
+        "eyeLeft": {
+          "region": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 1541,
+          "changedRatio": 0.32184628237259816,
+          "meanAbsoluteRgbDelta": 15.755917571707045,
+          "bounds": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "diffAspectRatio": 1.2063492063492063
+        },
+        "eyeRight": {
+          "region": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 1975,
+          "changedRatio": 0.41248955722639935,
+          "meanAbsoluteRgbDelta": 20.724450013923697,
+          "bounds": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "diffAspectRatio": 1.2063492063492063
+        },
+        "arms": {
+          "region": {
+            "x": 288,
+            "y": 313,
+            "width": 678,
+            "height": 452
+          },
+          "changedPixels": 37724,
+          "changedRatio": 0.12309760618163781,
+          "meanAbsoluteRgbDelta": 5.355511612324989,
+          "bounds": {
+            "x": 498,
+            "y": 313,
+            "width": 468,
+            "height": 332
+          },
+          "diffAspectRatio": 0.7094017094017094
+        },
+        "cloth": {
+          "region": {
+            "x": 213,
+            "y": 501,
+            "width": 1016,
+            "height": 703
+          },
+          "changedPixels": 20559,
+          "changedRatio": 0.02878411980152552,
+          "meanAbsoluteRgbDelta": 1.2949232386136655,
+          "bounds": {
+            "x": 582,
+            "y": 501,
+            "width": 466,
+            "height": 144
+          },
+          "diffAspectRatio": 0.3090128755364807
+        },
+        "legsFeet": {
+          "region": {
+            "x": 376,
+            "y": 877,
+            "width": 477,
+            "height": 377
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "anchors": {
+          "region": {
+            "x": 610,
+            "y": 555,
+            "width": 31,
+            "height": 31
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "staticBackground": {
+          "region": {
+            "x": 0,
+            "y": 0,
+            "width": 150,
+            "height": 1254
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        }
+      },
+      "anchorBackgroundAssimilation": {
+        "baselineOccupied": 961,
+        "backgroundAssimilated": 0,
+        "ratio": 0,
+        "interpretation": "Potential exposed background inside the idle silhouette; moving-region values are evidence, not an automatic tear verdict."
+      }
+    },
+    "step": {
+      "full": {
+        "region": {
+          "x": 0,
+          "y": 0,
+          "width": 1254,
+          "height": 1254
+        },
+        "changedPixels": 20313,
+        "changedRatio": 0.012917515624642294,
+        "meanAbsoluteRgbDelta": 0.5842848869794224,
+        "bounds": {
+          "x": 517,
+          "y": 238,
+          "width": 597,
+          "height": 1006
+        },
+        "diffAspectRatio": 1.6850921273031825
+      },
+      "perRegion": {
+        "hair": {
+          "region": {
+            "x": 376,
+            "y": 87,
+            "width": 540,
+            "height": 427
+          },
+          "changedPixels": 168,
+          "changedRatio": 0.0007285974499089253,
+          "meanAbsoluteRgbDelta": 0.06657992887501084,
+          "bounds": {
+            "x": 878,
+            "y": 255,
+            "width": 38,
+            "height": 17
+          },
+          "diffAspectRatio": 0.4473684210526316
+        },
+        "face": {
+          "region": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "eyeLeft": {
+          "region": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "eyeRight": {
+          "region": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "arms": {
+          "region": {
+            "x": 288,
+            "y": 313,
+            "width": 678,
+            "height": 452
+          },
+          "changedPixels": 725,
+          "changedRatio": 0.0023657556060250086,
+          "meanAbsoluteRgbDelta": 0.18094277808233483,
+          "bounds": {
+            "x": 916,
+            "y": 313,
+            "width": 50,
+            "height": 123
+          },
+          "diffAspectRatio": 2.46
+        },
+        "cloth": {
+          "region": {
+            "x": 213,
+            "y": 501,
+            "width": 1016,
+            "height": 703
+          },
+          "changedPixels": 16144,
+          "changedRatio": 0.02260279342749297,
+          "meanAbsoluteRgbDelta": 0.9145100861325478,
+          "bounds": {
+            "x": 517,
+            "y": 501,
+            "width": 531,
+            "height": 703
+          },
+          "diffAspectRatio": 1.3239171374764596
+        },
+        "legsFeet": {
+          "region": {
+            "x": 376,
+            "y": 877,
+            "width": 477,
+            "height": 377
+          },
+          "changedPixels": 17267,
+          "changedRatio": 0.09601899582381039,
+          "meanAbsoluteRgbDelta": 3.883802575409602,
+          "bounds": {
+            "x": 517,
+            "y": 1021,
+            "width": 256,
+            "height": 223
+          },
+          "diffAspectRatio": 0.87109375
+        },
+        "anchors": {
+          "region": {
+            "x": 610,
+            "y": 555,
+            "width": 31,
+            "height": 31
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "staticBackground": {
+          "region": {
+            "x": 0,
+            "y": 0,
+            "width": 150,
+            "height": 1254
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        }
+      },
+      "anchorBackgroundAssimilation": {
+        "baselineOccupied": 961,
+        "backgroundAssimilated": 0,
+        "ratio": 0,
+        "interpretation": "Potential exposed background inside the idle silhouette; moving-region values are evidence, not an automatic tear verdict."
+      }
+    },
+    "blink": {
+      "full": {
+        "region": {
+          "x": 0,
+          "y": 0,
+          "width": 1254,
+          "height": 1254
+        },
+        "changedPixels": 2882,
+        "changedRatio": 0.0018327317496292567,
+        "meanAbsoluteRgbDelta": 0.10686250569151602,
+        "bounds": {
+          "x": 564,
+          "y": 237,
+          "width": 550,
+          "height": 279
+        },
+        "diffAspectRatio": 0.5072727272727273
+      },
+      "perRegion": {
+        "hair": {
+          "region": {
+            "x": 376,
+            "y": 87,
+            "width": 540,
+            "height": 427
+          },
+          "changedPixels": 746,
+          "changedRatio": 0.003235319628762252,
+          "meanAbsoluteRgbDelta": 0.22058721484950994,
+          "bounds": {
+            "x": 564,
+            "y": 254,
+            "width": 352,
+            "height": 39
+          },
+          "diffAspectRatio": 0.11079545454545454
+        },
+        "face": {
+          "region": {
+            "x": 526,
+            "y": 213,
+            "width": 201,
+            "height": 226
+          },
+          "changedPixels": 622,
+          "changedRatio": 0.013692598952141945,
+          "meanAbsoluteRgbDelta": 0.9212198594050397,
+          "bounds": {
+            "x": 564,
+            "y": 260,
+            "width": 121,
+            "height": 33
+          },
+          "diffAspectRatio": 0.2727272727272727
+        },
+        "eyeLeft": {
+          "region": {
+            "x": 564,
+            "y": 250,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 240,
+          "changedRatio": 0.05012531328320802,
+          "meanAbsoluteRgbDelta": 4.008702311333891,
+          "bounds": {
+            "x": 564,
+            "y": 267,
+            "width": 53,
+            "height": 26
+          },
+          "diffAspectRatio": 0.49056603773584906
+        },
+        "eyeRight": {
+          "region": {
+            "x": 627,
+            "y": 244,
+            "width": 63,
+            "height": 76
+          },
+          "changedPixels": 382,
+          "changedRatio": 0.0797827903091061,
+          "meanAbsoluteRgbDelta": 4.731342244500139,
+          "bounds": {
+            "x": 634,
+            "y": 260,
+            "width": 51,
+            "height": 31
+          },
+          "diffAspectRatio": 0.6078431372549019
+        },
+        "arms": {
+          "region": {
+            "x": 288,
+            "y": 313,
+            "width": 678,
+            "height": 452
+          },
+          "changedPixels": 553,
+          "changedRatio": 0.0018045004829404547,
+          "meanAbsoluteRgbDelta": 0.10329160901836915,
+          "bounds": {
+            "x": 916,
+            "y": 313,
+            "width": 50,
+            "height": 122
+          },
+          "diffAspectRatio": 2.44
+        },
+        "cloth": {
+          "region": {
+            "x": 213,
+            "y": 501,
+            "width": 1016,
+            "height": 703
+          },
+          "changedPixels": 31,
+          "changedRatio": 0.000043402291640998646,
+          "meanAbsoluteRgbDelta": 0.0019759709979353577,
+          "bounds": {
+            "x": 1000,
+            "y": 501,
+            "width": 48,
+            "height": 15
+          },
+          "diffAspectRatio": 0.3125
+        },
+        "legsFeet": {
+          "region": {
+            "x": 376,
+            "y": 877,
+            "width": 477,
+            "height": 377
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "anchors": {
+          "region": {
+            "x": 610,
+            "y": 555,
+            "width": 31,
+            "height": 31
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        },
+        "staticBackground": {
+          "region": {
+            "x": 0,
+            "y": 0,
+            "width": 150,
+            "height": 1254
+          },
+          "changedPixels": 0,
+          "changedRatio": 0,
+          "meanAbsoluteRgbDelta": 0,
+          "bounds": null,
+          "diffAspectRatio": null
+        }
+      },
+      "anchorBackgroundAssimilation": {
+        "baselineOccupied": 961,
+        "backgroundAssimilated": 0,
+        "ratio": 0,
+        "interpretation": "Potential exposed background inside the idle silhouette; moving-region values are evidence, not an automatic tear verdict."
+      }
+    }
+  },
+  "performance": {
+    "samples": 152,
+    "elapsedMs": 2516,
+    "effectiveFps": 60.01589825119237,
+    "p50FrameTimeMs": 16.699999999999818,
+    "p95FrameTimeMs": 16.800000000000182
+  },
+  "telemetry": {
+    "activeState": "auto",
+    "activeDrivers": [
+      "auto",
+      "secondary-physics"
+    ],
+    "anchors": {
+      "neck": {
+        "x": 616.05,
+        "y": 420.09999999999997
+      },
+      "waist": {
+        "x": 609.26,
+        "y": 667.4499999999999
+      },
+      "leftFoot": {
+        "x": 572.4,
+        "y": 1235.87
+      },
+      "rightFoot": {
+        "x": 677.16,
+        "y": 1174.76
+      }
+    },
+    "footContacts": {
+      "left": true,
+      "right": true
+    },
+    "footSlidePx": {
+      "left": 0,
+      "right": 0.55
+    },
+    "fps": 60.01936108422072,
+    "capabilities": [
+      "hair",
+      "eyes",
+      "arms",
+      "cloth",
+      "legsFeet",
+      "anchors"
+    ]
+  },
+  "consoleErrors": [],
+  "evidence": {
+    "directory": "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance",
+    "contactSheet": "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\state-contact-sheet.png",
+    "uiScreenshot": "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\ui-idle.png",
+    "differenceHeatmaps": {
+      "wind": "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\diff-wind.png",
+      "arm": "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\diff-arm.png",
+      "step": "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\diff-step.png",
+      "blink": "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\diff-blink.png"
+    },
+    "captures": {
+      "idle": [
+        "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\idle-neutral.png",
+        "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\idle-late.png"
+      ],
+      "wind": [
+        "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\wind-lead.png",
+        "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\wind-peak.png"
+      ],
+      "arm": [
+        "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\arm-rest.png",
+        "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\arm-raised.png"
+      ],
+      "step": [
+        "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\step-support.png",
+        "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\step-swing.png"
+      ],
+      "blink": [
+        "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\blink-open.png",
+        "D:\\AI\\Codex\\Design\\live 2d\\exports\\visual-acceptance\\blink-closed.png"
+      ]
+    }
+  },
+  "limitations": [
+    "Automated background-assimilation is a tear/hole signal, not a substitute for human review of the contact sheet.",
+    "Arm and step acceptance require deterministic states exposed through window.__LIVE2D_DEBUG__.",
+    "Reference-display similarity is deliberately excluded as proof of model fidelity."
+  ]
+}

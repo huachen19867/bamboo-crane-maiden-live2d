@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-25T01:05:53.018Z",
+  "verdict": "pass",
+  "visual": {
+    "process": {
+      "script": "visual_acceptance_agent.mjs",
+      "status": 0,
+      "signal": null,
+      "error": null
+    },
+    "summary": {
+      "result": "pass",
+      "pass": 20,
+      "fail": 0,
+      "unsupported": 0,
+      "requiredTotal": 19
+    },
+    "wholeCharacterSimilarityPercent": 100,
+    "faceSimilarityPercent": 100,
+    "report": "exports\\visual-acceptance\\visual-acceptance-report.json"
+  },
+  "playerControl": {
+    "process": {
+      "script": "player_control_sim_agent.mjs",
+      "status": 0,
+      "signal": null,
+      "error": null
+    },
+    "summary": {
+      "pass": 26,
+      "fail": 0,
+      "blocked": 0,
+      "skipped": 0,
+      "total": 26,
+      "verdict": "pass"
+    },
+    "report": "exports\\player-sim\\player-control-sim-report.json"
+  },
+  "evidence": {
+    "contactSheet": "exports/visual-acceptance/state-contact-sheet.png",
+    "playerBaseline": "exports/player-sim/baseline.png",
+    "randomizedInputRecovery": "exports/player-sim/after-randomized-input.png"
+  }
+}
