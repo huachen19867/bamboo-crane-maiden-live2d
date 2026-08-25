@@ -1,5 +1,75 @@
 # 技术日志
 
+## 2026-08-25｜暂停交接：保留右肩安全工程，拒绝保存未通过补片
+
+暂停前重新导入了 20:50 构建的 PSD，在 `右肩 上下 = +1` 极值确认灰白横纹已经消失，但隐藏连接层仍露出明显的深青色梯形，因此该状态没有保存进正式 `.cmo3`。磁盘上的 `model/cubism/bamboo-crane-maiden-editor.cmo3` 与回退点 `bamboo-crane-maiden-shoulder-r-warp-v1.cmo3` 均为 `50,921,670` 字节，SHA-256 同为 `8A43D218BE5B798814FA168E837052959F276B8E6BF320BEA074F94F51C173B6`，可作为下次继续工作的权威安全状态。
+
+`tools/build_cubism_psd.py` 已把下一版补绘策略改为“从右侧真实袖面镜像延拓纹理、只平滑合成像素，并收窄连接多边形”，且通过 Python 语法检查；这版代码尚未重新构建 PSD、重新导入或目视验收，不能标记为修复完成。下次从运行构建脚本开始，检查 `UnderpaintArmRUpper.png` 后再重新导入；若右肩 `+1` 仍出现色块，继续缩窄连接轮廓，不保存 Editor 临时状态。
+
+## 2026-08-25｜GitHub 复用边界：Editor 建模、运行时与动捕必须分层选型
+
+复核了 `Wzhang3912/image2live2d`、Live2D 官方 `CubismWebSamples` / `CubismNativeSamples` / `CubismUnityComponents`、`guansss/pixi-live2d-display`、`emilianavt/OpenSeeFace` 和 `DenchiSoft/VTubeStudio`。当前工程继续复用 `image2live2d` 的 PSD/图层输入、标准参数、网格与物理模板、JSON 兄弟文件生成和 QA 思路，但不直接采用其 `.cmo3` 作为正式成品：该项目 README 明确把 Cubism Editor 目标标为实验性，且本项目先前已在官方 Editor 中验证自动产物存在非法对象 ID 与缺失 ArtMesh 数据。其本地版本为提交 `b3fea7536f2d680897dbf5cce5a13046da75803c`，许可证为 Apache-2.0。
+
+最终运行时优先以 Live2D 官方 Samples 为行为基准：Web 版负责模型装载、参数、动作、物理和点击区域；若后续做 Unity/桌面版，再分别参考 Unity Components 或 Native Samples。`pixi-live2d-display` 可用于快速网页集成，但它不是 Editor 建模器，也不能修复肩肘髋膝接缝。动捕可用 OpenSeeFace 输出头姿、眼口数据并写一层参数映射；VTube Studio 仓库主要用于其公开 API、热键和自定义参数接入，不是 VTube Studio 完整程序源码。官方 Cubism Editor 没有可替代人工网格修形的公开 GitHub 自动建模 API，因此肩、肘、腕、髋、膝、踝、Glue 与物理链仍必须在 Editor 中完成。复用第三方代码前还要分别核对项目许可证与 Live2D Cubism SDK 许可证，不能只按 GitHub 仓库公开状态判断可商用性。
+
+## 2026-08-25｜校准双肩轴并绑定左右肩三关键形
+
+本次继续只在 Live2D Cubism Editor 5.3.03 的正式工程中操作。先打开画布顶部的 ArtMesh 与 Deformer 显示开关，再对 `RotShoulderR` 和 `RotShoulderL` 使用 `Ctrl + Drag` 移轴，因此只移动 Rotation Deformer 的轴心，不改变子级中性位置。右肩轴最终位于窗口局部约 `(1825, 690)`，左肩轴位于约 `(1628, 745)`；证据为 `exports/cubism-rotshoulderr-pivot-final.png` 与 `exports/cubism-rotshoulderl-pivot-final.png`。
+
+两个 Rotation Deformer 已分别绑定标准参数 `右肩 上下` 和 `左肩 上下` 的 `-1 / 0 / +1` 三关键形。右肩在参数三点对应实际 `+8° / 0° / -8°`，两端目视未出现透明裂缝；左肩最初测试 `-8°` 时暴露出一块悬空底绘，说明“轴心正确”不等于“大动作已连续”。当前将左肩安全范围收紧为 `-4° / 0° / +4°`，两端未再观察到碎片或漏底；后续必须通过 `WarpArmL/R` 修正肩口体积和底绘遮挡后才能放大角度，不能把缩小动作当成最终解决方案。验收截图为 `exports/cubism-right-shoulder-param-minus-plus8.png`、`exports/cubism-right-shoulder-param-plus-minus8.png`、`exports/cubism-left-shoulder-param-minus-minus4.png` 和 `exports/cubism-left-shoulder-param-plus-plus4.png`。
+
+在 2560×1600、Editor 最大化布局下，肩参数滑块的 `-1 / 0 / +1` 点击位置约为屏幕 `x=709 / 817 / 926`；`左肩 上下` 行中心约 `y=1371`，`右肩 上下` 约 `y=1410`。Rotation 检视面板的角度输入框中心约为屏幕 `(650, 802)`。必须先单击字段并确认 `0.0` 文本被选中，再粘贴数值；字段没有取得焦点时发送 `Ctrl+A` 会选中全模型。这个坐标只适用于本次最大化布局，窗口尺寸或面板高度变化后必须重新截图。
+
+保存时对“未使用的原画有5张，要删除吗？”选择了“否”。正式文件与里程碑 `model/cubism/bamboo-crane-maiden-shoulder-params-v1.cmo3` 均为 `44,842,966` 字节，SHA-256 均为 `F589F86EBAED3A74DCD1C86EB70D7DE69EE554BA84E0AF1562CD9DCF74FAC9A8`。当前仍未完成肩部 Warp 修形、肘腕、髋膝踝、物理或运行时导出。
+
+## 2026-08-25｜消除半闭眼双影，建立左右手臂独立 Cubism 层级
+
+本次继续只在 Live2D Cubism Editor 5.3.03 的正式工程中制作，网页 PNG 拼片版没有再作为模型质量基线。双眼原先只在 `0 / 1` 两端绑定不透明度，`EyeOpen=0.5` 时睁眼纹理与闭眼睫毛各以 50% 同时出现，形成明显双影。现在四个 ArtMesh 均增加中间关键点：`ArtEyeClosedR/L` 在 `0 / 0.5 / 1` 为 `100 / 0 / 0%`，`ArtEyeR/L` 为 `0 / 100 / 100%`。`0 / 0.5 / 1` 三档已在 Editor 中目视验收，证据为 `exports/cubism-eyes-closed-continuous-final.png`、`exports/cubism-eyes-half-continuous.png` 和 `exports/cubism-eyes-open-continuous-final.png`。
+
+手臂结构从共享 `WarpArmsSleeves` 向下拆成两条独立链：`RotShoulderR → WarpArmR → ArtArmR` 与 `RotShoulderL → WarpArmL → ArtArmL`。两个局部 Warp 都使用 `5 × 5` 分割并勾选“考虑子元素的关键点”，因此边界只拟合各自整臂而不是整画布。该里程碑只证明左右整臂可以独立进入后续参数绑定；肩轴尚未移动到解剖关节，肘腕也尚未建立局部关键形，不能把层级存在说成手臂动作已经完成。
+
+Cubism 的 Java/AWT 会残留不可交互的“形状的特殊粘贴选项”空白窗口。窗口关闭按钮不可靠，但可只对确认过句柄和尺寸的该 `SunAwtDialog` 调用 `ShowWindow(..., SW_HIDE)`，不要结束 Editor 进程。参数面板的纵向位置会随检视面板内容改变；无对象选中时，左右眼行中心约为窗口本地 `y=918 / 995`，滑块左中右约为 `x=635 / 701 / 767`。直接在错误坐标发送 `Ctrl+A` 会选中全模型并触发特殊粘贴窗口，因此每次变更布局后必须重新截图确认。
+
+正式文件与里程碑 `model/cubism/bamboo-crane-maiden-eyes-arm-hierarchy-v1.cmo3` 均为 `44,828,917` 字节，SHA-256 均为 `9B5ABE8C875E98BDCD932656F49E3A910C0C8DCC267B9D03D1124A51828DFFF2`。保存时仍会询问是否删除 5 张未使用原画，必须选择“否”，否则会破坏当前闭眼睫毛和回退素材。
+
+## 2026-08-25｜Cubism 双眼与颈根头部旋转里程碑
+
+正式工程已在 Live2D Cubism Editor 5.3.03 内完成双眼独立网格和头部颈根旋转的第一版绑定。`ArtEyeR` / `ArtEyeL` 分别挂在 `WarpEyeR` / `WarpEyeL` 下，并绑定标准左右眼开合 `0 / 1`；闭眼时脸底与头发不再被整块压缩。当前闭眼线仍有少量绿色虹膜残线，后续应新增独立闭眼睫毛 ArtMesh，用不透明度反向驱动，不再继续压缩整只眼睛。
+
+新增 `RotHead` Rotation Deformer 并放在 `WarpHeadFace` 上级。可复用的校轴流程是：先将子 Warp 临时脱离为 `[Root]`，在无子级状态下把 Rotation Deformer 轴心移到解剖关节，再将子 Warp 挂回。直接带着子级拖轴会一起拉动头脸，造成颈肩裂口。`Angle Z -30 / +30` 当前映射为实际 `-12° / +12°`，旋转轴已位于颈根，头脸和发根连续跟随，躯干与双臂保持不动，未观察到明显透明断口。
+
+正式工程与回退点 `model/cubism/bamboo-crane-maiden-head-anglez-neckpivot-v1.cmo3` 均为 `33,917,905` 字节，SHA-256 均为 `D07A72A06E3649EC60C3944034274A780FAB6E27FF89EA618DDFE4DB57E9A573`。联系表为 `exports/cubism-head-anglez-neckpivot-contact-sheet.png`，双眼闭合证据为 `exports/cubism-eyes-both-closed-refined.png`。这一里程碑仍只完成头部与双眼；双臂、双腿仍是合并区域 Warp，不能声称已消除全身“拼片感”。
+
+## 2026-08-25｜修复 Cubism 整画布网格，重建真实局部连续变形底座
+
+本次复核发现此前所谓区域 Warp 仍有根本性缺陷：`tools/build_cubism_psd.py` 把每张带透明区的 PNG 以完整 `1254 × 1254` 尺寸写入 PSD，29 个 PixelLayer 的记录边界全是 `(0, 0, 1254, 1254)`。Cubism 因而把局部 ArtMesh 和 Warp 的拟合范围理解成整张画布；选中 `WarpHeadFace` 后网格覆盖全角色，不能据此声称已经实现连续局部变形。
+
+修复方式是在写 PSD 时先读取 alpha 的非空包围盒，裁出真实像素区域，再把包围盒左上角通过 `PixelLayer.frompil(..., top=..., left=...)` 写回原始画布坐标。旧源文件已保留为 `model/cubism/bamboo-crane-maiden-source-fullcanvas-v1.psd`；新的正式源仍为 `model/cubism/bamboo-crane-maiden-source.psd`，体积从 `53,183,466` 降至 `12,097,190` 字节，29 个 PixelLayer 均不再是整画布边界。重新合成后的中性相似度仍为 `99.9938%`，Alpha IoU 为 `99.5009%`，说明裁层没有改变中性外观。
+
+Cubism 还有第二个坑：只选中 Part 后执行“创建弯曲变形器”，新增对象虽然显示在该 Part 下，但默认追加目标可能把 `ReferenceNeutral` 和后续对象一起纳入，网格仍会铺满画布。可靠做法是展开 Part，明确多选该区域的全部 ArtMesh，再创建 Warp 并勾选“考虑子元素的关键点”。当前正式工程已按此方法建立 `WarpHeadFace`、`WarpRibbons`、`WarpArmsSleeves`、`WarpTorso`、`WarpSkirt`、`WarpLegsFeet`；每个网格均已在 Editor 中目视确认只覆盖对应真实区域。
+
+`WarpHeadFace` 已绑定标准参数 `Angle X` 的 `-30 / 0 / +30` 三个关键形，极值采用上部控制点水平剪切、下部逐渐收束的方式，避免整块头图绕点旋转。验证图为 `exports/cubism-trimmed-head-anglex-contact-sheet.png`；头部 ROI 的极值相对中性分别有 `30,877` 和 `31,661` 个变化像素，左右极值之间有 `33,874` 个变化像素。正式工程 `model/cubism/bamboo-crane-maiden-editor.cmo3` 大小为 `6,878,144` 字节，SHA-256 为 `4F3944006F669275C4AC80AFB91D57E9724B8898F66CE8B9F1E8A4245137B73A`，同哈希里程碑为 `model/cubism/bamboo-crane-maiden-trimmed-continuous-regions-v1.cmo3`。
+
+当前边界必须说清：新的正式工程已经解决“透明整画布层导致局部 Warp 失真”并完成六个连续区域及头部左右转，但尚未重新加入 Rotation Deformer、眨眼、Angle Y/Z、四肢关键形、Glue、物理和运行时导出。旧 `head-anglez-v1` 与 `rotation-hierarchy-v1` 只作为旧源路线的历史回退点，不能与新正式工程的完成度相加。
+
+## 2026-08-25｜官方 Cubism 工程与 Warp 层级里程碑
+
+正式路线已在 Live2D Cubism Editor 5.3.03 中落地。源 PSD 为 `model/cubism/bamboo-crane-maiden-source.psd`，正式编辑工程为 `model/cubism/bamboo-crane-maiden-editor.cmo3`。旧的 `model/bamboo-crane-maiden.cmo3` 在官方 Editor 中出现 24 个非法对象 ID 和缺失 ArtMesh 顶点，已确认只保留作失败样本。PSD 共 29 个合法像素层，其中 13 个是肩肘、腰髋、腿脚的隐藏补绘；中性 alpha 加权 RGB 相似度为 99.9938%，Alpha IoU 为 99.5009%。
+
+当前 Warp 树使用“区域 Warp → 局部 Warp → ArtMesh”：`WarpHeadFace` 下挂双眼、发梢、发根和头底，`WarpRibbons` 下挂上下披帛，`WarpArmsSleeves` 下挂左右臂，`WarpTorso` 下挂身体，`WarpSkirt` 下挂左中右裙片，`WarpLegsFeet` 下挂左右脚。正式文件与里程碑 `model/cubism/bamboo-crane-maiden-warp-hierarchy-v1.cmo3` 的 SHA-256 已核对一致。该里程碑尚无 Rotation Deformer、参数关键形、Glue、物理或运行时导出，不能称为可操演成品。
+
+Cubism 是 Java/AWT 界面，Win32 坐标操作必须以原始分辨率截图为准。应用中的图片预览会把 2160×1200 截图缩到 2048 像素宽；直接读取预览坐标会产生约 31 像素纵向误差，刚好错选一行。可靠做法是从 2560×1600 全屏截图裁出 501×701 的原尺寸 Part 面板，再读取行中心。每次保存、切换父级或重开文件后都要重新截图，因为 Part 面板会自动滚动，不能跨操作复用旧行号。
+
+“创建弯曲变形器”对话框在这个版本中会残留为不可交互的空白 `SunAwtDialog`，挡住工具详情的父级下拉框。文件保存后应重启正式 Editor 进程，再以带引号的路径启动：`CubismEditor5.exe "<absolute .cmo3 path>"`；未加引号时工作区空格会让启动器只打开空白 Editor。父级列表顺序会随新增和重挂变形器动态变化，禁止沿用旧索引或用 `Home/Down` 猜选；必须打开当前下拉列表，滚动到可见的完整名称后点击，并用工具详情和变形器树双重验收。
+
+## 2026-08-25｜从 PNG 切片原型切换到官方 Cubism 连续形变
+
+本次视觉复核确认：旧网页虽然通过了既定动作和输入门禁，但肩、腰、袖片、裙片等区域仍呈现明显“碎片拼接”感。根因不是弹簧参数不足，而是运行时主要让整块 PNG 绕枢轴旋转；现有自动 MOC 报告也显示只有 1 个 Warp Deformer、0 个 Rotation Deformer、0 个 Glue、0 个 Drawable Mask，无法支撑全身大动作的连续形变。以后不能再把“动作存在”和“像 Cubism 一样连续”混为同一验收结论。
+
+正式路线改为 Live2D Cubism Editor 5.3 稳定版。`model/bamboo-crane-maiden.cmo3` 是 image2live2d 的实验写出物，在官方 Editor 未安装、未实际打开保存之前不得称为可编辑工程。官方下载安装页要求用户本人接受软件授权协议；自动化可以准备素材和打开下载页，但不能代替用户同意 EULA 或处理许可证认证。
+
+重制规范沉淀在 `docs/CUBISM_REBUILD.md`。可复用判断是：单图关节分层必须先补全被遮挡的身体和衣物底绘，相邻关节在不可见区保留重叠；Rotation Deformer 只负责方向，Warp Deformer 恢复体积，Glue/共享父变形器维持接缝，Clipping Mask 与 Draw Order 处理遮挡。中性姿态的 95% 相似度和大动作的无裂缝、无重复残影必须分成两套门禁，不能通过显示原图整帧来冒充模型质量。
+
 ## 2026-08-24｜单图到 Live2D/Cubism 多目标交付
 
 本次判断的关键点是先区分“标准 Live2D 包”“Cubism 可编辑工程”和“网页里会动的图片”。参考仓库的 CLI 默认只写 Live2D JSON 兄弟文件，`model3.json` 会引用一个并未生成的 `.moc3`；只有显式向 `Live2DEmitter` 注入 `native_moc_writer` 才会得到完整 MOC。以后复用该仓库时不要只看 README 或 `.model3.json` 存在与否，应检查引用目标是否真实存在，并用 `read_moc3 → write_moc3` 做字节往返校验。

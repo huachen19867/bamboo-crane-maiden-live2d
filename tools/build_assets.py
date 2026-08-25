@@ -82,12 +82,17 @@ def save_rgba(img: Image.Image, path: Path) -> None:
     img.save(path, optimize=True)
 
 
-def make_mask(size: tuple[int, int], polygons: list[list[tuple[int, int]]]) -> Image.Image:
+def make_mask(
+    size: tuple[int, int],
+    polygons: list[list[tuple[int, int]]],
+    *,
+    blur: float = 1.1,
+) -> Image.Image:
     mask = Image.new("L", size, 0)
     d = ImageDraw.Draw(mask)
     for polygon in polygons:
         d.polygon(polygon, fill=255)
-    return mask.filter(ImageFilter.GaussianBlur(1.1))
+    return mask.filter(ImageFilter.GaussianBlur(blur)) if blur > 0 else mask
 
 
 def exclusive_masks(specs: list[tuple[str, Image.Image]]) -> dict[str, Image.Image]:
@@ -144,6 +149,22 @@ def build() -> None:
     luma = (rgba[:, :, 0] * 0.2126 + rgba[:, :, 1] * 0.7152 + rgba[:, :, 2] * 0.0722)
     dark = Image.fromarray(((luma < 158) * 255).astype(np.uint8), "L").filter(ImageFilter.MaxFilter(5))
     hair_all = ImageChops.multiply(hair_region, dark).filter(ImageFilter.GaussianBlur(0.8))
+
+    # The broad right-side hair polygon overlaps the raised hand.  The dark
+    # threshold used for hair also classified the hand's inked fingertips as
+    # loose strands, so those tiny skin/line islands were copied into
+    # ``hair-tips.png`` and stayed behind when the arm moved in Cubism.  Keep
+    # both hand zones out of every hair layer; the articulated arm masks own
+    # these pixels and the rigid base removes them separately below.
+    hand_hair_exclusion = make_mask(
+        (w, h),
+        [
+            [(700, 210), (875, 210), (875, 415), (700, 415)],
+            [(255, 400), (465, 400), (465, 665), (255, 665)],
+        ],
+        blur=0.0,
+    )
+    hair_all = ImageChops.multiply(hair_all, ImageChops.invert(hand_hair_exclusion))
 
     tips_area = make_mask(
         (w, h),
@@ -241,32 +262,20 @@ def build() -> None:
     # shoulder and waist whenever an arm or ribbon moved.  Hair/head/feet keep
     # full cut-outs; arm skin is cut while sleeve fabric remains as underpaint;
     # dress ribbons and hems likewise receive animated overlays over a fixed bed.
-    # Keep the original sleeve fabric as an underpaint, but remove the skin of
-    # the original hands so the articulated hand is not doubled.  A broad arm
-    # cut-out cannot be safely inpainted from one finished illustration.
-    master_rgb = np.asarray(master)[:, :, :3].astype(np.int16)
-    hand_skin = (
-        (master_rgb[:, :, 0] > 165)
-        & (master_rgb[:, :, 1] > 105)
-        & (master_rgb[:, :, 2] > 75)
-        & ((master_rgb[:, :, 0] - master_rgb[:, :, 1]) > 12)
-        & ((master_rgb[:, :, 1] - master_rgb[:, :, 2]) > 5)
-    )
-    hand_skin_mask = Image.fromarray((hand_skin * 255).astype(np.uint8), "L").filter(
-        ImageFilter.MaxFilter(5)
-    )
+    # Keep sleeve fabric as underpaint at fixed connectors, but remove the
+    # complete original hand regions from the rigid bed.  The earlier
+    # skin-colour threshold left dark finger outlines and pale antialiasing in
+    # place; those remnants became a second ghost hand as soon as the movable
+    # arm rotated.  Free hand ends need no static underpaint, so an explicit
+    # regional cut is both safer and visually continuous.
     hand_left_area = make_mask(
         (w, h), [[(250, 455), (375, 455), (380, 610), (245, 610)]],
     )
     hand_right_area = make_mask(
         (w, h), [[(720, 225), (845, 225), (850, 385), (710, 390)]],
     )
-    hand_left_cut = ImageChops.multiply(
-        ImageChops.multiply(articulated["arm-left"], hand_left_area), hand_skin_mask
-    )
-    hand_right_cut = ImageChops.multiply(
-        ImageChops.multiply(articulated["arm-right"], hand_right_area), hand_skin_mask
-    )
+    hand_left_cut = ImageChops.multiply(articulated["arm-left"], hand_left_area)
+    hand_right_cut = ImageChops.multiply(articulated["arm-right"], hand_right_area)
     rigid_cutout = Image.new("L", (w, h), 0)
     for mask in (
         hair_all,
