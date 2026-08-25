@@ -53,6 +53,10 @@ docs/
 !media/demo.gif
 !media/cells/*.gif
 
+# This checkout is vendored by the full-body demo repository; release media is
+# intentionally omitted there to keep the clone source-focused.
+media/
+
 # Generated artifacts
 out/
 *.inp
