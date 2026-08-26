@@ -142,64 +142,85 @@ def build_underpaint_layers(
     neutral_master: Image.Image,
 ) -> dict[str, Image.Image]:
     def extend_neutral_texture(points: list[tuple[int, int]]) -> Image.Image:
-        """Extend neighbouring cloth texture into a hidden joint connector.
+        """Bridge only the truly transparent right-shoulder seam.
 
-        The neutral art genuinely contains negative space between the arm and
-        waist, so copying it verbatim preserves the checkerboard slit.  A flat
-        median colour hid the slit but became an obvious rectangular patch at
-        the shoulder extreme.  Mirror the nearest real cloth pixels inward
-        from the right-hand sleeve edge, then blur only the synthesized pixels.
-        This preserves local linework and shading without pulling pale
-        antialiasing from the transparent gap into horizontal stripes.
+        This deliberately does *not* copy the composited neutral master into
+        the whole limiting polygon.  That historical approach promoted real
+        sleeve and waist pixels to an opaque static trapezoid, which surfaced
+        as a duplicate dark-cyan patch at the right-shoulder extreme.  The
+        polygon here merely bounds a strict-alpha seam.  Its colour is rebuilt
+        between opaque pixels from the torso and articulated arm source layers.
         """
 
-        soft_mask = polygon_mask(points, blur=0.8)
-        mask_array = np.asarray(soft_mask)
-        source = np.asarray(neutral_master.convert("RGBA")).copy()
-        output = source.copy()
-        output[:, :, 3] = 0
-        cloth = (
-            (source[:, :, 3] > 96)
-            & (source[:, :, 0] < 190)
-            & (source[:, :, 1] > 55)
-            & (source[:, :, 2] > 55)
+        corridor = np.asarray(polygon_mask(points, blur=0.0)) > 0
+        master = np.asarray(neutral_master.convert("RGBA"))
+        strict_gap = corridor & (master[:, :, 3] <= 32)
+
+        # The additional four pixels remain hidden under the two real meshes
+        # in neutral pose; they provide overlap when the shoulder rotates.
+        expanded = np.asarray(
+            Image.fromarray((strict_gap * 255).astype(np.uint8), "L").filter(
+                ImageFilter.MaxFilter(9)
+            )
         )
-        local_pixels = source[(mask_array > 0) & cloth][:, :3]
-        base_color = (
-            np.median(local_pixels, axis=0)
-            if len(local_pixels)
-            else np.array([68.0, 116.0, 104.0])
+        expanded = expanded & corridor
+        alpha = np.asarray(
+            Image.fromarray((expanded * 255).astype(np.uint8), "L").filter(
+                ImageFilter.GaussianBlur(0.6))
         )
-        synthesized = np.zeros((CANVAS[1], CANVAS[0]), dtype=bool)
-        for y in range(CANVAS[1]):
-            target_x = np.flatnonzero(mask_array[y] > 0)
-            if target_x.size == 0:
-                continue
-            donors = np.flatnonzero(cloth[y])
-            for x in target_x:
-                if source[y, x, 3] <= 32:
-                    right = donors[(donors > x) & (donors <= x + 120)]
-                    if right.size:
-                        edge = int(right[0])
-                        mirror = min(CANVAS[0] - 1, edge + min(edge - x, 52))
-                        valid = donors[(donors >= mirror - 5) & (donors <= mirror + 5)]
-                        donor = int(valid[np.argmin(np.abs(valid - mirror))]) if valid.size else edge
-                        output[y, x, :3] = source[y, donor, :3]
-                    else:
-                        left = donors[(donors < x) & (donors >= x - 90)]
-                        if left.size:
-                            edge = int(left[-1])
-                            mirror = max(0, edge - min(x - edge, 36))
-                            valid = donors[(donors >= mirror - 5) & (donors <= mirror + 5)]
-                            donor = int(valid[np.argmin(np.abs(valid - mirror))]) if valid.size else edge
-                            output[y, x, :3] = source[y, donor, :3]
-                        else:
-                            output[y, x, :3] = base_color.astype(np.uint8)
-                    synthesized[y, x] = True
-                output[y, x, 3] = mask_array[y, x]
-        extended = Image.fromarray(output, "RGBA")
-        softened = np.asarray(extended.filter(ImageFilter.GaussianBlur(1.15))).copy()
-        output[synthesized, :3] = softened[synthesized, :3]
+        alpha = np.where(corridor, alpha, 0).astype(np.uint8)
+
+        body = np.asarray(rgba(RUNTIME / "body-rig-base.png"), dtype=np.uint8)
+        arm = np.asarray(rgba(RUNTIME / "arm-right.png"), dtype=np.uint8)
+        samples: dict[int, tuple[int, int, np.ndarray, np.ndarray]] = {}
+        for y in np.flatnonzero(strict_gap.any(axis=1)):
+            gap_x = np.flatnonzero(strict_gap[y])
+            left, right = int(gap_x[0]), int(gap_x[-1])
+            row_lo, row_hi = max(0, y - 2), min(CANVAS[1], y + 3)
+            left_strip = body[row_lo:row_hi, max(0, left - 10):max(0, left - 2)]
+            right_strip = arm[row_lo:row_hi, min(CANVAS[0], right + 3):min(CANVAS[0], right + 11)]
+            left_pixels = left_strip[left_strip[:, :, 3] >= 224][:, :3]
+            right_pixels = right_strip[right_strip[:, :, 3] >= 224][:, :3]
+            if len(left_pixels) and len(right_pixels):
+                samples[int(y)] = (
+                    left,
+                    right,
+                    np.median(left_pixels, axis=0),
+                    np.median(right_pixels, axis=0),
+                )
+
+        if not samples:
+            raise RuntimeError("right-shoulder seam has no opaque donor strips")
+
+        # Smooth the donor colours in the vertical direction, but never blur
+        # unpremultiplied RGBA: that was the source of the historical pale
+        # horizontal stripes.
+        source_rows = np.array(sorted(samples), dtype=int)
+        smoothed: dict[int, tuple[int, int, np.ndarray, np.ndarray]] = {}
+        weights = np.array([1.0, 2.0, 3.0, 2.0, 1.0])
+        for y in source_rows:
+            nearby = source_rows[(source_rows >= y - 2) & (source_rows <= y + 2)]
+            local_weights = np.array([weights[row - y + 2] for row in nearby])
+            smoothed[int(y)] = (
+                samples[int(y)][0],
+                samples[int(y)][1],
+                np.average([samples[int(row)][2] for row in nearby], axis=0, weights=local_weights),
+                np.average([samples[int(row)][3] for row in nearby], axis=0, weights=local_weights),
+            )
+
+        output = np.zeros((CANVAS[1], CANVAS[0], 4), dtype=np.uint8)
+        for y in np.flatnonzero(alpha.any(axis=1)):
+            nearest = int(source_rows[np.argmin(np.abs(source_rows - y))])
+            left, right, left_rgb, right_rgb = smoothed[nearest]
+            target_x = np.flatnonzero(alpha[y] > 0)
+            # The colour transition extends through the four-pixel overlap,
+            # keeping the bridge a continuous shade instead of a hard seam.
+            blend = np.clip((target_x - (left - 4)) / max(1, (right - left) + 8), 0.0, 1.0)
+            output[y, target_x, :3] = np.round(
+                left_rgb[None, :] * (1.0 - blend[:, None])
+                + right_rgb[None, :] * blend[:, None]
+            ).astype(np.uint8)
+            output[y, target_x, 3] = alpha[y, target_x]
         return Image.fromarray(output, "RGBA")
 
     specs = {
@@ -221,14 +242,13 @@ def build_underpaint_layers(
         "UnderpaintFootR": [(535, 1030), (815, 1010), (840, 1248), (520, 1248)],
     }
     result: dict[str, Image.Image] = {}
-    # Preserve a narrow copy of the neutral sleeve/waist texture below the
-    # articulated right arm.  This area is fully hidden at rest, but a raised
-    # shoulder exposes the joint overlap.  The generated underpaint reference
-    # has transparent islands here, which showed up as a checkerboard slit in
-    # Cubism even after the WarpArmR cage restored most of the volume.
+    # Limit the right-shoulder bridge to the observed transparent seam.  This
+    # is a limiter rather than a texture shape: see extend_neutral_texture().
     connector_specs = {
         "UnderpaintArmRUpper": [
-            (620, 490), (682, 472), (694, 570), (626, 586),
+            (635, 504), (650, 503), (653, 516), (657, 530),
+            (662, 543), (665, 552), (652, 554), (648, 544),
+            (643, 534), (632, 530), (634, 516),
         ],
     }
     for name, points in specs.items():
@@ -239,6 +259,9 @@ def build_underpaint_layers(
         if connector_points is not None:
             connector = extend_neutral_texture(connector_points)
             layer.alpha_composite(connector)
+            layer_alpha = np.asarray(layer.getchannel("A"))
+            if np.any(layer_alpha[555:, 620:700] > 0):
+                raise RuntimeError("right-shoulder underpaint escaped below the seam")
         layer.save(GENERATED_LAYERS / f"{name}.png", optimize=True)
         result[name] = layer
     return result

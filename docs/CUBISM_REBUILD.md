@@ -1,12 +1,12 @@
 # 竹鹤少女｜Live2D Cubism Editor 连续形变重制规范
 
-## 当前工程状态（2026-08-25）
+## 当前工程状态（2026-08-26）
 
-正式源文件为 `model/cubism/bamboo-crane-maiden-source.psd` 和 `model/cubism/bamboo-crane-maiden-editor.cmo3`，两者已由 Live2D Cubism Editor 5.3.03 实际导入、打开和保存。中性 PSD 的 alpha 加权 RGB 相似度为 99.9938%，Alpha IoU 为 99.5009%。PSD 的 29 个 PixelLayer 已按真实 alpha 包围盒裁层并保留画布坐标偏移，不再以整张 `1254 × 1254` 透明画布作为每层边界；旧错误源保留为 `model/cubism/bamboo-crane-maiden-source-fullcanvas-v1.psd`。
+正式源文件为 `model/cubism/bamboo-crane-maiden-source.psd` 和 `model/cubism/bamboo-crane-maiden-editor.cmo3`，两者已由 Live2D Cubism Editor 5.3.03 实际导入、打开和保存。当前 PSD 含 31 个 PixelLayer，均按真实 alpha 包围盒裁层并保留画布坐标偏移，不再以整张 `1254 × 1254` 透明画布作为每层边界；最新静态门禁的 alpha 加权 RGB 相似度为 99.98372%，Alpha IoU 为 99.45045%。旧错误源保留为 `model/cubism/bamboo-crane-maiden-source-fullcanvas-v1.psd`。
 
 当前 `.cmo3` 已通过明确多选 ArtMesh 的方式建立 `WarpHeadFace`、`WarpRibbons`、`WarpArmsSleeves`、`WarpTorso`、`WarpSkirt`、`WarpLegsFeet`，网格均已目视确认只覆盖对应真实区域。`WarpHeadFace` 已绑定标准 `Angle X` 的 `-30 / 0 / +30` 三个关键形；双眼已拆成 `WarpEyeR / ArtEyeR` 与 `WarpEyeL / ArtEyeL`，闭眼睫毛挂在 `WarpHeadFace`，四张眼睛 ArtMesh 均以 `0 / 0.5 / 1` 三关键点驱动不透明度，半闭状态不再出现双影。头部新增了以颈根为轴心的 `RotHead`，`Angle Z -30 / +30` 对应实际 `-12° / +12°`，左右倾时头脸和发根连续跟随且颈肩无明显裂口。
 
-双臂已从共享区域 Warp 下拆成 `RotShoulderR → WarpArmR → ArtArmR` 与 `RotShoulderL → WarpArmL → ArtArmL`。两个肩部 Rotation Deformer 的轴心已用 `Ctrl + Drag` 校准到解剖肩点，并分别绑定标准 `右肩 上下`、`左肩 上下` 的 `-1 / 0 / +1` 三关键形。右肩当前对应实际 `+8° / 0° / -8°`；左肩测试到 `-8°` 时会暴露悬空底绘，因此现阶段限为 `-4° / 0° / +4°`。这仍只是肩部第一版：后续必须用 `WarpArmR/L` 修正肩口体积和遮挡，再建立肘腕局部关键形。当前正式工程与回退点 `model/cubism/bamboo-crane-maiden-shoulder-params-v1.cmo3` 的 SHA-256 均为 `F589F86EBAED3A74DCD1C86EB70D7DE69EE554BA84E0AF1562CD9DCF74FAC9A8`。
+双臂已从共享区域 Warp 下拆成 `RotShoulderR → WarpArmR → ArtArmR` 与 `RotShoulderL → WarpArmL → ArtArmL`。两个肩部 Rotation Deformer 的轴心已用 `Ctrl + Drag` 校准到解剖肩点，并分别绑定标准 `右肩 上下`、`左肩 上下` 的 `-1 / 0 / +1` 三关键形。右肩当前对应实际 `+8° / 0° / -8°`；左肩测试到 `-8°` 时会暴露悬空底绘，因此现阶段限为 `-4° / 0° / +4°`。右肩已额外在 `-1` 至 `+1` 的九个等距档做实机连续性复核，左肩已复核两端和中性，未见棋盘格漏底、深青色梯形、直边补片或跳变；验收联系人图为 `exports/cubism-right-shoulder-continuity-contact-sheet.png`。中性值已通过“将所有参数值设为默认”确认回到 `0.0`。当前正式工程与里程碑 `model/cubism/bamboo-crane-maiden-shoulders-param-continuous-v1.cmo3` 的 SHA-256 均为 `6BBB29046585A87A5E4FF7DAAF31E90F9561C8280E739585C947F1408F226318`。
 
 这一里程碑只代表六个区域的局部连续 Warp、头部 `Angle X / Angle Y / Angle Z`、三关键点眼开合和左右肩第一版参数成立，不代表动画完成。肩部 Warp 修形、肘腕、髋膝踝参数关键形、Glue、Clipping/Draw Order、物理、1.52 秒眨眼时序、操演/动捕接入和 `.moc3 + model3.json + physics3.json` 导出仍待完成；双腿仍需从合并区域 Warp 拆成左右独立关节链。旧网页不可作为当前 Cubism 模型的动画预览。
 

@@ -9,8 +9,8 @@
   "pixelLayers": 31,
   "fullCanvasPixelLayers": [],
   "invalidObjectNames": [],
-  "neutralSimilarity": 0.999867785813964,
-  "neutralAlphaIoU": 0.994475100452719,
+  "neutralSimilarity": 0.9998372033934684,
+  "neutralAlphaIoU": 0.9945044830054887,
   "underpaintLayers": 13,
   "underpaintPurpose": "hidden joint and garment continuity; never used as the neutral likeness reference"
 }

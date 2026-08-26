@@ -1,6 +1,6 @@
 # 竹鹤少女 · 全身 Live2D 操演系统
 
-> 当前状态（2026-08-25）：网页版本只保留为交互与动作原型。正式版本已在官方 Live2D Cubism Editor 5.3.03 中完成局部连续 Warp、独立双眼三关键点开合、闭眼睫毛、颈根头部旋转和左右肩参数第一版；两个肩轴已校准到解剖肩点，右肩安全范围为实际 `+8° / 0° / -8°`，左肩暂限为 `-4° / 0° / +4°`。肩部 Warp 修形、肘腕、双腿、物理和运行时导出仍在制作，详见 `docs/CUBISM_REBUILD.md`。
+> 当前状态（2026-08-26）：网页版本只保留为交互与动作原型。正式版本已在官方 Live2D Cubism Editor 5.3.03 中完成局部连续 Warp、独立双眼三关键点开合、闭眼睫毛、颈根头部旋转和双肩参数。右肩已按 `-1 → -0.75 → -0.5 → -0.25 → 0 → 0.25 → 0.5 → 0.75 → +1` 做连续目视检查，左肩已复核 `-1 / 0 / +1`；中性默认值为 `0`。肩口修形、肘腕、双腿、物理和运行时导出仍在制作，详见 `docs/CUBISM_REBUILD.md`。
 
 这是依据参考图制作的全身角色原型。网页运行时已验证头、躯干、双臂、骨盆、双腿、双脚、发丝、衣袖、裙摆和披帛的控制需求，但旧实现依赖 PNG 分片，不能替代 Cubism 的连续 ArtMesh 变形。正式交付将以官方 Cubism Editor 实际打开、保存和导出的工程为准；现有自动生成 `.cmo3` 仅保留作技术实验。
 
@@ -28,7 +28,7 @@
 
 ## 模型与素材
 
-正式 Cubism 源 PSD 是 `model/cubism/bamboo-crane-maiden-source.psd`，当前编辑工程是 `model/cubism/bamboo-crane-maiden-editor.cmo3`；`model/cubism/bamboo-crane-maiden-shoulder-params-v1.cmo3` 是当前肩轴与肩参数里程碑回退点。可直接用 `tools/CUBISM/CubismEditor5.exe` 打开正式 `.cmo3`。不要把旧的 `model/bamboo-crane-maiden.cmo3` 当作正式工程：它是参考项目的实验写出物，官方 Editor 已验证其对象 ID 和 ArtMesh 数据不合法。
+正式 Cubism 源 PSD 是 `model/cubism/bamboo-crane-maiden-source.psd`，当前编辑工程是 `model/cubism/bamboo-crane-maiden-editor.cmo3`；`model/cubism/bamboo-crane-maiden-shoulders-param-continuous-v1.cmo3` 是已保存的双肩连续参数里程碑。可直接用 `tools/CUBISM/CubismEditor5.exe` 打开正式 `.cmo3`。不要把旧的 `model/bamboo-crane-maiden.cmo3` 当作正式工程：它是参考项目的实验写出物，官方 Editor 已验证其对象 ID 和 ArtMesh 数据不合法。
 
 `model/live2d/bamboo-crane-maiden.model3.json` 及同目录 `.moc3`、纹理、物理和动作仍属于旧网页原型。它们用于保留键鼠、手柄、动捕和时间轴接口，不代表当前 Cubism 重制版已经导出；正式运行时包必须等 Editor 内参数和物理完成后重新导出。
 
