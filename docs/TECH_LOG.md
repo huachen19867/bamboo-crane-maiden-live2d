@@ -1,5 +1,15 @@
 # 技术日志
 
+## 2026-08-26｜面部 V2 静态分层预检：以真实源像素拆开眼睛，不再扩大眼贴片
+
+按照质量重置后的第一道门，新增 `tools/build_face_rebuild_psd.py`，但没有改写当前官方 PSD、`.cmo3` 或 `runtime-mvp-v1`。该脚本先检查 V1 生成层是否齐全，再把原始中性角色像素重组成独立的 V2 暂存 PSD：`model/cubism/bamboo-crane-maiden-face-rebuild-v2.psd`。它的身体组明确命名为 `Legacy*`，提醒后续不能把旧躯干、手脚和裙片误当作连续关节已经完成；新 `HeadFaceV2` 则把每一侧眼睛拆成 `EyeWhite / Iris / Pupil / Highlight / UpperLid / LowerLid`，闭眼线仍保留为独立 ArtMesh。
+
+静态验收不是用参考图回显，而是重新打开 V2 PSD 后合成其真实可见层，和当前透明母版比较。报告 `exports/cubism-face-rebuild-v2-report.json` 的 alpha 加权 RGB 相似度为 `0.9998101890`、Alpha IoU 为 `0.9945044830`，满足此预检的 `>= 0.99` 门槛；全身预览和面部特写分别保存为 `exports/cubism-face-rebuild-v2-preview.png` 与 `exports/cubism-face-rebuild-v2-face-close.png`。面部特写确认仍是参考图的自然眼宽与眼距，不是为了“动态高光”人为放大的大眼。
+
+该结果的边界必须保持：V2 目前只证明静态分层合成和源像素比例正确，尚未导入 Cubism 创建 ArtMesh、没有绑定上下眼睑关键形、没有运行闭眼/视线参数，更没有解决四肢或衣发。因此不能把这次通过称为“眨眼已经自然”或“全身已重建”。下一步是把 V2 PSD 以独立工程导入官方 Editor，先完成眼睑的 `0 / 0.5 / 1` 实际形变并检查开眼、半闭、闭眼，再考虑移植到正式重建主线。
+
+运行脚本时系统 `python` 命令不在 PATH；本机可复用的受控运行时是 `tools/_runtime/python312/python.exe`。调用方式为 `& (Resolve-Path 'tools\\_runtime\\python312\\python.exe') tools\\build_face_rebuild_psd.py`。该脚本会只清理 `assets/cubism/rebuild-v2/face-layers/*.png` 这一个可再生目录，不会触碰 V1 分层、候选资产或任何 Editor 文档。
+
 ## 2026-08-26｜第二次质量复盘：把老板的成品定义和工作纪律写成不可绕过的约束
 
 这次复盘不把“Viewer 能打开”“Motion3 有曲线”“浏览器测试通过”当作质量成果。老板对现有导出的直接评价是：人物像碎片拼起来，夸张的大眼脱离原角色，一动就是贴片绕轴旋转。这个评价与当前技术事实一致：`model/cubism/runtime-mvp-v1/` 能加载 `.moc3` 和 `MVP_idle.motion3.json`，却没有 `physics3.json`，其 `.model3.json` 也没有 `Physics` 引用；因此它只能证明最小导出与播放通路，不能证明衣发物理、全身连续性或可操演质量。它保留为失败样本和导出格式参考，不能再写作“可交付 MVP”。

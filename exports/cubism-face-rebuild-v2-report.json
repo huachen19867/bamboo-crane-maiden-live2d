@@ -1,0 +1,17 @@
+{
+  "purpose": "staged face-only rebuild; legacy body groups are not completed joints",
+  "psd": "model\\cubism\\bamboo-crane-maiden-face-rebuild-v2.psd",
+  "preview": "exports\\cubism-face-rebuild-v2-preview.png",
+  "facePreview": "exports\\cubism-face-rebuild-v2-face-close.png",
+  "eyeLayersPerSide": [
+    "EyeWhite",
+    "Iris",
+    "Pupil",
+    "Highlight",
+    "UpperLid",
+    "LowerLid"
+  ],
+  "neutralSimilarity": 0.9998101890159912,
+  "neutralAlphaIoU": 0.9945044830054887,
+  "pass": true
+}
