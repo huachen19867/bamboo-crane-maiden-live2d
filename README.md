@@ -40,6 +40,8 @@ Viewer 打开后，在左侧展开 `motions → Idle → MVP_idle.motion3.json`�
 
 正式 Cubism 源 PSD 是 `model/cubism/bamboo-crane-maiden-source.psd`，当前编辑工程是 `model/cubism/bamboo-crane-maiden-editor.cmo3`；`model/cubism/bamboo-crane-maiden-shoulders-param-continuous-v1.cmo3` 是已保存的双肩连续参数里程碑。可直接用 `tools/CUBISM/CubismEditor5.exe` 打开正式 `.cmo3`。不要把旧的 `model/bamboo-crane-maiden.cmo3` 当作正式工程：它是参考项目的实验写出物，官方 Editor 已验证其对象 ID 和 ArtMesh 数据不合法。
 
+质量重置后的素材审计和重绘边界见 `docs/REBUILD_ASSET_AUDIT.md`。其中的候选补绘图只用于隐藏结构参考，不参与相似度得分，也不会直接覆盖参考图或当前 PSD。
+
 `model/live2d/bamboo-crane-maiden.model3.json` 及同目录 `.moc3`、纹理、物理和动作仍属于旧网页原型。它们用于保留键鼠、手柄、动捕和时间轴接口，不代表当前 Cubism 重制版已经导出；正式运行时包必须等 Editor 内参数和物理完成后重新导出。
 
 `assets/runtime/character-master-4k.png` 是透明运行纹理，`exports/character-master-8k.png` 是 7680×7680 RGBA 归档图。8K 文件由高质量重采样得到，不等于原生 8K 手绘细节。角色透明蒙版来自隔离图，RGB 纹理由统一坐标配准后的参考图采样，因此实际分层纹理与参考角色保持像素一致，而不是用“参考图显示模式”冒充模型相似度。
