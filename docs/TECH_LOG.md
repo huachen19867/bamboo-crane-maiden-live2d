@@ -1,5 +1,13 @@
 # 技术日志
 
+## 2026-08-26｜V2 面部暂存工程已由官方 Editor 实际导入；动态眼睑仍未通过
+
+`bamboo-crane-maiden-face-rebuild-v2.psd` 已在 Live2D Cubism Editor 5.3.03 中选择“从 PSD 文件创建模型”并成功打开。Editor 的 Part 树可见 `HeadFaceV2` 和标注为 `Legacy*` 的身体组，变形器树可见左右 `ArtEyeWhite / ArtIris / ArtPupil / ArtHighlight / ArtUpperLid / ArtLowerLid` 以及闭眼线；中性画布与本地 PSD 预览一致。新工程仅另存为 `model/cubism/bamboo-crane-maiden-face-rebuild-v2.cmo3`，大小 `7,019,892` 字节、SHA-256 `5195A9313A98DF54FA4041950EC717CB183B52B52CA0C7ACA049F81EBFC69CD9`。它由既有忽略规则保留在本地，当前正式 `bamboo-crane-maiden-editor.cmo3` 没有被覆盖或修改。
+
+这一步确认的是“PSD 能被官方 Editor 解析为真实 Part/ArtMesh”，不是“眨眼已经自然”。导入后 Editor 面板有标准左右眼开闭参数，但尝试以旧窗口坐标直接拨动滑块时，落点与新布局不一致，临时改变了左眼开闭/微笑的会话显示值，未得到可靠的 0、0.5、1 三态截图。没有在这之后保存 V2，因此该临时显示值没有进入已保存 `.cmo3`；也没有任何动态结果可据此声称已经完成。重新打开模型时又因文件对话框焦点不可靠而弹出工作区的 Explorer 窗口，已只关闭该由本次操作打开的窗口，没有修改文件。
+
+可复用的纠正是：同一模型窗口内可批量执行的操作继续批量做；但跨“欢迎页、文件打开、PSD 导入、模型设置、已打开模型”这些不同对话框时，不得沿用截图坐标。后续在继续眼睑参数前，先以当前窗口截图或可访问控件定位数值字段/默认值命令，确认能把两眼恢复为中性后再批量设置 `0 / 0.5 / 1`；若不能可靠定位，就停在 V2 不保存，优先完善可复现的 UI 定位而非反复试点。
+
 ## 2026-08-26｜面部 V2 静态分层预检：以真实源像素拆开眼睛，不再扩大眼贴片
 
 按照质量重置后的第一道门，新增 `tools/build_face_rebuild_psd.py`，但没有改写当前官方 PSD、`.cmo3` 或 `runtime-mvp-v1`。该脚本先检查 V1 生成层是否齐全，再把原始中性角色像素重组成独立的 V2 暂存 PSD：`model/cubism/bamboo-crane-maiden-face-rebuild-v2.psd`。它的身体组明确命名为 `Legacy*`，提醒后续不能把旧躯干、手脚和裙片误当作连续关节已经完成；新 `HeadFaceV2` 则把每一侧眼睛拆成 `EyeWhite / Iris / Pupil / Highlight / UpperLid / LowerLid`，闭眼线仍保留为独立 ArtMesh。

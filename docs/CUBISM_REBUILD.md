@@ -4,6 +4,8 @@
 
 本工程已进入质量重置阶段。`runtime-mvp-v1` 虽能被官方 Viewer 加载并播放 Motion3，但老板的实机观感评审判定其存在严重拼接感、贴片旋转感和失真的夸张眼部；因此它被降级为技术失败样本，不能作为后续“已有完成度”累计，也不能作为最终效果宣传。以后以 `docs/USER_ACCEPTANCE_SPEC.md` 的视觉门槛优先于任何 JSON、播放或参数测试。
 
+面部的质量重置已建立一条独立暂存线：`tools/build_face_rebuild_psd.py` 生成 `bamboo-crane-maiden-face-rebuild-v2.psd`，把每侧眼睛拆为眼白、虹膜、瞳孔、高光、上眼睑和下眼睑，静态 PSD 合成相对透明母版的相似度为 `99.9810%`。该 PSD 已在官方 Editor 实际导入并另存为本地暂存 `bamboo-crane-maiden-face-rebuild-v2.cmo3`；它不会替换当前正式工程。此处只证明静态分层和 Editor 导入成功：尚未建立可靠的眼睑关键形或闭眼动作，`0 / 0.5 / 1` 眼开合测试仍未通过，因此不得引用它声称“眼睛已修复”。
+
 正式源文件为 `model/cubism/bamboo-crane-maiden-source.psd` 和 `model/cubism/bamboo-crane-maiden-editor.cmo3`，两者已由 Live2D Cubism Editor 5.3.03 实际导入、打开和保存。当前 PSD 含 31 个 PixelLayer，均按真实 alpha 包围盒裁层并保留画布坐标偏移，不再以整张 `1254 × 1254` 透明画布作为每层边界；最新静态门禁的 alpha 加权 RGB 相似度为 99.98372%，Alpha IoU 为 99.45045%。旧错误源保留为 `model/cubism/bamboo-crane-maiden-source-fullcanvas-v1.psd`。
 
 当前 `.cmo3` 已通过明确多选 ArtMesh 的方式建立 `WarpHeadFace`、`WarpRibbons`、`WarpArmsSleeves`、`WarpTorso`、`WarpSkirt`、`WarpLegsFeet`，网格均已目视确认只覆盖对应真实区域。`WarpHeadFace` 已绑定标准 `Angle X` 的 `-30 / 0 / +30` 三个关键形；双眼已拆成 `WarpEyeR / ArtEyeR` 与 `WarpEyeL / ArtEyeL`，闭眼睫毛挂在 `WarpHeadFace`，四张眼睛 ArtMesh 均以 `0 / 0.5 / 1` 三关键点驱动不透明度，半闭状态不再出现双影。头部新增了以颈根为轴心的 `RotHead`，`Angle Z -30 / +30` 对应实际 `-12° / +12°`，左右倾时头脸和发根连续跟随且颈肩无明显裂口。
