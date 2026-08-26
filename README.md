@@ -1,12 +1,12 @@
 # 竹鹤少女 · 全身 Live2D 操演系统
 
-> 当前状态（2026-08-26）：正式 Cubism MVP 已导出并经官方 Cubism Viewer 5.3.03 实际加载、播放验证。它包含全身立绘、头部姿态、左右独立三关键点眨眼、左右肩与一个 1.52 秒循环待机动作；肘腕、髋膝踝、衣物和头发物理仍是下一阶段，不能误认为已经完成。
+> 当前状态（2026-08-26）：`runtime-mvp-v1` 是一次技术导出验证，已能由官方 Viewer 加载和播放，但视觉评审失败：存在拼接感、贴片旋转感和不合格的眼部结构。它不是可交付角色，只保留为失败样本与运行时格式参考。后续重建的验收标准见 `docs/USER_ACCEPTANCE_SPEC.md`。
 
 这是依据参考图制作的全身角色原型。网页运行时已验证头、躯干、双臂、骨盆、双腿、双脚、发丝、衣袖、裙摆和披帛的控制需求，但旧实现依赖 PNG 分片，不能替代 Cubism 的连续 ArtMesh 变形。正式交付将以官方 Cubism Editor 实际打开、保存和导出的工程为准；现有自动生成 `.cmo3` 仅保留作技术实验。
 
 ## 怎么玩
 
-### 正式 Cubism MVP
+### Cubism 技术样品（非成品）
 
 在 PowerShell 中运行：
 
@@ -14,7 +14,7 @@
 .\Run-MVP-Viewer.ps1
 ```
 
-Viewer 打开后，在左侧展开 `motions → Idle → MVP_idle.motion3.json`，点击下方“播放”。MVP 的循环包含 1.52 秒一次的左右眼闭合、轻微的颈根转头与双肩起伏。运行时包位于 `model/cubism/runtime-mvp-v1/`，其中 `.moc3`、`.model3.json`、`.cdi3.json`、纹理与动作文件保持相对路径，可整体复制给支持 Cubism SDK 5.3 的运行时。
+Viewer 打开后，在左侧展开 `motions → Idle → MVP_idle.motion3.json`，点击下方“播放”。该样品用于检查导出路径与 Motion3 播放，不可用作视觉质量基准或最终角色交付。运行时包位于 `model/cubism/runtime-mvp-v1/`。
 
 在 PowerShell 中运行：
 

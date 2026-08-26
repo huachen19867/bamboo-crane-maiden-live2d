@@ -2,6 +2,8 @@
 
 ## 当前工程状态（2026-08-26）
 
+本工程已进入质量重置阶段。`runtime-mvp-v1` 虽能被官方 Viewer 加载并播放 Motion3，但老板的实机观感评审判定其存在严重拼接感、贴片旋转感和失真的夸张眼部；因此它被降级为技术失败样本，不能作为后续“已有完成度”累计，也不能作为最终效果宣传。以后以 `docs/USER_ACCEPTANCE_SPEC.md` 的视觉门槛优先于任何 JSON、播放或参数测试。
+
 正式源文件为 `model/cubism/bamboo-crane-maiden-source.psd` 和 `model/cubism/bamboo-crane-maiden-editor.cmo3`，两者已由 Live2D Cubism Editor 5.3.03 实际导入、打开和保存。当前 PSD 含 31 个 PixelLayer，均按真实 alpha 包围盒裁层并保留画布坐标偏移，不再以整张 `1254 × 1254` 透明画布作为每层边界；最新静态门禁的 alpha 加权 RGB 相似度为 99.98372%，Alpha IoU 为 99.45045%。旧错误源保留为 `model/cubism/bamboo-crane-maiden-source-fullcanvas-v1.psd`。
 
 当前 `.cmo3` 已通过明确多选 ArtMesh 的方式建立 `WarpHeadFace`、`WarpRibbons`、`WarpArmsSleeves`、`WarpTorso`、`WarpSkirt`、`WarpLegsFeet`，网格均已目视确认只覆盖对应真实区域。`WarpHeadFace` 已绑定标准 `Angle X` 的 `-30 / 0 / +30` 三个关键形；双眼已拆成 `WarpEyeR / ArtEyeR` 与 `WarpEyeL / ArtEyeL`，闭眼睫毛挂在 `WarpHeadFace`，四张眼睛 ArtMesh 均以 `0 / 0.5 / 1` 三关键点驱动不透明度，半闭状态不再出现双影。头部新增了以颈根为轴心的 `RotHead`，`Angle Z -30 / +30` 对应实际 `-12° / +12°`，左右倾时头脸和发根连续跟随且颈肩无明显裂口。
