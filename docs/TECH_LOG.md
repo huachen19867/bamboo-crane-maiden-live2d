@@ -115,3 +115,13 @@ Cubism `.cmo3` 是参考仓库的实验写出器产物。当前环境没有安�
 眨眼已从肤色椭圆覆盖改成独立眼睛图层纵向压缩，完全闭合时只画细睫毛线。视觉门禁用闭眼差分包围盒高宽比 `<= 0.65` 排除“拿一块皮肤色盖住眼睛”的假实现。物理层采用独立阻尼弹簧，至少包括左右头发、发梢、左右袖、三片裙摆和上下披帛；鼠标拖拽、按键/手柄动作和时间轴向同一个风场注入脉冲，因此释放后可以验收连续回弹，而不是开关式跳变。
 
 最终统一验证入口改为 `node tools/verify_viewer.mjs`，它顺序运行严格视觉 Agent 与玩家操纵 Agent，再写 `exports/viewer-verification.json`。当前结果为视觉 20/20、玩家 26/26，控制台错误 0。单独定位视觉问题用 `node tools/visual_acceptance_agent.mjs --strict`，定位输入问题用 `node tools/player_control_sim_agent.mjs`；前者的联系人图最适合看肩、腰、脚踝穿帮，后者的 JSON 最适合看驱动混合、脚锁和输入释放。
+
+## 2026-08-26｜正式 Cubism MVP 导出与官方 Viewer 实播
+
+正式工程 `model/cubism/bamboo-crane-maiden-editor.cmo3` 已在本轮保存，保存对话框明确选择“否”，保留 7 张未使用原画。导出采用 Cubism Editor 的“导出为 moc3 文件”，目标目录为 `model/cubism/runtime-mvp-v1/`，得到 `bamboo-crane-maiden-mvp.moc3`、对应 `.model3.json`、`.cdi3.json` 和 `bamboo-crane-maiden-mvp.2048/texture_00.png`。`model3.json` 的纹理相对路径经检查与真实目录一致；官方 Cubism Viewer 5.3.03 成功打开该 `.model3.json`，截图为 `exports/cubism-viewer-mvp-final.png`。
+
+同一保存点额外复制为本地回退 `model/cubism/bamboo-crane-maiden-mvp-fullbody-root-v1.cmo3`，SHA-256 为 `D8A642444B266C7DB06462A9DAADF9EA04EFDABF379456744410829298D9834B`。该 checkpoint 依既有忽略规则不进入 Git；可交付的运行时目录则已单独从忽略规则中豁免，确保推送时包含 `.moc3`、纹理和 Motion3。
+
+为了给 MVP 一个无需网页原型即可播放的待机动作，新增符合 Motion3 v3 结构的 `motions/MVP_idle.motion3.json`，并在 `model3.json` 的 `Motions.Idle` 中登记。曲线驱动左右眼开合、头部 `Angle Z` 和左右肩：周期精确为 1.52 秒，闭眼窗口 0.70–0.80 秒。Viewer 展开 `motions → Idle` 后可选择该文件并点击“播放”；实播两个时间点的模型区域差分为 28,370 像素、边界为 `(1342,473)-(1857,1380)`，属于角色画面而非左侧界面变化，证据为 `exports/cubism-viewer-mvp-motion-evidence.png`。这验证了导出模型、纹理和 Motion3 曲线能共同加载、并实际驱动角色。
+
+本次导出窗口中 `physics3.json` 选项是禁用状态，原因是 `.cmo3` 尚未建立 Cubism Physics 配置；不能为满足文件清单伪造物理文件或声称衣发已经物理化。`Run-MVP-Viewer.ps1` 提供一键启动官方 Viewer 的入口。今后 Editor 操作按“同一对话框内的可逆步骤批量执行，保存、导出和播放才复核”的节奏，避免对每一个鼠标动作都截图确认。

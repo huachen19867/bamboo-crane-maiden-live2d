@@ -8,7 +8,9 @@
 
 双臂已从共享区域 Warp 下拆成 `RotShoulderR → WarpArmR → ArtArmR` 与 `RotShoulderL → WarpArmL → ArtArmL`。两个肩部 Rotation Deformer 的轴心已用 `Ctrl + Drag` 校准到解剖肩点，并分别绑定标准 `右肩 上下`、`左肩 上下` 的 `-1 / 0 / +1` 三关键形。右肩当前对应实际 `+8° / 0° / -8°`；左肩测试到 `-8°` 时会暴露悬空底绘，因此现阶段限为 `-4° / 0° / +4°`。右肩已额外在 `-1` 至 `+1` 的九个等距档做实机连续性复核，左肩已复核两端和中性，未见棋盘格漏底、深青色梯形、直边补片或跳变；验收联系人图为 `exports/cubism-right-shoulder-continuity-contact-sheet.png`。中性值已通过“将所有参数值设为默认”确认回到 `0.0`。当前正式工程与里程碑 `model/cubism/bamboo-crane-maiden-shoulders-param-continuous-v1.cmo3` 的 SHA-256 均为 `6BBB29046585A87A5E4FF7DAAF31E90F9561C8280E739585C947F1408F226318`。
 
-这一里程碑只代表六个区域的局部连续 Warp、头部 `Angle X / Angle Y / Angle Z`、三关键点眼开合和左右肩第一版参数成立，不代表动画完成。肩部 Warp 修形、肘腕、髋膝踝参数关键形、Glue、Clipping/Draw Order、物理、1.52 秒眨眼时序、操演/动捕接入和 `.moc3 + model3.json + physics3.json` 导出仍待完成；双腿仍需从合并区域 Warp 拆成左右独立关节链。旧网页不可作为当前 Cubism 模型的动画预览。
+本轮已保存正式 `.cmo3`，并导出 `model/cubism/runtime-mvp-v1/`：包含 `.moc3`、`.model3.json`、`.cdi3.json` 与 2048 纹理；其标准引用路径经官方 Cubism Viewer 5.3.03 实际加载。该包另附手工编排、符合 Cubism Motion3 规范的 `motions/MVP_idle.motion3.json`，以 `ParamEyeLOpen`、`ParamEyeROpen`、`ParamAngleZ`、`ParamShoulderRY`、`ParamShoulderLY` 在 1.52 秒内循环；Viewer 实播帧间模型区域变化 `28,370` 像素，证明动作曲线被实际执行，而非只验证 JSON 存在。Export 设置中物理导出项不可用，因为工程尚未创建 Cubism Physics 配置，因此本 MVP 不含 `physics3.json`。
+
+这一里程碑只代表六个区域的局部连续 Warp、头部 `Angle X / Angle Y / Angle Z`、三关键点眼开合、左右肩第一版参数和最小待机动作成立，不代表动画完成。肩部 Warp 修形、肘腕、髋膝踝参数关键形、Glue、Clipping/Draw Order、衣物/头发物理、操演/动捕接入仍待完成；双腿仍需从合并区域 Warp 拆成左右独立关节链。旧网页不可作为当前 Cubism 模型的动画预览。
 
 ## 项目结论
 

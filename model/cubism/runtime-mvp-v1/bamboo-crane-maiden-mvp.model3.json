@@ -1,0 +1,32 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "bamboo-crane-maiden-mvp.moc3",
+		"Textures": [
+			"bamboo-crane-maiden-mvp.2048/texture_00.png"
+		],
+		"DisplayInfo": "bamboo-crane-maiden-mvp.cdi3.json"
+		,
+		"Motions": {
+			"Idle": [
+				{
+					"File": "motions/MVP_idle.motion3.json",
+					"FadeInTime": 0.25,
+					"FadeOutTime": 0.25
+				}
+			]
+		}
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		}
+	]
+}
