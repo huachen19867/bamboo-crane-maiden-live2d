@@ -23,4 +23,6 @@ Avoid: photorealism, different face, different pose, redesign, simplified clothi
 
 `tools/prepare_candidate_alpha.py` 复用项目已验证的边缘连通背景算法，把它转换为真实 Alpha 版本 `assets/source/candidates/identity-preserved-fullbody-v1-alpha.png`。该文件的 SHA-256 为 `0A3B63946A25A002F3F38DC782625116234CDC6ADEDDAB607570E0EE09136045`，透明区域约占 69.98%。它仅作为重建 PSD 时被袖、腰带、裙摆和头发遮住区域的结构/取色参考，不替换 `assets/source/reference.png`，不直接参与静态 95% 相似度评分，也不得直接贴到可见层上。
 
+该边界已做过一次保守的轮廓配准量化：候选以 `0.986` 缩放、`(+47,+118)` 平移对齐现有 1254px 参考预览后，候选 Alpha 加权 RGB 的整人相似度仅为 `84.2272%`，面部窗口为 `79.0551%`，远低于 95% 门槛。这不是生成失败后的主观判断，而是禁止其进入可见层的直接证据。既有 `assets/cubism/body-underpaint-v1.png` 也不是替代品：它是另一套浅色服装和裸腿结构，与参考角色的青绿鹤纹服装不一致。两类素材只可作为隐藏解剖/遮挡草图，不可作为动态露出区域的最终纹理。
+
 候选使用的内置生成提示保留在本线程，并要求“同一姿态、同一角色、透明背景、正常眼睛、无场景/文字/水印、补全隐藏结构”。后续若采用其任何像素进入正式 PSD，必须在对应层记录具体来源区域并通过中性合成与关节极值人工审阅。
