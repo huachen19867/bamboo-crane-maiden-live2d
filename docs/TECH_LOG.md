@@ -255,3 +255,20 @@ Cubism `.cmo3` 是参考仓库的实验写出器产物。当前环境没有安�
 但本工程当前源层级存在决定性限制：从变形器树直接多选命名为右眼的睫毛、眼白、虹膜、瞳孔等 ArtMesh，再以“设为所选对象的父级”创建 Warp，会把共同父级 `ReferenceNeutral` 及其全体子元素一并纳入，生成覆盖全角色的网格。第一次用 Level 2 框选行带时又会把覆盖矩形内的脸底 ArtMesh 选入，闭眼修形把脸拉坏；两种状态均未保存，绝不能补救后当作局部眨眼。随后关闭 Editor 并核对 `bamboo-crane-maiden-face-rebuild-v2.cmo3` 与 `bamboo-crane-maiden-face-rebuild-v2-pre-eyeblink-v1.cmo3`：两者仍为 7,019,892 字节，SHA-256 同为 `5195A9313A98DF54FA4041950EC717CB183B52B52CA0C7ACA049F81EBFC69CD9`。
 
 后续必须先解决“可独立选中的眼部父级”而不是继续对 `ReferenceNeutral` 试坐标：在 PSD 或 Editor 层级中建立只含右眼六层的中间 Part / 父级，确认新 Warp 选择框严格落在眼周后，才进行 `0 / 0.5 / 1` 的 Level 2 成组收拢和 Level 1 微调。每次新建 Warp 的第一质量门是查看其控制框是否只包眼部；若包含脸底、头发或全身，立即不保存退出。此判断能把失败从“做完一轮后才发现参数全错”提前到一眼可见的结构门。
+## 2026-08-29｜V4 头部生产层 V2：修正配准、洋红抠图与刘海/耳部缺口
+
+在 V1 头部候选的质量门复核中确认了三个可复用根因：候选脸底 X 缩放 `0.777` 使脸颊比指南窄，导致脸缘出现洋红环；用整块 `skin_region` 排除头发会把额前刘海一并删除；把耳饰矩形 ROI 放进 `reserved` 会在耳侧挖出矩形透明洞。V1 保留为拒绝证据，不得导入 Cubism。
+
+V2 修改 `pipeline/v4/build_head_production_psd.py`：将候选脸底 X 缩放改为 `0.83`、Y 仍为 `0.66`；洋红抠图改成“红/蓝占优 + 低绿 + 3 px 边缘吞吐”的色相规则，不再使用纯洋红欧氏距离；前刘海采用棕/暗色与限定空间通道恢复，并用局部亮度扩张补回发丝高光；眉 ROI 收窄为水平眉带；`reserved` 只排除实际耳饰像素；颈部改为 V 形可见区域，耳/颈候选缺口从指南补回。该方案保留面部底绘为独立层，避免把指南中的头发烘焙进 `ArtFaceBase`。
+
+本轮正式候选产物：`model/cubism-v4/bamboo-crane-maiden-v4-head-production-v2.psd`，SHA-256 `6BE1E3D44F17D7E67179EBE5EF2AFA72CCA2173FB204841C51056130D233834C`；中性预览 `exports/v4-head-production-neutral-v2.png`；头部指南空间预览 `exports/v4-head-production-guide-space-v2.png`；报告 `exports/v4-head-production-report-v2.json`；构建日志 `exports/v4-head-production-build-v2.log`。构建使用受控解释器 `tools/_runtime/python312/python.exe` 与 `tools/_python`，命令为：
+
+```powershell
+$pythonExe = (Resolve-Path 'tools\\_runtime\\python312\\python.exe').Path
+$env:PYTHONPATH = (Resolve-Path 'tools\\_python').Path
+& $pythonExe 'pipeline\\v4\\build_head_production_psd.py'
+```
+
+V2 报告的可复核指标为：`visible_magenta_pixels=0`、指南重叠 RGB 平均绝对误差 `2.9025`、通道误差不超过 24 的比例 `97.8113%`、头部 22 层、身体/衣裙 10 层。预览已目视确认 V1 的洋红环、耳侧透明矩形和秃额刘海不再出现。这个门只证明“生产层候选可进入 Cubism 网格阶段”，不证明已经完成 ArtMesh、Warp、Rotation、眨眼关键形、物理或运行时导出。
+
+下一步必须先把 V2 PSD 在 Cubism 5.4 alpha1 导入另存副本，确认每个 ArtMesh 使用真实 alpha bbox 且自动网格顶点数大于 4；随后只做双眼 `0/0.5/1` 三档和头部局部 Warp 的人工网格修形。右臂肩肘腕底绘仍未完成，不能创建全身 Rotation 或 Physics。若 Editor 发现边界裂缝，应回到 V2 PSD/脚本修层，不在 CMO3 里用大范围旋转掩盖。
