@@ -6,7 +6,7 @@
 
 **重新导入与网格**：V3 PSD 在 5.4 alpha1 重新导入并另存 `model/cubism-v4/bamboo-crane-maiden-v4-head-production-v3-import.cmo3`，全选后用 `Ctrl+Shift+A` 自动生成网格（实时应用对话框必须改一次数值才会触发应用——仅打开不动值不生效）。终态 33 个 ArtMesh、合计 778 顶点、仅隐藏指南层保持 4 点。
 
-**眨眼差分（淡出版）已落地并视觉验证**：双眼 8 个眼内层（眼白/虹膜/瞳仁/高光 × 2）在 ParamEyeLOpen/ParamEyeROpen 上各建 `@0 → 透明度 0`、`@0.5 → 100` 的键形，base=100。左眼=0 时左眼内容淡出、眼区只剩皮肤与睫毛线（`exports/v4-blink-state-L0-closed.png`）；右眼=0 同理（`exports/v4-blink-state-0-closed.png`）；双眼=1 完全睁开（`exports/v4-blink-state-1-both-open.png`）；左开右闭差分同框（`exports/v4-blink-final-1L-0R.png`）。API `GetParameterKeys` 确认 8 层键位齐全，终态报告 `exports/v4-final-state.json`。检查点已保存（03:57:34，SHA-256 `137450EC25B3EF6F198CBF5BA36E9043A12F594C0C76B49D5B08C2C276B6B3EE`）。
+**眨眼差分（淡出版）已落地并视觉验证**：双眼 8 个眼内层（眼白/虹膜/瞳仁/高光 × 2）在 ParamEyeLOpen/ParamEyeROpen 上各建 `@0 → 透明度 0`、`@0.5 → 100` 的键形，base=100。左眼=0 时左眼内容淡出、眼区只剩皮肤与睫毛线（`exports/v4-blink-state-L0-closed.png`）；右眼=0 同理（`exports/v4-blink-state-0-closed.png`）；双眼=1 完全睁开（`exports/v4-blink-state-1-both-open.png`）；左开右闭差分同框（`exports/v4-blink-final-1L-0R.png`）。API `GetParameterKeys` 确认 8 层键位齐全，终态报告 `exports/v4-final-state.json`。检查点最终保存于 04:36:27（SHA-256 `53F5D8E94B2A9AE34CAFAF3EC054750BF04D46666A641ABB8D4BC0E39CC76BFD`，参数面板已复位 1.0/1.0；03:57 的中间版 SHA 为 `137450EC…B3EE`）。文档经关闭重开复核，键位与网格完整落盘（`exports/v4-reopen-check.json`）。
 
 **必须如实记录的边界**：一，本版眨眼是"内容淡出"型，上眼睑平移（睫毛线下落）的网格顶点关键形**没有记录成功**——网格编辑模式内的多次顶点拖拽均未生成键形（`GetParameterKeys` 显示 ArtUpperLidL/R 键形为空），因此参数 0 的闭眼是"无眼球的眼眶+静止睫毛"，不是标准的"眼睑合拢"，下一版应在 GUI 里人工补 4 次眼睑下移键形（选层 → Ctrl+E → Ctrl+A → 拖弧线至下睑线 → ✓）。二，参数 0.5 的中间态目前渲染为"半透明冲淡"而非干净半闭，键点编辑器（双击参数行打开「键点 - 参数名」面板）里人工核调 @0.5 键值即可。三，保存的检查点里参数面板停在 左眼=1.0、右眼=0.0，编辑器重新打开时右眼呈闭合，把右眼开闭拨回 1 即可（运行时自行驱动参数，不受影响）。
 
