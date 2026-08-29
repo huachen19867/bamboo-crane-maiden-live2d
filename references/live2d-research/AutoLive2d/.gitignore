@@ -1,0 +1,24 @@
+node_modules/
+dist/
+.vite/
+coverage/
+outputs/
+.rig-validation*/
+.rig-validation*.png
+.playwright*.png
+.codex-*
+*.tmp
+*.local
+*.log
+*.lnk
+.DS_Store
+Thumbs.db
+
+# Vendored see-through runtime state. Source code remains tracked.
+third_party/see-through/.venv/
+third_party/see-through/workspace/
+third_party/see-through/outputs/
+third_party/see-through/assets
+third_party/see-through/**/__pycache__/
+third_party/see-through/**/*.py[cod]
+third_party/see-through/**/*.egg-info/

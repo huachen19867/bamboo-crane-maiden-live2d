@@ -1,5 +1,45 @@
 # 技术日志
 
+## 2026-08-29｜紧急止损、六项目源码研究与工作区大清洗
+
+老板叫停旧制作后，先把质量问题从“参数没调好”重新定性为“输入素材和建模路线不成立”。当前 2160×2160 原图是完整场景，不是可绑定立绘：人物有效像素有限、姿态非正面、仙鹤遮手、衣摆和披帛高度重叠。中性帧可以通过贴回参考像素获得高相似度，但任何抬臂、转身和迈步都会需要原图中不存在的上臂、肘背、腕背、裙内腿脚和连续刺绣。以后素材门不通过，禁止通过增加 Rotation、缩小动作或堆 Physics 继续掩盖。
+
+下载并只读研究了 `AutoLive2d`、`see-through`、两份 `EasyVtuber` 和两份 `Anime2.5DRig`。可复用总判断是：see-through 只适合多 seed 生成候选语义层、遮挡猜测和深度排序；AutoLive2d/Anime2.5DRig 依赖严格命名、清晰正面 PSD，以规则网格、小幅动作、眼口差分、虹膜裁切、参数平滑和根梢双弹簧获得尚可观感；EasyVtuber 是 THA 神经逐帧重演，不生成 PSD、ArtMesh 或 Cubism。没有一个项目能从模糊单图自动恢复生产级全身关节底绘。详细源码路径、许可证、下载哈希和迁移边界见 `docs/REFERENCE_PROJECTS_RESEARCH_2026-08-29.md`。
+
+AutoLive2d 在本机执行 `npm ci`、`npm run build` 成功，版本 1.22.0；审计发现旧版 `nanoid` 与 `postcss` 两个高危传递依赖，未运行 `npm audit fix`，避免污染参考源码。Anime2.5DRig 样例实跑解析 20 个部件、12 个发束，1280×1280 画布显示 60fps；这只证明准备好的样例可运行。see-through 和 yuyuyzl EasyVtuber 快照缺模型权重，不能声称已在当前角色上推理验证。
+
+清洗遵循“原图、最新可回退工程、研究源码和关键证据保留；缓存、错误素材、失败中间产物删除”。删除前逐项解析绝对路径并核对体积，没有使用工作区根目录作为递归目标。已删除下载 ZIP、AutoLive2d 的 `node_modules/dist`、`tmp`、逐步 Editor 截图、旧交付 ZIP、错误的 `body-underpaint-v1.png`、低质量候选图、旧网页/MOC 产物、旧 Viewer/启动器/构建验收脚本和历史 Cubism 检查点；已安装的 Cubism Editor、受控 Python、参考原图、V3 seam-fix/前一回退及研究证据保留。最终工作文件约 0.93GB；计入本地提交并执行标准 `git gc` 后，整个目录由约 4.38GB 降到 1.42GB，释放约 2.96GB，`.git` 约 484MB且未重写历史。被 Git 跟踪的旧产物可从历史恢复，未跟踪临时材料直接删除后不保证恢复。精确保留集和下一步见 `docs/HANDOFF_2026-08-29.md`。
+
+本轮研究与清洗已经做成本地 Git 提交；补写日志后使用 `git commit --amend` 将状态收进同一提交。没有执行 `git push`，远端仍停在此前状态。
+
+新的执行顺序固定为：清晰人物母版 → 候选分层与人工补绘 → 扁平研究 PSD 小动作预检 → 官方 Cubism 中逐关节中性/双极值/中间值 → 连续播放 → Physics → 操演/动捕。每个阶段先推演一组连续可逆操作，在质量门截图；不再每点一步就截图，也不把后序测试通过外推成前序美术质量通过。
+
+## 2026-08-28｜V3 seam-fix 回灌、材料归档与可交接状态
+
+为修复 V3 中躯干底图与动态右袖同时可见导致的静止袖子残影，`tools/build_arm_rebuild_psd_seamfix.py` 生成了 `bamboo-crane-maiden-arm-rebuild-v3-seamfix-v1.psd`。正确的 Cubism 回灌不是“从 PSD 创建模型”，而是“文件 → 打开 PSD → 选择已有 V3 模型 → 重新导入设置选替换旧 PSD → 不删除未使用原画 → 另存为新 CMO3”；这样保留既有 `RotShoulderR → WarpArmRRoot → RotElbowR → WarpForearmR → RotWristR → WarpHandR` 与肘腕参数。当前保存工程为 `model/cubism/bamboo-crane-maiden-arm-rebuild-v3-seamfix-v1.cmo3`，SHA-256 `27C9F08ED548175F4A8931B0E22729548D9DD1A1351C1E28E3CBE5B10B4AEA40`；未修补 V3 仍保留为安全回退。
+
+seam-fix 版本的 `ParamElbowR` 和 `ParamWristR` 均在 `-1 / -0.5 / 0 / +0.5 / +1` 实测，联系人图为 `exports/cubism-v3-seamfix-existing-elbow-sequence-contact.png` 和 `exports/cubism-v3-seamfix-existing-wrist-sequence-contact.png`。这仍只是右臂局部连续参数门：尚未导出 seam-fix 对应 runtime，也未验证连续 Motion3 播放；左臂、腿脚、面部、衣发 Physics 与统一驱动均未完成。
+
+停工交接时，把根目录的 14 张 Editor 导入截图移入 `exports/authoring-archive/2026-08-26-editor-import/`，把本轮 63 张逐步操作截图移入 `exports/authoring-archive/2026-08-28-v3-seamfix/`，把 321 个临时脚本/截图移入 `tmp/cubism-v3-seamfix-workbench/`；没有删除任何源 PSD、CMO3、运行包或主证据。`.gitignore` 明确忽略这两类本地过程材料。下一位执行者只需先读 `docs/HANDOFF_2026-08-28.md`，再从 seam-fix CMO3 导出至一个新 runtime 目录；旧 `runtime-arm-v3` 绝不覆盖。
+
+## 2026-08-28｜V3 右肘参数与右腕五档连续复核
+
+本轮继续使用官方 Live2D Cubism Editor 5.3.03，目标工程为 `model/cubism/bamboo-crane-maiden-arm-rebuild-v3.cmo3`。在已存在的 `RotShoulderR → WarpArmRRoot → RotElbowR → WarpForearmR → RotWristR → WarpHandR` 链上，先把 `ParamElbowR` 的中性和正向关键形轴心校到候选肘点，再用 `Ctrl + Drag` 将负向关键形的轴心同样移到肘部；正负方向手柄收敛到约 ±5°，避免用大角度掩盖袖口底绘问题。随后在 `-1 / -0.5 / 0 / +0.5 / +1` 五档实际切换并捕获联系人图 `exports/cubism-v3-elbow-sequence-contact-sheet.png`，未观察到参数跳变、整幅人物被带动或躯干重复袖片。
+
+右腕 `ParamWristR` 也按同样的五档进行实机复核，联系人图为 `exports/cubism-v3-wrist-sequence-contact-sheet.png`；变化集中在手与袖口局部，镜头和躯干保持不动。两组操作完成后把参数恢复到 `0.0`，保存正式 V3 工程，并复制为 `model/cubism/bamboo-crane-maiden-arm-rebuild-v3-elbow-wrist-sequence-v1.cmo3`。当前工程及该里程碑 SHA-256 均为 `F5B07C0802B54C97FF0E972E5CD9EE6DF79753273673DA1F7F7E20218A696822`。
+
+质量边界必须保留：肘部在原始单图的袖口遮挡区仍可看到透明/浅色断口风险，根因是隐藏的上臂、肘背和腕背没有完整重绘；五档通过只说明局部参数连续可驱动，不能宣称右臂已经达到商业级无缝效果。尝试把 `WarpForearmR` 负向关键形的一个边界点外推约 10 px 后，视觉改善不足且会改变袖面轮廓，已通过 Editor 的“撤销”恢复并保存安全版本。下一次第一步应是为 `UnderpaintElbowR / UnderpaintWristR` 增加来自实际右袖的窄幅重叠底绘，或在 Editor 中对前臂近肘网格做成组修形；修补通过前不继续放大肘角，也不进入腿脚和物理导出。
+
+## 2026-08-28｜V3 右腕第一版：正式 Editor 内建立独立旋转、局部 Warp 与正反极值
+
+本轮继续的对象是 `model/cubism/bamboo-crane-maiden-arm-rebuild-v3.cmo3`，不是旧网页 PNG 拼片或旧正式工程。先以 `bamboo-crane-maiden-arm-rebuild-v3-pre-wrist-v1.cmo3`（SHA-256 `7670B1182BEAFA3EF0C86232AC6D50AD207958749F969482E73D845F1F2500D6`）保存腕部前回退点；在官方 Live2D Cubism Editor 5.3.03 中复核右侧层级为 `RotShoulderR → WarpArmRRoot → (ArtArmRShoulderSleeve, RotElbowR → WarpForearmR → (ArtArmRForearmSleeve, RotWristR → WarpHandR → ArtHandR))`。所有这三个 Warp 的显示控制框均限于对应袖段或手部，未触及躯干或整个人物。
+
+在 `WarpHandR` 被选中的前提下，用“设为所选对象的父级”建立了 `RotWristR`，轴心用 `Ctrl + Drag` 从手掌中央校到袖口与手的连接处（画布坐标约 `770.5, 425.1`）；随后新增独立参数“右腕旋转”／ID `ParamWristR`，范围 `-1 / 0 / +1`，并分别为 `RotWristR` 和 `WarpHandR` 生成三个关键形。正、反极值通过 Rotation Deformer 的方向手柄分别设为约 `+8° / -8°`（根据 79 px 轴线与 11 px 横向偏移，约 `7.9°`）；中性仍为原图姿态。实机三档清洁画面已保留为 `exports/cubism-arm-r-wrist-minus-v1.png`、`exports/cubism-arm-r-wrist-neutral-v1.png`、`exports/cubism-arm-r-wrist-plus-v1.png`：当前幅度内没有看到棋盘格漏底、浅色旧底绘、重复静态袖子或手臂以外区域被带动。
+
+这只是右腕的第一道结构门，不能外推成“右臂自然动作完成”。`WarpHandR` 已拥有独立关键形，但尚未完成针对袖口体积、手背透视和手指的手工网格修形；参数也还缺 `-0.5 / +0.5` 两档、中间连续性联系人图、连续播放和运行时导出。肘部虽然已有 `RotElbowR / WarpForearmR` 层级，尚未绑定独立参数和双极值；右肩、左臂、腿脚、衣发 Physics 与操演/动捕也都仍未完成。下一步必须先让肘部通过同样的中性、正反极值和局部 Warp 门，再把腕部补到五档并重新审看袖口。
+
+保存后的当前工程 SHA-256 为 `D259B8DB3DF762BD7B8A03E2DD43D2D1F7FE8A9F7B5A437326FC84F9A0D36F1A`，同哈希回退为 `model/cubism/bamboo-crane-maiden-arm-rebuild-v3-wrist-rotation-v1.cmo3`。Cubism 本版本创建 Rotation Deformer 后会遗留一个隐藏 `SunAwtDialog`，它会拦截保存；可复用的安全处置是只显示该已核对句柄并点击其“关闭”按钮，随后再 `Ctrl+S`，不能用 `Alt+F4` 或结束 Editor 进程。
+
 ## 2026-08-26｜V2 面部暂存工程已由官方 Editor 实际导入；动态眼睑仍未通过
 
 `bamboo-crane-maiden-face-rebuild-v2.psd` 已在 Live2D Cubism Editor 5.3.03 中选择“从 PSD 文件创建模型”并成功打开。Editor 的 Part 树可见 `HeadFaceV2` 和标注为 `Legacy*` 的身体组，变形器树可见左右 `ArtEyeWhite / ArtIris / ArtPupil / ArtHighlight / ArtUpperLid / ArtLowerLid` 以及闭眼线；中性画布与本地 PSD 预览一致。新工程仅另存为 `model/cubism/bamboo-crane-maiden-face-rebuild-v2.cmo3`，大小 `7,019,892` 字节、SHA-256 `5195A9313A98DF54FA4041950EC717CB183B52B52CA0C7ACA049F81EBFC69CD9`。它由既有忽略规则保留在本地，当前正式 `bamboo-crane-maiden-editor.cmo3` 没有被覆盖或修改。

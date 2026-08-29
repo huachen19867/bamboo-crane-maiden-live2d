@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>See-through PSD 分层工具</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <aside id="history-drawer" class="history-drawer collapsed">
+      <button id="history-toggle" class="history-toggle" type="button" title="生成记录">记录</button>
+      <div class="history-panel">
+        <div class="history-head">
+          <div>
+            <p class="eyebrow">History</p>
+            <h2>已生成记录</h2>
+          </div>
+          <button id="history-refresh" type="button">刷新</button>
+        </div>
+        <div id="history-list" class="history-list">
+          <div class="empty">暂无记录</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="shell">
+      <section class="panel input-panel">
+        <div class="brand">
+          <div>
+            <p class="eyebrow">See-through local</p>
+            <h1>单图角色分层 PSD</h1>
+          </div>
+          <div class="brand-actions">
+            <button id="theme-toggle" class="icon-btn" type="button" aria-label="切换夜间模式" title="切换夜间模式">☾</button>
+            <span class="badge">本地推理</span>
+          </div>
+        </div>
+
+        <form id="job-form" class="form">
+          <label class="dropzone" id="dropzone">
+            <input id="image" name="image" type="file" accept="image/*" required />
+            <span class="drop-title">拖入图片或点击上传</span>
+            <span class="drop-subtitle">支持 PNG / JPG / WEBP，建议单人角色立绘</span>
+          </label>
+
+          <div class="preview-wrap">
+            <img id="input-preview" alt="" />
+          </div>
+
+          <div class="controls">
+            <label>
+              <span class="label-title">推理方式 <span class="hint" data-tip="Blockswap 更省显存，8GB 显卡优先用它；NF4 也省显存但速度和兼容性看环境；BF16 质量最原始但显存压力最大。">!</span></span>
+              <select name="engine" id="engine">
+                <option value="blockswap" selected>Blockswap（8GB 推荐）</option>
+                <option value="nf4">NF4 量化</option>
+                <option value="bf16">BF16 原始</option>
+              </select>
+            </label>
+            <label>
+              <span class="label-title">LayerDiff 分辨率 <span class="hint" data-tip="越高越细，但耗时和显存都会上升。8GB 显存建议先用 768 或 1024，稳定后再试 1280。">!</span></span>
+              <select name="resolution" id="resolution">
+                <option value="1024" selected>1024</option>
+                <option value="1280">1280</option>
+                <option value="768">768</option>
+              </select>
+            </label>
+            <label>
+              <span class="label-title">推理步数 <span class="hint" data-tip="步数越多通常越慢，分层不一定线性变好。测试建议 10-20，高质量再用 20-30。">!</span></span>
+              <input name="steps" id="steps" type="number" min="5" max="40" value="20" />
+            </label>
+            <label class="check">
+              <input name="tblr_split" id="tblr_split" type="checkbox" />
+              <span class="label-title">尝试左右拆分 <span class="hint" data-tip="会尝试把左右对称或左右分布的部件拆开。适合手臂、腿、双马尾等，但可能增加碎层。">!</span></span>
+            </label>
+            <label class="wide-field">
+              <span class="label-title">按深度细分目标层 <span class="hint" data-tip="把指定层按前后深度再拆分。适合头发、衣服等有前后遮挡的层；多个标签用英文逗号分隔。">!</span></span>
+              <input
+                name="depth_split_tags"
+                id="depth_split_tags"
+                type="text"
+                value=""
+                placeholder="例如：front hair,back hair,headwear,topwear,bottomwear"
+              />
+            </label>
+            <label class="wide-field">
+              <span class="label-title">按连通块细分目标层 <span class="hint" data-tip="把指定层里互不相连的色块拆成多个层。适合前发、鬓发、发饰等已经断开的部分；如果两块粘在一起，它不会凭空切开。">!</span></span>
+              <input
+                name="component_split_tags"
+                id="component_split_tags"
+                type="text"
+                value="front hair"
+                placeholder="例如：front hair,back hair,headwear"
+              />
+            </label>
+            <label>
+              <span class="label-title">连通块最小面积 <span class="hint" data-tip="小于这个面积的碎片会被忽略。数值越小拆得越碎，头发建议 32-128；杂点太多就调大。">!</span></span>
+              <input name="component_min_area" id="component_min_area" type="number" min="8" max="4096" value="64" />
+            </label>
+            <div class="layer-presets wide-field">
+              <div class="preset-head">
+                <span class="label-title">高级分层预设 <span class="hint" data-tip="这些按钮会把常用标签追加到“按深度细分”和“按连通块细分”里，并自动去重。它们使用现有 LayerDiff 3D / Marigold 后处理流程，不会额外启用 SAM。">!</span></span>
+                <span class="preset-note">点击即可补全标签</span>
+              </div>
+              <div class="preset-actions">
+                <button
+                  class="preset-btn"
+                  type="button"
+                  data-depth-tags="front hair,back hair,headwear"
+                  data-component-tags="front hair,back hair,headwear"
+                  data-toast="已添加头发增强标签"
+                >
+                  头发增强
+                  <small>前发 / 后发 / 头饰</small>
+                </button>
+                <button
+                  class="preset-btn"
+                  type="button"
+                  data-depth-tags="headwear,earwear,eyewear,neckwear,objects"
+                  data-component-tags="headwear,earwear,eyewear,neckwear,objects"
+                  data-toast="已添加饰品增强标签"
+                >
+                  饰品增强
+                  <small>头饰 / 耳饰 / 眼镜 / 项饰</small>
+                </button>
+                <button
+                  class="preset-btn"
+                  type="button"
+                  data-depth-tags="topwear,bottomwear,handwear,footwear,objects"
+                  data-component-tags="handwear,footwear,objects"
+                  data-toast="已添加装备增强标签"
+                >
+                  装备增强
+                  <small>衣装 / 手部 / 鞋靴 / 道具</small>
+                </button>
+              </div>
+            </div>
+            <label class="check">
+              <input name="cpu_offload" id="cpu_offload" type="checkbox" checked />
+              <span class="label-title">低显存模式（NF4 / BF16） <span class="hint" data-tip="把部分权重临时放到 CPU，能降低显存占用但会变慢。Blockswap 模式不需要这个选项。">!</span></span>
+            </label>
+            <details class="preprocess-box wide-field">
+              <summary>背景抠图预处理</summary>
+              <div class="preprocess-grid">
+                <label class="check">
+                  <input name="bgremove" id="bgremove" type="checkbox" />
+                  <span class="label-title">生成前转透明底 <span class="hint" data-tip="勾选后，生成 PSD 前会先把上传图片抠成透明 PNG，再把透明 PNG 送入分层模型。">!</span></span>
+                </label>
+                <label>
+                  <span class="label-title">抠图模式 <span class="hint" data-tip="自动模式会从图片边缘估计背景色；绿幕适合绿色背景；自定义可手选纯色；智能抠图适合复杂背景但更慢。">!</span></span>
+                  <select name="bgremove_mode" id="bgremove_mode">
+                    <option value="auto" selected>自动取边缘背景色</option>
+                    <option value="green">绿幕 / 绿色背景</option>
+                    <option value="custom">自定义纯色背景</option>
+                    <option value="rembg">智能抠图（rembg）</option>
+                  </select>
+                </label>
+                <label>
+                  <span class="label-title">背景色 <span class="hint" data-tip="仅自定义纯色背景模式需要重点设置。绿幕可以用 #00ff00，白底用 #ffffff。">!</span></span>
+                  <input name="bgremove_color" id="bgremove_color" type="color" value="#00ff00" />
+                </label>
+                <label>
+                  <span class="label-title">背景容差 <span class="hint" data-tip="容差越大，越多接近背景色的像素会被抠掉。边缘残色多就调大，角色被误抠就调小。">!</span></span>
+                  <input name="bgremove_threshold" id="bgremove_threshold" type="number" min="1" max="220" value="72" />
+                </label>
+                <label>
+                  <span class="label-title">边缘柔化 <span class="hint" data-tip="控制透明边缘的过渡范围。太硬会有锯齿，太软会让角色边缘发虚。">!</span></span>
+                  <input name="bgremove_softness" id="bgremove_softness" type="number" min="1" max="180" value="42" />
+                </label>
+                <label>
+                  <span class="label-title">去色边强度 <span class="hint" data-tip="降低边缘残留的背景颜色。绿幕有绿色描边时调高；如果角色颜色变灰就调低。">!</span></span>
+                  <input name="bgremove_spill" id="bgremove_spill" type="number" min="0" max="1" step="0.05" value="0.35" />
+                </label>
+                <button id="bgremove-preview" class="secondary wide-field" type="button">预览背景抠图</button>
+              </div>
+            </details>
+          </div>
+
+          <button class="primary" type="submit">开始生成 PSD</button>
+        </form>
+
+        <details class="tutorial" open>
+          <summary>使用教程</summary>
+          <div class="tutorial-body">
+            <ol>
+              <li>上传一张单人角色图，角色完整、背景简单时分层更稳定。</li>
+              <li>8GB 显存优先选择 <strong>Blockswap</strong>；想测试量化模型可以选 <strong>NF4</strong>；显存充足再试 <strong>BF16</strong>。</li>
+              <li>先用 <strong>768</strong> 或 <strong>1024</strong> 分辨率、<strong>10-20</strong> 步测试，确认效果后再提高。</li>
+              <li>运行时右侧会显示模型加载、图层分解、深度估计、PSD 组装四个阶段的进度。</li>
+              <li>完成后下载 PSD，也可以在下方预览分层；点击透明区域会穿透选择下面的图层。</li>
+              <li>分层预览支持全屏、选中高亮、拖动图层和一键重置。</li>
+              <li>想拆得更碎，可以填写“按深度细分目标层”；它会把指定层再按前后深度拆成两层。</li>
+              <li>前发和鬓发混在一起时，优先用“按连通块细分目标层”，通常填 <code>front hair</code>。</li>
+              <li>纯色或近似纯色背景可以先点“预览背景抠图”，确认透明边缘没问题后再勾选预处理生成 PSD。</li>
+            </ol>
+
+            <div class="tips">
+              <p><strong>第一次运行：</strong>会自动从 HuggingFace 下载模型，耗时取决于网络。</p>
+              <p><strong>显存不足：</strong>降低分辨率到 768、步数到 10，并优先使用 Blockswap。</p>
+              <p><strong>NF4：</strong>已加入 CPU offload 兼容修复，仍建议先用小尺寸测试。</p>
+              <p><strong>长发立绘推荐：</strong>先试 <code>front hair,back hair,headwear,topwear,bottomwear</code>。</p>
+              <p><strong>连通块面积：</strong>数值越小拆得越碎，头发建议 32-128；碎点太多就调大。</p>
+              <p><strong>背景抠图：</strong>白底、绿幕、蓝幕、灰底优先用自动模式；复杂照片背景需要安装 rembg。</p>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section class="panel output-panel">
+        <div class="statusbar">
+          <div>
+            <p class="eyebrow">Current job</p>
+            <h2 id="job-title">等待上传</h2>
+          </div>
+          <span id="status-pill" class="pill idle">idle</span>
+        </div>
+
+        <div class="progress-panel">
+          <div class="progress-row">
+            <span>总进度</span>
+            <strong id="overall-percent">0%</strong>
+          </div>
+          <div class="bar"><span id="overall-bar"></span></div>
+          <div class="progress-row stage">
+            <span id="stage-name">等待开始</span>
+            <strong id="stage-percent">0%</strong>
+          </div>
+          <div class="bar stage-bar"><span id="stage-bar"></span></div>
+          <div id="stage-list" class="stage-list"></div>
+        </div>
+
+        <div class="result-grid">
+          <div class="result-preview">
+            <img id="result-image" alt="" />
+            <div id="empty-result" class="empty">结果预览会显示在这里</div>
+          </div>
+          <div class="downloads">
+            <a id="download-psd" class="download disabled" href="#">下载 PSD</a>
+            <a id="download-preview" class="download disabled" href="#">下载预览图</a>
+            <a id="download-transparent" class="download disabled" href="#">下载透明 PNG</a>
+            <a id="download-stats" class="download disabled" href="#">下载 stats.json</a>
+          </div>
+        </div>
+
+        <section class="layer-preview">
+          <div class="layer-toolbar">
+            <span>PSD 分层预览 / 查看器</span>
+            <div>
+              <button id="reset-layer" type="button">重置全部</button>
+              <button id="show-all" type="button">全选</button>
+              <button id="hide-all" type="button">清空</button>
+              <button id="fullscreen-layer" type="button">全屏</button>
+            </div>
+          </div>
+          <div class="psd-opener">
+            <div>
+              <p class="eyebrow">PSD viewer</p>
+              <h3>打开已有 PSD 文件查看分层</h3>
+            </div>
+            <form id="psd-view-form" class="psd-view-form">
+              <label class="psd-file">
+                <input id="psd-file" name="psd" type="file" accept=".psd" required />
+                <span id="psd-file-name">选择 PSD 文件</span>
+              </label>
+              <button type="submit">打开 PSD</button>
+            </form>
+          </div>
+          <div class="layer-workbench">
+            <div id="layer-canvas" class="layer-canvas">
+              <div class="empty">任务完成后可在这里叠加预览图层</div>
+            </div>
+            <div id="layer-list" class="layer-list"></div>
+          </div>
+        </section>
+
+        <div class="log-head">
+          <span>运行日志</span>
+          <button id="refresh" type="button">刷新</button>
+        </div>
+        <pre id="log"></pre>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

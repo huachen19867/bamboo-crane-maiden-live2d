@@ -1,0 +1,12 @@
+AutoLive2d
+Copyright 2026 Fenglin-Maple
+
+This product includes modified source from see-through: Single-image Layer
+Decomposition for Anime Characters, developed by Jian Lin, Chengze Li,
+Haoyun Qin, Kwun Wang Chan, Yanghua Jin, Hanyuan Liu, Stephen Chun Wang Choy,
+Xueting Liu, and contributors.
+
+Upstream project: https://github.com/shitagaki-lab/see-through
+
+See THIRD_PARTY_NOTICES.md and third_party/see-through/LOCAL_CHANGES.md for
+license boundaries, attribution, and the changes maintained in this repository.

@@ -1,0 +1,27 @@
+{
+  "Version": 3,
+  "Meta": {
+    "Duration": 1.52,
+    "Fps": 60.0,
+    "Loop": true,
+    "AreBeziersRestricted": true,
+    "CurveCount": 2,
+    "TotalSegmentCount": 8,
+    "TotalPointCount": 10,
+    "UserDataCount": 0,
+    "TotalUserDataSize": 0
+  },
+  "Curves": [
+    {
+      "Target": "Parameter",
+      "Id": "ParamElbowR",
+      "Segments": [0.0, 0.0, 0, 0.38, 0.6, 0, 0.76, 0.0, 0, 1.14, -0.6, 0, 1.52, 0.0]
+    },
+    {
+      "Target": "Parameter",
+      "Id": "ParamWristR",
+      "Segments": [0.0, 0.0, 0, 0.38, -0.5, 0, 0.76, 0.0, 0, 1.14, 0.5, 0, 1.52, 0.0]
+    }
+  ],
+  "UserData": []
+}

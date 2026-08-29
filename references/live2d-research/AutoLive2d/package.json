@@ -1,0 +1,53 @@
+{
+  "name": "auto-live2d-studio",
+  "version": "1.22.0",
+  "private": true,
+  "type": "module",
+  "description": "Web UI for turning normalized character PSD layers into a Live2D-style rig project.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fenglin-Maple/AutoLive2d.git"
+  },
+  "homepage": "https://github.com/Fenglin-Maple/AutoLive2d#readme",
+  "bugs": {
+    "url": "https://github.com/Fenglin-Maple/AutoLive2d/issues"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "desktop": "node scripts/start-desktop.mjs",
+    "desktop:open": "electron desktop/main.cjs",
+    "build": "tsc && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "inspect:sample": "node scripts/inspect-sample-psd.mjs",
+    "cubism:probe": "node scripts/cubism-api-probe.mjs",
+    "cubism:probe:edit": "node scripts/cubism-api-probe.mjs --edit-smoke",
+    "cubism:test-contract": "node scripts/cubism-api-contract-test.mjs",
+    "cubism:report": "node scripts/cubism-model-report.mjs",
+    "cubism:select": "node scripts/cubism-select-objects.mjs",
+    "cubism:object-keys": "node scripts/cubism-object-keys.mjs",
+    "cubism:add-keys": "node scripts/cubism-add-parameter-keys.mjs",
+    "cubism:mouth-detail": "node scripts/cubism-mouth-artmesh-detail.mjs",
+    "cubism:add-face-turn": "node scripts/cubism-add-face-turn-deformer.mjs",
+    "cubism:scaffold": "node scripts/cubism-rig-scaffold.mjs",
+    "validate:ui": "node scripts/validate-ui-flow.mjs"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "^0.10.35",
+    "@vitejs/plugin-react": "^5.1.2",
+    "ag-psd": "^30.1.1",
+    "jszip": "^3.10.1",
+    "lucide-react": "^0.561.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.16"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "electron": "^42.4.0",
+    "playwright": "^1.60.0"
+  }
+}

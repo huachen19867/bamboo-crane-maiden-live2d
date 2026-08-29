@@ -1,0 +1,486 @@
+{
+  "version": 1,
+  "preset": "u6",
+  "canvas": {
+    "width": 768,
+    "height": 768
+  },
+  "notes": "u6 companion layers: hat/glasses, clone volume layers, and split left/right expression-eye overlays. Expression overlays should be generated from aligned full-character differentials, split with see-through, then cropped/aligned to the base irises.",
+  "assets": [
+    {
+      "id": "u6-hat-back",
+      "sourceName": "[obj] u6 hat back",
+      "kind": "accessory",
+      "parentBoneId": "hair-back",
+      "z": 9,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/hat_back.png",
+      "bounds": {
+        "x": 0.1484375,
+        "y": -0.055,
+        "width": 0.6875,
+        "height": 0.3216145833333333
+      },
+      "attachment": {
+        "type": "object",
+        "proxyGroup": "back",
+        "notes": "Complete image2 hat layer rendered behind back hair. The front slice is cut from this same full hat image with the user-provided diagonal brim guide."
+      },
+      "physicsTemplateId": "accessory-spring",
+      "inertiaScale": 0.78,
+      "meshRows": 8,
+      "meshCols": 7
+    },
+    {
+      "id": "u6-hat-front",
+      "sourceName": "[obj] u6 hat front brim",
+      "kind": "accessory",
+      "parentBoneId": "hair-front",
+      "z": 126,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/hat_front.png",
+      "bounds": {
+        "x": 0.1484375,
+        "y": -0.055,
+        "width": 0.6875,
+        "height": 0.3216145833333333
+      },
+      "attachment": {
+        "type": "object",
+        "proxyGroup": "front",
+        "notes": "Diagonal brim/crown front slice cut from the complete hat so it can clamp front hair from above while the lower brim remains behind hair."
+      },
+      "physicsTemplateId": "accessory-spring",
+      "inertiaScale": 0.92,
+      "meshRows": 8,
+      "meshCols": 8
+    },
+    {
+      "id": "u6-hat-neck-depth-clone",
+      "sourceName": "[obj] u6 hat neck-depth clone",
+      "kind": "accessory",
+      "parentBoneId": "hair-back",
+      "z": 21,
+      "opacity": 0.26,
+      "visible": true,
+      "file": "attachments/hat_back.png",
+      "bounds": {
+        "x": 0.1484375,
+        "y": -0.055,
+        "width": 0.6875,
+        "height": 0.3216145833333333
+      },
+      "attachment": {
+        "type": "object",
+        "proxyGroup": "back",
+        "depthAnchor": "neck",
+        "notes": "Low-opacity full hat volume filler. It follows the head/hair-back parent but projects at neck pseudo-Z for extra thickness."
+      },
+      "physicsTemplateId": "accessory-spring",
+      "inertiaScale": 0.45,
+      "meshRows": 8,
+      "meshCols": 7
+    },
+    {
+      "id": "u6-glasses",
+      "sourceName": "[obj] u6 glasses",
+      "kind": "accessory",
+      "parentBoneId": "face",
+      "z": 118,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/glasses.png",
+      "bounds": {
+        "x": 0.3958333333333333,
+        "y": 0.20572916666666666,
+        "width": 0.22135416666666666,
+        "height": 0.1015625
+      },
+      "attachment": {
+        "type": "object",
+        "notes": "u6 image2 black glasses differential; face child."
+      },
+      "inertiaScale": 0.25,
+      "meshRows": 4,
+      "meshCols": 5
+    },
+    {
+      "id": "u6-back-hair-volume-clone",
+      "sourceName": "[clone] u6 back hair volume fill",
+      "kind": "backHair",
+      "parentBoneId": "hair-back",
+      "z": 11,
+      "opacity": 0.22,
+      "visible": true,
+      "cloneOf": {
+        "kind": "backHair",
+        "sourceNameIncludes": "back hair",
+        "depthTargetKind": "face",
+        "depthRatio": 0.5
+      },
+      "attachment": {
+        "type": "object",
+        "notes": "Experimental clone of the imported back hair mesh. Draw order stays in the back-hair band while average pseudo-Z is blended halfway toward the face to add turn volume without covering body/face layers."
+      },
+      "physicsTemplateId": "hair-soft",
+      "inertiaScale": 0.62,
+      "localScale": 1.01,
+      "localRotation": 0
+    },
+    {
+      "id": "u6-front-hair-volume-clone",
+      "sourceName": "[clone] u6 front hair volume fill",
+      "kind": "frontHair",
+      "parentBoneId": "hair-front",
+      "z": 104,
+      "opacity": 0.24,
+      "visible": true,
+      "cloneOf": {
+        "kind": "frontHair",
+        "sourceNameIncludes": "front hair",
+        "depthTargetKind": "face",
+        "depthRatio": 0.55
+      },
+      "attachment": {
+        "type": "object",
+        "notes": "Experimental clone of the imported front hair mesh, placed between face and front hair pseudo-Z to soften paper-thin head turns."
+      },
+      "physicsTemplateId": "hair-short",
+      "inertiaScale": 0.46,
+      "localScale": 0.995,
+      "localRotation": 0
+    },
+    {
+      "id": "u6-expr-heart-eyes-left",
+      "sourceName": "[heart-eyes] u6 left heart eyes",
+      "kind": "iris",
+      "parentBoneId": "head",
+      "z": 132,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/expr_heart_eye_l.png",
+      "bounds": {
+        "x": 0.448,
+        "y": 0.228,
+        "width": 0.058,
+        "height": 0.05
+      },
+      "attachment": {
+        "type": "expression",
+        "exclusiveGroup": "eye-expression",
+        "expressionKey": "heart-eyes",
+        "triggerKey": "heart-eyes",
+        "notes": "Competitive eye expression overlay. Split left expression-eye overlay; follows iris motion without replacing the base iris."
+      },
+      "inertiaScale": 0.3,
+      "meshRows": 5,
+      "meshCols": 5,
+      "side": "left"
+    },
+    {
+      "id": "u6-expr-heart-eyes-right",
+      "sourceName": "[heart-eyes] u6 right heart eyes",
+      "kind": "iris",
+      "parentBoneId": "head",
+      "z": 132,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/expr_heart_eye_r.png",
+      "bounds": {
+        "x": 0.514,
+        "y": 0.225,
+        "width": 0.058,
+        "height": 0.05
+      },
+      "attachment": {
+        "type": "expression",
+        "exclusiveGroup": "eye-expression",
+        "expressionKey": "heart-eyes",
+        "triggerKey": "heart-eyes",
+        "notes": "Competitive eye expression overlay. Split right expression-eye overlay; follows iris motion without replacing the base iris."
+      },
+      "inertiaScale": 0.3,
+      "meshRows": 5,
+      "meshCols": 5,
+      "side": "right"
+    },
+    {
+      "id": "u6-expr-shocked-eyes-left",
+      "sourceName": "[shocked-eyes] u6 left shocked eyes",
+      "kind": "iris",
+      "parentBoneId": "head",
+      "z": 132,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/expr_shocked_eye_l.png",
+      "bounds": {
+        "x": 0.448,
+        "y": 0.228,
+        "width": 0.058,
+        "height": 0.05
+      },
+      "attachment": {
+        "type": "expression",
+        "exclusiveGroup": "eye-expression",
+        "expressionKey": "shocked-eyes",
+        "triggerKey": "shocked-eyes",
+        "notes": "Competitive eye expression overlay. Split left expression-eye overlay; follows iris motion without replacing the base iris."
+      },
+      "inertiaScale": 0.3,
+      "meshRows": 5,
+      "meshCols": 5,
+      "side": "left"
+    },
+    {
+      "id": "u6-expr-shocked-eyes-right",
+      "sourceName": "[shocked-eyes] u6 right shocked eyes",
+      "kind": "iris",
+      "parentBoneId": "head",
+      "z": 132,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/expr_shocked_eye_r.png",
+      "bounds": {
+        "x": 0.514,
+        "y": 0.225,
+        "width": 0.058,
+        "height": 0.05
+      },
+      "attachment": {
+        "type": "expression",
+        "exclusiveGroup": "eye-expression",
+        "expressionKey": "shocked-eyes",
+        "triggerKey": "shocked-eyes",
+        "notes": "Competitive eye expression overlay. Split right expression-eye overlay; follows iris motion without replacing the base iris."
+      },
+      "inertiaScale": 0.3,
+      "meshRows": 5,
+      "meshCols": 5,
+      "side": "right"
+    },
+    {
+      "id": "u6-expr-glowing-eyes-left",
+      "sourceName": "[glowing-eyes] u6 left glowing eyes",
+      "kind": "iris",
+      "parentBoneId": "head",
+      "z": 132,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/expr_glowing_eye_l.png",
+      "bounds": {
+        "x": 0.448,
+        "y": 0.228,
+        "width": 0.058,
+        "height": 0.05
+      },
+      "attachment": {
+        "type": "expression",
+        "exclusiveGroup": "eye-expression",
+        "expressionKey": "glowing-eyes",
+        "triggerKey": "glowing-eyes",
+        "notes": "Competitive eye expression overlay. Split left expression-eye overlay; follows iris motion without replacing the base iris."
+      },
+      "inertiaScale": 0.3,
+      "meshRows": 5,
+      "meshCols": 5,
+      "side": "left"
+    },
+    {
+      "id": "u6-expr-glowing-eyes-right",
+      "sourceName": "[glowing-eyes] u6 right glowing eyes",
+      "kind": "iris",
+      "parentBoneId": "head",
+      "z": 132,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/expr_glowing_eye_r.png",
+      "bounds": {
+        "x": 0.514,
+        "y": 0.225,
+        "width": 0.058,
+        "height": 0.05
+      },
+      "attachment": {
+        "type": "expression",
+        "exclusiveGroup": "eye-expression",
+        "expressionKey": "glowing-eyes",
+        "triggerKey": "glowing-eyes",
+        "notes": "Competitive eye expression overlay. Split right expression-eye overlay; follows iris motion without replacing the base iris."
+      },
+      "inertiaScale": 0.3,
+      "meshRows": 5,
+      "meshCols": 5,
+      "side": "right"
+    },
+    {
+      "id": "u6-expr-white-eye-ring-left",
+      "sourceName": "[white-eye-ring] u6 left embarrassed white eye ring",
+      "kind": "iris",
+      "parentBoneId": "head",
+      "z": 132,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/expr_white_eye_ring_l.png",
+      "bounds": {
+        "x": 0.448,
+        "y": 0.228,
+        "width": 0.058,
+        "height": 0.05
+      },
+      "attachment": {
+        "type": "expression",
+        "exclusiveGroup": "eye-expression",
+        "expressionKey": "white-eye-ring",
+        "triggerKey": "white-eye-ring",
+        "notes": "Competitive eye expression overlay. Split left expression-eye overlay; follows iris motion without replacing the base iris."
+      },
+      "inertiaScale": 0.3,
+      "meshRows": 5,
+      "meshCols": 5,
+      "side": "left"
+    },
+    {
+      "id": "u6-expr-white-eye-ring-right",
+      "sourceName": "[white-eye-ring] u6 right embarrassed white eye ring",
+      "kind": "iris",
+      "parentBoneId": "head",
+      "z": 132,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/expr_white_eye_ring_r.png",
+      "bounds": {
+        "x": 0.514,
+        "y": 0.225,
+        "width": 0.058,
+        "height": 0.05
+      },
+      "attachment": {
+        "type": "expression",
+        "exclusiveGroup": "eye-expression",
+        "expressionKey": "white-eye-ring",
+        "triggerKey": "white-eye-ring",
+        "notes": "Competitive eye expression overlay. Split right expression-eye overlay; follows iris motion without replacing the base iris."
+      },
+      "inertiaScale": 0.3,
+      "meshRows": 5,
+      "meshCols": 5,
+      "side": "right"
+    },
+    {
+      "id": "u6-expr-spiral-eyes-left",
+      "sourceName": "[spiral-eyes] u6 left hypnotic spiral eyes",
+      "kind": "iris",
+      "parentBoneId": "head",
+      "z": 132,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/expr_spiral_eye_l.png",
+      "bounds": {
+        "x": 0.448,
+        "y": 0.228,
+        "width": 0.058,
+        "height": 0.05
+      },
+      "attachment": {
+        "type": "expression",
+        "exclusiveGroup": "eye-expression",
+        "expressionKey": "spiral-eyes",
+        "triggerKey": "spiral-eyes",
+        "notes": "Competitive eye expression overlay. Split left expression-eye overlay; follows iris motion without replacing the base iris."
+      },
+      "inertiaScale": 0.3,
+      "meshRows": 5,
+      "meshCols": 5,
+      "side": "left"
+    },
+    {
+      "id": "u6-expr-spiral-eyes-right",
+      "sourceName": "[spiral-eyes] u6 right hypnotic spiral eyes",
+      "kind": "iris",
+      "parentBoneId": "head",
+      "z": 132,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/expr_spiral_eye_r.png",
+      "bounds": {
+        "x": 0.514,
+        "y": 0.225,
+        "width": 0.058,
+        "height": 0.05
+      },
+      "attachment": {
+        "type": "expression",
+        "exclusiveGroup": "eye-expression",
+        "expressionKey": "spiral-eyes",
+        "triggerKey": "spiral-eyes",
+        "notes": "Competitive eye expression overlay. Split right expression-eye overlay; follows iris motion without replacing the base iris."
+      },
+      "inertiaScale": 0.3,
+      "meshRows": 5,
+      "meshCols": 5,
+      "side": "right"
+    },
+    {
+      "id": "u6-expr-blush",
+      "sourceName": "[blush] u6 blush overlay",
+      "kind": "accessory",
+      "parentBoneId": "face",
+      "z": 131,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/expr_blush.png",
+      "bounds": {
+        "x": 0.3854166666666667,
+        "y": 0.24869791666666666,
+        "width": 0.24479166666666666,
+        "height": 0.06510416666666667
+      },
+      "attachment": {
+        "type": "expression",
+        "exclusiveGroup": "face-overlay",
+        "expressionKey": "blush",
+        "triggerKey": "blush",
+        "notes": "Stackable face overlay expression."
+      },
+      "inertiaScale": 0.25,
+      "meshRows": 4,
+      "meshCols": 4
+    },
+    {
+      "id": "u6-expr-open-mouth",
+      "sourceName": "[open-mouth] u6 oral cavity",
+      "kind": "mouth",
+      "parentBoneId": "face",
+      "z": 133,
+      "opacity": 1.0,
+      "visible": true,
+      "file": "attachments/expr_open_mouth.png",
+      "bounds": {
+        "x": 0.4817708333333333,
+        "y": 0.27995,
+        "width": 0.045572916666666664,
+        "height": 0.045572916666666664
+      },
+      "attachment": {
+        "type": "expression",
+        "exclusiveGroup": "mouth-expression",
+        "expressionKey": "open-mouth",
+        "triggerKey": "open-mouth",
+        "notes": "Open-mouth oral cavity patch; mouth stays fixed to face."
+      },
+      "inertiaScale": 0.2,
+      "meshRows": 5,
+      "meshCols": 5
+    }
+  ],
+  "defaultExpressionState": {
+    "active": {}
+  },
+  "sourcePrompts": {
+    "main": "game screenshot + green upper-body reference -> no-hat/no-glasses blue-eyed upper-body character, split by see-through",
+    "accessory": "multi-image image2 edit: target no-hat alignment + hat/glasses reference -> only accessories",
+    "expression": "Do not use isolated tiny eye/mouth icon generation for final assets. Generate full-character expression differentials, split with see-through when available, then crop/import the matching eye, mouth, or face patches as non-destructive overlays above the standard moving irises."
+  }
+}

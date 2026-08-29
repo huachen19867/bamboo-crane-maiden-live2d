@@ -1,0 +1,13 @@
+{
+  "purpose": "staged right-arm Cubism rebuild; left arm and remaining body groups are not completed joints",
+  "psd": "model\\cubism\\bamboo-crane-maiden-arm-rebuild-v3.psd",
+  "preview": "exports\\cubism-arm-rebuild-v3-preview.png",
+  "rightArmArtMeshes": [
+    "ArtArmRShoulderSleeve",
+    "ArtArmRForearmSleeve",
+    "ArtHandR"
+  ],
+  "neutralSimilarity": 0.999743871354998,
+  "neutralAlphaIoU": 0.9949469555464046,
+  "pass": true
+}

@@ -1,0 +1,38 @@
+{
+  "motion": "model/cubism/runtime-arm-v3/motions/ARM_idle.motion3.json",
+  "duration": 1.52,
+  "fps": 60,
+  "roi": [
+    1000,
+    300,
+    1890,
+    1250
+  ],
+  "frames": [
+    {
+      "label": "before",
+      "changedPixelsAbove8": 0,
+      "bbox": null
+    },
+    {
+      "label": "mid_0.72s",
+      "changedPixelsAbove8": 8905,
+      "bbox": [
+        1000,
+        300,
+        1539,
+        822
+      ]
+    },
+    {
+      "label": "after_1.62s",
+      "changedPixelsAbove8": 10022,
+      "bbox": [
+        1000,
+        300,
+        1548,
+        822
+      ]
+    }
+  ]
+}

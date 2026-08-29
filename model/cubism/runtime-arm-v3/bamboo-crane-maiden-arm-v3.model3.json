@@ -1,0 +1,20 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "bamboo-crane-maiden-arm-v3.moc3",
+		"Textures": [
+			"bamboo-crane-maiden-arm-v3.2048/texture_00.png"
+		],
+		"DisplayInfo": "bamboo-crane-maiden-arm-v3.cdi3.json"
+		,
+		"Motions": {
+			"ArmIdle": [
+				{
+					"File": "motions/ARM_idle.motion3.json",
+					"FadeInTime": 0.25,
+					"FadeOutTime": 0.25
+				}
+			]
+		}
+	}
+}

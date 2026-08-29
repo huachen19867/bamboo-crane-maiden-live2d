@@ -1,6 +1,10 @@
 # 竹鹤少女｜Live2D Cubism Editor 连续形变重制规范
 
-## 当前工程状态（2026-08-26）
+> 归档提示（2026-08-29）：本文件记录旧 Cubism 路线的建模约束和失败经验，不是当前执行入口。旧路线已因原图清晰度、遮挡底绘和动态观感不合格而暂停；接手应先读 `HANDOFF_2026-08-29.md`，未取得新人物母版前不要继续旧 CMO3。
+
+## 当前工程状态（2026-08-28）
+
+右臂已另起 V3 重建线。当前接手文件是 `model/cubism/bamboo-crane-maiden-arm-rebuild-v3-seamfix-v1.cmo3`，配套源为 `model/cubism/bamboo-crane-maiden-arm-rebuild-v3-seamfix-v1.psd`；`bamboo-crane-maiden-arm-rebuild-v3.cmo3` 保留为未修补回退点。V3 把旧的整片右袖拆为 `ArtArmRShoulderSleeve / ArtArmRForearmSleeve / ArtHandR`，并从 `ArtBodyBase` 扣掉会与动态袖子重叠的源像素。seam-fix PSD 的静态合成相对透明母版相似度为 `99.97366899%`、Alpha IoU 为 `99.50267885%`。在官方 Editor 内，右手臂当前层级为 `RotShoulderR → WarpArmRRoot → RotElbowR → WarpForearmR → RotWristR → WarpHandR`。`ParamElbowR` 与 `ParamWristR` 均已在 `-1 / -0.5 / 0 / +0.5 / +1` 五档实测；肘部安全动作范围约为 −5° 至 +5°，腕部正反端约 ±8°，未见透明棋盘格、躯干被带动或参数跳变。联系表为 `exports/cubism-v3-seamfix-existing-elbow-sequence-contact.png` 与 `exports/cubism-v3-seamfix-existing-wrist-sequence-contact.png`。这只通过“右臂局部参数可连续驱动”门：新工程尚未导出 runtime，肘部袖口仍有单图遮挡底绘的质量边界，不能称为完整右臂动作或全身完成。
 
 本工程已进入质量重置阶段。`runtime-mvp-v1` 虽能被官方 Viewer 加载并播放 Motion3，但老板的实机观感评审判定其存在严重拼接感、贴片旋转感和失真的夸张眼部；因此它被降级为技术失败样本，不能作为后续“已有完成度”累计，也不能作为最终效果宣传。以后以 `docs/USER_ACCEPTANCE_SPEC.md` 的视觉门槛优先于任何 JSON、播放或参数测试。
 
