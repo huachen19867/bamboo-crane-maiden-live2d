@@ -1,0 +1,1978 @@
+{
+  "generatedAt": "2026-08-29T18:11:50.029Z",
+  "url": "ws://127.0.0.1:22033",
+  "steps": [
+    {
+      "step": "RegisterPlugin",
+      "token": "(received)"
+    },
+    {
+      "step": "approval",
+      "approval": true,
+      "editApproval": true
+    }
+  ],
+  "modelUid": "a943b85254b64a8dbaea5aa35f648c4a",
+  "editMode": {
+    "EditMode": "Modeling"
+  },
+  "parameters": {
+    "ParameterStructure": {
+      "GroupName": "Root",
+      "Id": "ParamGroupRoot",
+      "Entries": [
+        {
+          "EntryType": "Parameter",
+          "Name": "角度 X",
+          "Id": "ParamAngleX",
+          "Min": -30,
+          "Default": 0,
+          "Max": 30,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "角度 Y",
+          "Id": "ParamAngleY",
+          "Min": -30,
+          "Default": 0,
+          "Max": 30,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "角度 Z",
+          "Id": "ParamAngleZ",
+          "Min": -30,
+          "Default": 0,
+          "Max": 30,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "左眼 开闭",
+          "Id": "ParamEyeLOpen",
+          "Min": 0,
+          "Default": 1,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "左眼 微笑",
+          "Id": "ParamEyeLSmile",
+          "Min": 0,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "右眼 开闭",
+          "Id": "ParamEyeROpen",
+          "Min": 0,
+          "Default": 1,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "右眼 微笑",
+          "Id": "ParamEyeRSmile",
+          "Min": 0,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "眼珠 X",
+          "Id": "ParamEyeBallX",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "眼珠 Y",
+          "Id": "ParamEyeBallY",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "左眉 上下",
+          "Id": "ParamBrowLY",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "右眉 上下",
+          "Id": "ParamBrowRY",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "左眉 左右",
+          "Id": "ParamBrowLX",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "右眉 左右",
+          "Id": "ParamBrowRX",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "左眉 角度",
+          "Id": "ParamBrowLAngle",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "右眉 角度",
+          "Id": "ParamBrowRAngle",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "左眉 変形",
+          "Id": "ParamBrowLForm",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "右眉 変形",
+          "Id": "ParamBrowRForm",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "嘴 变形",
+          "Id": "ParamMouthForm",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "嘴 开闭",
+          "Id": "ParamMouthOpenY",
+          "Min": 0,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "脸颊泛红",
+          "Id": "ParamCheek",
+          "Min": 0,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "身体旋转 X",
+          "Id": "ParamBodyAngleX",
+          "Min": -10,
+          "Default": 0,
+          "Max": 10,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "身体旋转 Y",
+          "Id": "ParamBodyAngleY",
+          "Min": -10,
+          "Default": 0,
+          "Max": 10,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "身体旋转 Z",
+          "Id": "ParamBodyAngleZ",
+          "Min": -10,
+          "Default": 0,
+          "Max": 10,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "呼吸",
+          "Id": "ParamBreath",
+          "Min": 0,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "摇动 前发",
+          "Id": "ParamHairFront",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "摇动 侧发",
+          "Id": "ParamHairSide",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "摇动 后发",
+          "Id": "ParamHairBack",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        }
+      ]
+    }
+  },
+  "parts": {
+    "PartStructure": {
+      "Children": [
+        {
+          "Children": [],
+          "Id": "Part",
+          "Name": "90_UNDERPAINT_TODO",
+          "Type": "Part"
+        },
+        {
+          "Children": [
+            {
+              "Id": "ArtSkirtC",
+              "Name": "ArtSkirtC",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtSkirtR",
+              "Name": "ArtSkirtR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtSkirtL",
+              "Name": "ArtSkirtL",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtSleeveR",
+              "Name": "ArtSleeveR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtSleeveL",
+              "Name": "ArtSleeveL",
+              "Type": "ArtMesh"
+            }
+          ],
+          "Id": "Part2",
+          "Name": "30_DYNAMIC_GARMENT",
+          "Type": "Part"
+        },
+        {
+          "Children": [
+            {
+              "Id": "ArtTorsoWaist",
+              "Name": "ArtTorsoWaist",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtFootR",
+              "Name": "ArtFootR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtFootL",
+              "Name": "ArtFootL",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtHandCuffR",
+              "Name": "ArtHandCuffR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtHandCuffL",
+              "Name": "ArtHandCuffL",
+              "Type": "ArtMesh"
+            }
+          ],
+          "Id": "Part3",
+          "Name": "20_BODY",
+          "Type": "Part"
+        },
+        {
+          "Children": [
+            {
+              "Id": "ArtHeadOrnament",
+              "Name": "ArtHeadOrnament",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtHairFront",
+              "Name": "ArtHairFront",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtEarringR",
+              "Name": "ArtEarringR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtEarringL",
+              "Name": "ArtEarringL",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtMouthClosed",
+              "Name": "ArtMouthClosed",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtNose",
+              "Name": "ArtNose",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtBrowR",
+              "Name": "ArtBrowR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtBrowL",
+              "Name": "ArtBrowL",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtLowerLidR",
+              "Name": "ArtLowerLidR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtUpperLidR",
+              "Name": "ArtUpperLidR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtHighlightR",
+              "Name": "ArtHighlightR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtPupilR",
+              "Name": "ArtPupilR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtIrisR",
+              "Name": "ArtIrisR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtEyeWhiteR",
+              "Name": "ArtEyeWhiteR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtLowerLidL",
+              "Name": "ArtLowerLidL",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtUpperLidL",
+              "Name": "ArtUpperLidL",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtHighlightL",
+              "Name": "ArtHighlightL",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtPupilL",
+              "Name": "ArtPupilL",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtIrisL",
+              "Name": "ArtIrisL",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtEyeWhiteL",
+              "Name": "ArtEyeWhiteL",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtFaceBase",
+              "Name": "ArtFaceBase",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtHairBack",
+              "Name": "ArtHairBack",
+              "Type": "ArtMesh"
+            }
+          ],
+          "Id": "Part4",
+          "Name": "10_HEAD_PRODUCTION",
+          "Type": "Part"
+        },
+        {
+          "Children": [
+            {
+              "Id": "ReferenceMasterHeadProduction",
+              "Name": "ReferenceMasterHeadProduction",
+              "Type": "ArtMesh"
+            }
+          ],
+          "Id": "Part5",
+          "Name": "00_GUIDE_DO_NOT_RIG",
+          "Type": "Part"
+        }
+      ],
+      "Id": "%Root",
+      "Name": "Root Part",
+      "Type": "Part"
+    }
+  },
+  "deformers": {
+    "DeformerStructure": [
+      {
+        "Name": "root",
+        "Id": "%Root",
+        "Type": null,
+        "Children": [
+          {
+            "Name": "ArtSkirtC",
+            "Id": "ArtSkirtC",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtSkirtR",
+            "Id": "ArtSkirtR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtSkirtL",
+            "Id": "ArtSkirtL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtSleeveR",
+            "Id": "ArtSleeveR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtSleeveL",
+            "Id": "ArtSleeveL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtTorsoWaist",
+            "Id": "ArtTorsoWaist",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtFootR",
+            "Id": "ArtFootR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtFootL",
+            "Id": "ArtFootL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtHandCuffR",
+            "Id": "ArtHandCuffR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtHandCuffL",
+            "Id": "ArtHandCuffL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtHeadOrnament",
+            "Id": "ArtHeadOrnament",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtHairFront",
+            "Id": "ArtHairFront",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtEarringR",
+            "Id": "ArtEarringR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtEarringL",
+            "Id": "ArtEarringL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtMouthClosed",
+            "Id": "ArtMouthClosed",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtNose",
+            "Id": "ArtNose",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtBrowR",
+            "Id": "ArtBrowR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtBrowL",
+            "Id": "ArtBrowL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtLowerLidR",
+            "Id": "ArtLowerLidR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtUpperLidR",
+            "Id": "ArtUpperLidR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtHighlightR",
+            "Id": "ArtHighlightR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtPupilR",
+            "Id": "ArtPupilR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtIrisR",
+            "Id": "ArtIrisR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtEyeWhiteR",
+            "Id": "ArtEyeWhiteR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtLowerLidL",
+            "Id": "ArtLowerLidL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtUpperLidL",
+            "Id": "ArtUpperLidL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtHighlightL",
+            "Id": "ArtHighlightL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtPupilL",
+            "Id": "ArtPupilL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtIrisL",
+            "Id": "ArtIrisL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtEyeWhiteL",
+            "Id": "ArtEyeWhiteL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtFaceBase",
+            "Id": "ArtFaceBase",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtHairBack",
+            "Id": "ArtHairBack",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ReferenceMasterHeadProduction",
+            "Id": "ReferenceMasterHeadProduction",
+            "Type": "ArtMesh"
+          }
+        ]
+      }
+    ]
+  },
+  "artMeshCount": 33,
+  "addParameterKeys": [
+    {
+      "objectId": "ArtEyeWhiteL",
+      "parameterId": "ParamEyeLOpen",
+      "keyValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtIrisL",
+      "parameterId": "ParamEyeLOpen",
+      "keyValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtPupilL",
+      "parameterId": "ParamEyeLOpen",
+      "keyValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtHighlightL",
+      "parameterId": "ParamEyeLOpen",
+      "keyValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtEyeWhiteL",
+      "parameterId": "ParamEyeLOpen",
+      "keyValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtIrisL",
+      "parameterId": "ParamEyeLOpen",
+      "keyValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtPupilL",
+      "parameterId": "ParamEyeLOpen",
+      "keyValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtHighlightL",
+      "parameterId": "ParamEyeLOpen",
+      "keyValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtEyeWhiteR",
+      "parameterId": "ParamEyeROpen",
+      "keyValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtIrisR",
+      "parameterId": "ParamEyeROpen",
+      "keyValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtPupilR",
+      "parameterId": "ParamEyeROpen",
+      "keyValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtHighlightR",
+      "parameterId": "ParamEyeROpen",
+      "keyValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtEyeWhiteR",
+      "parameterId": "ParamEyeROpen",
+      "keyValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtIrisR",
+      "parameterId": "ParamEyeROpen",
+      "keyValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtPupilR",
+      "parameterId": "ParamEyeROpen",
+      "keyValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtHighlightR",
+      "parameterId": "ParamEyeROpen",
+      "keyValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    }
+  ],
+  "keyedOpacityEdit": [
+    {
+      "objectId": "ArtEyeWhiteL",
+      "opacity": 0,
+      "parameterId": "ParamEyeLOpen",
+      "parameterValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtIrisL",
+      "opacity": 0,
+      "parameterId": "ParamEyeLOpen",
+      "parameterValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtPupilL",
+      "opacity": 0,
+      "parameterId": "ParamEyeLOpen",
+      "parameterValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtHighlightL",
+      "opacity": 0,
+      "parameterId": "ParamEyeLOpen",
+      "parameterValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtEyeWhiteL",
+      "opacity": 100,
+      "parameterId": "ParamEyeLOpen",
+      "parameterValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtIrisL",
+      "opacity": 100,
+      "parameterId": "ParamEyeLOpen",
+      "parameterValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtPupilL",
+      "opacity": 100,
+      "parameterId": "ParamEyeLOpen",
+      "parameterValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtHighlightL",
+      "opacity": 100,
+      "parameterId": "ParamEyeLOpen",
+      "parameterValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtEyeWhiteR",
+      "opacity": 0,
+      "parameterId": "ParamEyeROpen",
+      "parameterValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtIrisR",
+      "opacity": 0,
+      "parameterId": "ParamEyeROpen",
+      "parameterValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtPupilR",
+      "opacity": 0,
+      "parameterId": "ParamEyeROpen",
+      "parameterValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtHighlightR",
+      "opacity": 0,
+      "parameterId": "ParamEyeROpen",
+      "parameterValue": 0,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtEyeWhiteR",
+      "opacity": 100,
+      "parameterId": "ParamEyeROpen",
+      "parameterValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtIrisR",
+      "opacity": 100,
+      "parameterId": "ParamEyeROpen",
+      "parameterValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtPupilR",
+      "opacity": 100,
+      "parameterId": "ParamEyeROpen",
+      "parameterValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    },
+    {
+      "objectId": "ArtHighlightR",
+      "opacity": 100,
+      "parameterId": "ParamEyeROpen",
+      "parameterValue": 0.5,
+      "result": {
+        "Result": true
+      }
+    }
+  ],
+  "parameterKeys": {
+    "ArtEyeWhiteL": {
+      "Parameters": [
+        {
+          "Id": "ParamEyeLOpen",
+          "KeyValues": [
+            0,
+            0.5
+          ]
+        }
+      ]
+    },
+    "ArtEyeWhiteR": {
+      "Parameters": [
+        {
+          "Id": "ParamEyeROpen",
+          "KeyValues": [
+            0,
+            0.5
+          ]
+        }
+      ]
+    }
+  },
+  "objects": {
+    "ArtSkirtC": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtSkirtC",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtSkirtC",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part2",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtSkirtR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtSkirtR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtSkirtR",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part2",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtSkirtL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtSkirtL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtSkirtL",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part2",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtSleeveR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtSleeveR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtSleeveR",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part2",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtSleeveL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtSleeveL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtSleeveL",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part2",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtTorsoWaist": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtTorsoWaist",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtTorsoWaist",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part3",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtFootR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtFootR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtFootR",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part3",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtFootL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtFootL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtFootL",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part3",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtHandCuffR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtHandCuffR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtHandCuffR",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part3",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtHandCuffL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtHandCuffL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtHandCuffL",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part3",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtHeadOrnament": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtHeadOrnament",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtHeadOrnament",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtHairFront": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtHairFront",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtHairFront",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtEarringR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtEarringR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtEarringR",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtEarringL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtEarringL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtEarringL",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtMouthClosed": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtMouthClosed",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtMouthClosed",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtNose": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtNose",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtNose",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtBrowR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtBrowR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtBrowR",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtBrowL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtBrowL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtBrowL",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtLowerLidR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtLowerLidR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtLowerLidR",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtUpperLidR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtUpperLidR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtUpperLidR",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtHighlightR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtHighlightR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtHighlightR",
+        "Opacity": 0,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtPupilR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtPupilR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtPupilR",
+        "Opacity": 0,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtIrisR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtIrisR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtIrisR",
+        "Opacity": 0,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtEyeWhiteR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtEyeWhiteR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtEyeWhiteR",
+        "Opacity": 0,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtLowerLidL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtLowerLidL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtLowerLidL",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtUpperLidL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtUpperLidL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtUpperLidL",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtHighlightL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtHighlightL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtHighlightL",
+        "Opacity": 0,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtPupilL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtPupilL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtPupilL",
+        "Opacity": 0,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtIrisL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtIrisL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtIrisL",
+        "Opacity": 0,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtEyeWhiteL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtEyeWhiteL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtEyeWhiteL",
+        "Opacity": 0,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtFaceBase": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtFaceBase",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtFaceBase",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtHairBack": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtHairBack",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtHairBack",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ReferenceMasterHeadProduction": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ReferenceMasterHeadProduction",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ReferenceMasterHeadProduction",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part5",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    }
+  },
+  "summary": [
+    {
+      "id": "ArtSkirtC",
+      "vertices": 4,
+      "parentPart": "Part2",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtSkirtR",
+      "vertices": 4,
+      "parentPart": "Part2",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtSkirtL",
+      "vertices": 4,
+      "parentPart": "Part2",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtSleeveR",
+      "vertices": 4,
+      "parentPart": "Part2",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtSleeveL",
+      "vertices": 4,
+      "parentPart": "Part2",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtTorsoWaist",
+      "vertices": 4,
+      "parentPart": "Part3",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtFootR",
+      "vertices": 4,
+      "parentPart": "Part3",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtFootL",
+      "vertices": 4,
+      "parentPart": "Part3",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtHandCuffR",
+      "vertices": 4,
+      "parentPart": "Part3",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtHandCuffL",
+      "vertices": 4,
+      "parentPart": "Part3",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtHeadOrnament",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtHairFront",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtEarringR",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtEarringL",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtMouthClosed",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtNose",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtBrowR",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtBrowL",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtLowerLidR",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtUpperLidR",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtHighlightR",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 0
+    },
+    {
+      "id": "ArtPupilR",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 0
+    },
+    {
+      "id": "ArtIrisR",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 0
+    },
+    {
+      "id": "ArtEyeWhiteR",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 0
+    },
+    {
+      "id": "ArtLowerLidL",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtUpperLidL",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtHighlightL",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 0
+    },
+    {
+      "id": "ArtPupilL",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 0
+    },
+    {
+      "id": "ArtIrisL",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 0
+    },
+    {
+      "id": "ArtEyeWhiteL",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 0
+    },
+    {
+      "id": "ArtFaceBase",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ArtHairBack",
+      "vertices": 4,
+      "parentPart": "Part4",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    },
+    {
+      "id": "ReferenceMasterHeadProduction",
+      "vertices": 4,
+      "parentPart": "Part5",
+      "parentDeformer": "%Root",
+      "opacity": 100
+    }
+  ],
+  "verticesLessThanFive": [
+    "ArtSkirtC",
+    "ArtSkirtR",
+    "ArtSkirtL",
+    "ArtSleeveR",
+    "ArtSleeveL",
+    "ArtTorsoWaist",
+    "ArtFootR",
+    "ArtFootL",
+    "ArtHandCuffR",
+    "ArtHandCuffL",
+    "ArtHeadOrnament",
+    "ArtHairFront",
+    "ArtEarringR",
+    "ArtEarringL",
+    "ArtMouthClosed",
+    "ArtNose",
+    "ArtBrowR",
+    "ArtBrowL",
+    "ArtLowerLidR",
+    "ArtUpperLidR",
+    "ArtHighlightR",
+    "ArtPupilR",
+    "ArtIrisR",
+    "ArtEyeWhiteR",
+    "ArtLowerLidL",
+    "ArtUpperLidL",
+    "ArtHighlightL",
+    "ArtPupilL",
+    "ArtIrisL",
+    "ArtEyeWhiteL",
+    "ArtFaceBase",
+    "ArtHairBack",
+    "ReferenceMasterHeadProduction"
+  ]
+}

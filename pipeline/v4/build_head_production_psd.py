@@ -24,13 +24,18 @@ SOURCE_DIR = ROOT / "assets" / "source" / "rebuild-v4"
 MASTER_PATH = SOURCE_DIR / "character-master-front.png"
 GUIDE_PATH = SOURCE_DIR / "head-detail-guide-v1.png"
 FACE_BASE_CHROMA_PATH = SOURCE_DIR / "head-production" / "face-base-chroma-v2.png"
-OUTPUT_DIR = SOURCE_DIR / "head-production" / "v2"
+# v3 adds the eye backdrop fix: the face-base candidate paints a complete open
+# eye; the rig layers are copies on top, so any blink deformation exposes the
+# baked eye. v3 fills the baked iris/pupil/highlight with row-wise sclera tone
+# and the lash bands with skin smeared from directly above.
+VERSION = "v3"
+OUTPUT_DIR = SOURCE_DIR / "head-production" / VERSION
 LAYERS_DIR = OUTPUT_DIR / "layers"
-MASTER_OUTPUT_PATH = OUTPUT_DIR / "character-master-front-head-production-v2.png"
-MODEL_PATH = ROOT / "model" / "cubism-v4" / "bamboo-crane-maiden-v4-head-production-v2.psd"
-PREVIEW_PATH = ROOT / "exports" / "v4-head-production-neutral-v2.png"
-HEAD_PREVIEW_PATH = ROOT / "exports" / "v4-head-production-guide-space-v2.png"
-REPORT_PATH = ROOT / "exports" / "v4-head-production-report-v2.json"
+MASTER_OUTPUT_PATH = OUTPUT_DIR / f"character-master-front-head-production-{VERSION}.png"
+MODEL_PATH = ROOT / "model" / "cubism-v4" / f"bamboo-crane-maiden-v4-head-production-{VERSION}.psd"
+PREVIEW_PATH = ROOT / "exports" / f"v4-head-production-neutral-{VERSION}.png"
+HEAD_PREVIEW_PATH = ROOT / "exports" / f"v4-head-production-guide-space-{VERSION}.png"
+REPORT_PATH = ROOT / "exports" / f"v4-head-production-report-{VERSION}.json"
 
 CANVAS_SCALE = 2
 GUIDE_TO_MODEL_SCALE = 0.716
@@ -391,6 +396,38 @@ def build_head_layers() -> tuple[list[tuple[str, Image.Image]], Image.Image, dic
         "ArtHeadOrnament": ornament,
     }
 
+    # Eye backdrop: replace the baked iris/pupil/highlight with the row-wise
+    # sclera tone and the lash bands with the skin directly above them. The
+    # fills stay inside the rig cutout masks, so the neutral composite and the
+    # quality metrics are unchanged while blink deformations no longer expose
+    # a baked open eye.
+    backdrop = face_base_rgba.copy()
+    backdrop_stats = {"sclera_fill_pixels": 0, "lash_skin_fill_pixels": 0}
+    for side in ("L", "R"):
+        white_m = masks[f"ArtEyeWhite{side}"]
+        sclera_fill = np.zeros_like(masks[f"ArtIris{side}"])
+        for name in (f"ArtIris{side}", f"ArtPupil{side}", f"ArtHighlight{side}"):
+            sclera_fill |= masks[name]
+        if sclera_fill.any():
+            for y in np.where(sclera_fill.any(axis=1))[0]:
+                row = sclera_fill[y]
+                sample = white_m[y]
+                if not sample.any():
+                    sample = white_m[max(0, y - 3): y + 4].any(axis=0)
+                if sample.any():
+                    backdrop[y, row, :3] = np.median(face_base_rgba[y, sample, :3], axis=0)
+            backdrop_stats["sclera_fill_pixels"] += int(sclera_fill.sum())
+        for name in (f"ArtUpperLid{side}", f"ArtLowerLid{side}"):
+            band = dilate(masks[name], 3)
+            if not band.any():
+                continue
+            for x in np.where(band.any(axis=0))[0]:
+                ys = np.where(band[:, x])[0]
+                src = max(0, int(ys.min()) - 3)
+                backdrop[ys, x, :3] = face_base_rgba[src, x, :3]
+            backdrop_stats["lash_skin_fill_pixels"] += int(band.sum())
+    face_base_rgba = backdrop
+
     layers: list[tuple[str, Image.Image]] = []
     for name, mask in masks.items():
         if not mask.any():
@@ -433,6 +470,7 @@ def build_head_layers() -> tuple[list[tuple[str, Image.Image]], Image.Image, dic
         "recovered_face_overlap_hair_pixels": int(hair_face_overlay.sum()),
         "neck_fallback_pixels": int(neck_fallback.sum()),
         "ear_fallback_pixels": int(ear_fallback.sum()),
+        "eye_backdrop": backdrop_stats,
         "layer_pixels": {name: int(mask.sum()) for name, mask in masks.items()},
     }
     return layers, neutral, report
@@ -543,7 +581,7 @@ def build() -> dict[str, object]:
     psd.save(MODEL_PATH)
 
     report: dict[str, object] = {
-        "schema": "bamboo-crane-maiden-v4-head-production/v2",
+        "schema": f"bamboo-crane-maiden-v4-head-production/{VERSION}",
         "source_master": str(MASTER_PATH.relative_to(ROOT)).replace("\\", "/"),
         "head_guide": str(GUIDE_PATH.relative_to(ROOT)).replace("\\", "/"),
         "face_base_candidate": str(FACE_BASE_CHROMA_PATH.relative_to(ROOT)).replace("\\", "/"),
@@ -560,8 +598,9 @@ def build() -> dict[str, object]:
         "authoritative_master_sha256": sha256(MASTER_OUTPUT_PATH),
         "preview": str(PREVIEW_PATH.relative_to(ROOT)).replace("\\", "/"),
         "quality_boundary": (
-            "The high-resolution head is a production candidate. It separates face, eyes, brows, "
-            "mouth, hair, ornament and earrings, but still requires visual approval, Cubism mesh "
+            "The high-resolution head is a production candidate. v3 adds the eye backdrop: "
+            "the face base no longer paints a baked open eye, so blink deformations can cover "
+            "the eye with the rig layers. It still requires visual approval, Cubism mesh "
             "generation and hand-edited blink/turn keyforms. Body joint underpaint is unchanged."
         ),
     }

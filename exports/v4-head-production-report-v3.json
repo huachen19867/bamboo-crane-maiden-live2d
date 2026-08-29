@@ -1,0 +1,117 @@
+{
+  "schema": "bamboo-crane-maiden-v4-head-production/v3",
+  "source_master": "assets/source/rebuild-v4/character-master-front.png",
+  "head_guide": "assets/source/rebuild-v4/head-detail-guide-v1.png",
+  "face_base_candidate": "assets/source/rebuild-v4/head-production/face-base-chroma-v2.png",
+  "canvas": [
+    2048,
+    3072
+  ],
+  "guide_to_model": {
+    "scale": 0.716,
+    "offset": [
+      566,
+      24
+    ]
+  },
+  "removed_old_head_pixels": 194530,
+  "head_layer_count": 22,
+  "body_layer_count": 10,
+  "head": {
+    "guide_subject_pixels": 372623,
+    "neutral_visible_pixels": 371120,
+    "guide_overlap_pixels": 370267,
+    "guide_overlap_rgb_mean_abs_error": 2.9029835227011858,
+    "guide_overlap_max_channel_le_24_ratio": 0.9781049891024585,
+    "visible_magenta_pixels": 0,
+    "recovered_face_overlap_hair_pixels": 87185,
+    "neck_fallback_pixels": 1487,
+    "ear_fallback_pixels": 6568,
+    "eye_backdrop": {
+      "sclera_fill_pixels": 4074,
+      "lash_skin_fill_pixels": 9806
+    },
+    "layer_pixels": {
+      "ArtHairBack": 24335,
+      "ArtFaceBase": 136054,
+      "ArtEyeWhiteL": 1496,
+      "ArtIrisL": 1277,
+      "ArtPupilL": 1317,
+      "ArtHighlightL": 149,
+      "ArtUpperLidL": 2486,
+      "ArtLowerLidL": 1535,
+      "ArtEyeWhiteR": 1401,
+      "ArtIrisR": 1250,
+      "ArtPupilR": 1296,
+      "ArtHighlightR": 217,
+      "ArtUpperLidR": 2607,
+      "ArtLowerLidR": 1588,
+      "ArtBrowL": 735,
+      "ArtBrowR": 776,
+      "ArtNose": 140,
+      "ArtMouthClosed": 658,
+      "ArtEarringL": 8910,
+      "ArtEarringR": 7735,
+      "ArtHairFront": 165852,
+      "ArtHeadOrnament": 64511
+    }
+  },
+  "body_manifest": [
+    {
+      "group": "20_BODY",
+      "name": "ArtHandCuffL",
+      "pixels": 49651
+    },
+    {
+      "group": "20_BODY",
+      "name": "ArtHandCuffR",
+      "pixels": 39205
+    },
+    {
+      "group": "20_BODY",
+      "name": "ArtFootL",
+      "pixels": 42471
+    },
+    {
+      "group": "20_BODY",
+      "name": "ArtFootR",
+      "pixels": 35863
+    },
+    {
+      "group": "30_DYNAMIC_GARMENT",
+      "name": "ArtSleeveL",
+      "pixels": 547846
+    },
+    {
+      "group": "30_DYNAMIC_GARMENT",
+      "name": "ArtSleeveR",
+      "pixels": 520169
+    },
+    {
+      "group": "20_BODY",
+      "name": "ArtTorsoWaist",
+      "pixels": 85111
+    },
+    {
+      "group": "30_DYNAMIC_GARMENT",
+      "name": "ArtSkirtL",
+      "pixels": 341316
+    },
+    {
+      "group": "30_DYNAMIC_GARMENT",
+      "name": "ArtSkirtR",
+      "pixels": 334924
+    },
+    {
+      "group": "30_DYNAMIC_GARMENT",
+      "name": "ArtSkirtC",
+      "pixels": 419533
+    }
+  ],
+  "psd": "model/cubism-v4/bamboo-crane-maiden-v4-head-production-v3.psd",
+  "psd_sha256": "5844EA59E1BF3AB1E99252CADCFC487FF16E7A6032C39E79007281CEC53A8335",
+  "authoritative_master": "assets/source/rebuild-v4/head-production/v3/character-master-front-head-production-v3.png",
+  "authoritative_master_sha256": "DF91D559FFF4634D83588848BAFC852EEA13AA15D7B962AF2F39DD165097AE34",
+  "preview": "exports/v4-head-production-neutral-v3.png",
+  "quality_boundary": "The high-resolution head is a production candidate. v3 adds the eye backdrop: the face base no longer paints a baked open eye, so blink deformations can cover the eye with the rig layers. It still requires visual approval, Cubism mesh generation and hand-edited blink/turn keyforms. Body joint underpaint is unchanged."
+}

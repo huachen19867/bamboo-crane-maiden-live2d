@@ -1,5 +1,21 @@
 # 技术日志
 
+## 2026-08-30（夜）｜V3 眼部背景板修复 + 双眼淡出眨眼差分绑定落地
+
+**资产根因修复（V3）**：V2 头部生产 PSD 的脸底层把完整睁开的眼（巩膜+虹膜+瞳仁+高光+睫毛）烘在了脸底里——把四层眼内结构全部隐藏后眼睛依然可见即为实锤。任何眨眼绑定都会与烘焙眼"打架"。修复走构建脚本而非在 CMO3 里涂改：`pipeline/v4/build_head_production_psd.py` 升级为 v3，把虹膜/瞳仁/高光区按行取周围巩膜中位色回填、睫毛带用其正上方皮肤逐列下抹（`eye_backdrop: sclera_fill=4074, lash_skin_fill=9806`），填充严格限制在绑定层的 dilate(3) 蒙版内，因此中性合成与质量指标不变（2.9030 / 97.81%）。产物 `model/cubism-v4/bamboo-crane-maiden-v4-head-production-v3.psd`（SHA-256 `5844EA59E1BF3AB1E99252CADCFC487FF16E7A6032C39E79007281CEC53A8335`）。
+
+**重新导入与网格**：V3 PSD 在 5.4 alpha1 重新导入并另存 `model/cubism-v4/bamboo-crane-maiden-v4-head-production-v3-import.cmo3`，全选后用 `Ctrl+Shift+A` 自动生成网格（实时应用对话框必须改一次数值才会触发应用——仅打开不动值不生效）。终态 33 个 ArtMesh、合计 778 顶点、仅隐藏指南层保持 4 点。
+
+**眨眼差分（淡出版）已落地并视觉验证**：双眼 8 个眼内层（眼白/虹膜/瞳仁/高光 × 2）在 ParamEyeLOpen/ParamEyeROpen 上各建 `@0 → 透明度 0`、`@0.5 → 100` 的键形，base=100。左眼=0 时左眼内容淡出、眼区只剩皮肤与睫毛线（`exports/v4-blink-state-L0-closed.png`）；右眼=0 同理（`exports/v4-blink-state-0-closed.png`）；双眼=1 完全睁开（`exports/v4-blink-state-1-both-open.png`）；左开右闭差分同框（`exports/v4-blink-final-1L-0R.png`）。API `GetParameterKeys` 确认 8 层键位齐全，终态报告 `exports/v4-final-state.json`。检查点已保存（03:57:34，SHA-256 `137450EC25B3EF6F198CBF5BA36E9043A12F594C0C76B49D5B08C2C276B6B3EE`）。
+
+**必须如实记录的边界**：一，本版眨眼是"内容淡出"型，上眼睑平移（睫毛线下落）的网格顶点关键形**没有记录成功**——网格编辑模式内的多次顶点拖拽均未生成键形（`GetParameterKeys` 显示 ArtUpperLidL/R 键形为空），因此参数 0 的闭眼是"无眼球的眼眶+静止睫毛"，不是标准的"眼睑合拢"，下一版应在 GUI 里人工补 4 次眼睑下移键形（选层 → Ctrl+E → Ctrl+A → 拖弧线至下睑线 → ✓）。二，参数 0.5 的中间态目前渲染为"半透明冲淡"而非干净半闭，键点编辑器（双击参数行打开「键点 - 参数名」面板）里人工核调 @0.5 键值即可。三，保存的检查点里参数面板停在 左眼=1.0、右眼=0.0，编辑器重新打开时右眼呈闭合，把右眼开闭拨回 1 即可（运行时自行驱动参数，不受影响）。
+
+**外部编辑 API 的关键语义（本次实测，写清楚避免后人踩坑）**：`EditArtMesh` 写的是"当前参数状态"——不带 `Parameters` 时写当前滑杆值对应的状态（有键则写键，无键则写 base）；带 `Parameters`+`IsExactMatch` 时此 alpha 版静默忽略参数定位、仍然写 base（这就是早期"写键却读回 base=0"的根因）。正确姿势是 `SetParameterValues` 先驱动到目标值再写。`GetObject` 不接受 `Parameters`（InvalidData），键位上的透明度值无法经 API 读回，只能靠渲染目检。`DeleteParameterKey` 必须带 `KeyValue` 才能删单键。`SetParameterValues` 的临时驱动不会触发画布重渲染（渲染跟面板值）。插件令牌持久化：首次注册授权后把 Token 存 `pipeline/v4/.cubism-api-token.local` 复用，后续探针免授权。
+
+**GUI 自动化的坑与解法（全部实测）**：ZCode 桌面控制的坐标派发对该 Java 应用始终失败，全部输入改走 `pipeline/v4/native_input.py`（原生 keybd_event/mouse_event，raster 坐标 ×4/3，含 script 批处理模式与自动聚焦）。参数面板行位会随右侧「工具详情」开合横移：宽版数值框在 x≈435、窄版在 x≈342，点错会落在滑轨上把值打到任意位置（本次左眼曾被误设 0.44/0.2）。双击参数"行"会打开「键点」编辑器（这是人工调键形的正确入口）。网格编辑的 ✓/X 在 raster (632,102)/(672,102)，**(670,107) 附近是 X=放弃**——曾连续多次把提交点成放弃；✓ 点击后面板不消失说明没提交成功。退出网格编辑（Ctrl+E）若有未提交改动会弹"放弃更改并退出吗"，默认按钮是放弃。参数值字段的双击+输入时灵时不灵，点滑轨 1.0 端（左眼 (400,181)、右眼 (400,227)——右眼偶尔点不进）更稳。保存前必须先关掉"请至少选择一个对象"之类的模态提示，否则 Ctrl+S 静默无效。
+
+**试验被证伪的路线（留档防重复）**：透明度键无法经 `EditArtMesh+Parameters` 写入（写 base）；网格顶点键形经自动化拖拽多次尝试均未记录；"参数超出键范围时钳制到最近键"的假设在 R 眼上不成立（param 1 渲染跟随 base=0 变隐形），因此最终把 base 恢复 100 并保留 0/0.5 两键 + 默认档。这些边界决定了淡出方案的键形布局。
+
 ## 2026-08-30｜V2 头部生产 PSD 在 5.4 alpha1 完成导入验收与自动网格生成
 
 V2 生产 PSD 已在 `tools/alpha/CubismEditor5.exe`（5.4.00 alpha1）完成正式导入并另存为 `model/cubism-v4/bamboo-crane-maiden-v4-head-production-v2-import.cmo3`（15,967,463 字节，SHA-256 `2A5A52C7A01797F169A706CEBD706AF69532B8D6F89A0F209B0923680037247D`，日志 Verify after save : SUCCESS）。源 PSD、V1 拒绝稿和 V4 中性导入点均未被改动。

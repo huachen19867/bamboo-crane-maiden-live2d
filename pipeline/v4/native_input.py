@@ -4,6 +4,7 @@ The ZCode CUA broker's ownership verification rejects every coordinate dispatch
 against this Java/AWT app, so automation must send raw Win32 events directly.
 Coordinates are PHYSICAL screen pixels (display is 2560x1600).
 """
+import io
 import os
 import sys
 import time
@@ -23,6 +24,23 @@ import win32api
 import win32gui
 
 KEYEVENTF_KEYUP = 0x0002
+
+VK_MAP = {
+    "0": 0x30, "1": 0x31, "2": 0x32, "3": 0x33, "4": 0x34,
+    "5": 0x35, "6": 0x36, "7": 0x37, "8": 0x38, "9": 0x39,
+    ".": 0xBE,
+}
+
+
+def type_text(text):
+    for ch in text:
+        code = VK_MAP.get(ch)
+        if code is None:
+            raise ValueError(f"unsupported char {ch!r}")
+        win32api.keybd_event(code, 0, 0, 0)
+        time.sleep(0.03)
+        win32api.keybd_event(code, 0, KEYEVENTF_KEYUP, 0)
+        time.sleep(0.06)
 
 # The ZCode screenshots come in a 1280x800 raster. Convert raster coords to
 # whatever space this process is allowed to use for Win32 coordinates.
@@ -149,6 +167,102 @@ def key(name, times=1):
         time.sleep(0.08)
 
 
+MOUSEEVENTF_WHEEL = 0x0800
+
+
+def wheel(x, y, delta):
+    move_to(x, y)
+    time.sleep(0.05)
+    win32api.mouse_event(MOUSEEVENTF_WHEEL, 0, 0, int(delta * 120), 0)
+    time.sleep(0.15)
+
+
+VK_CONTROL = 0x11
+VK_SHIFT = 0x10
+
+
+def modifier_click(x, y, modifier, button="left"):
+    win32api.keybd_event(modifier, 0, 0, 0)
+    time.sleep(0.05)
+    try:
+        click(x, y, button=button)
+    finally:
+        win32api.keybd_event(modifier, 0, KEYEVENTF_KEYUP, 0)
+    time.sleep(0.05)
+
+
+ALL_VK = {**VK, **VK_MAP, "a": 0x41, "e": 0x45, "w": 0x57, "o": 0x4F, "s": 0x53, "z": 0x5A}
+
+
+def chord(mods, name):
+    code = ALL_VK[name]
+    mod_codes = {"ctrl": VK_CONTROL, "shift": VK_SHIFT, "alt": 0x12}
+    held = []
+    for m in mods:
+        win32api.keybd_event(mod_codes[m], 0, 0, 0)
+        held.append(mod_codes[m])
+        time.sleep(0.04)
+    try:
+        win32api.keybd_event(code, 0, 0, 0)
+        time.sleep(0.03)
+        win32api.keybd_event(code, 0, KEYEVENTF_KEYUP, 0)
+        time.sleep(0.08)
+    finally:
+        for held_code in held:
+            win32api.keybd_event(held_code, 0, KEYEVENTF_KEYUP, 0)
+    time.sleep(0.05)
+
+
+def focus_cubism():
+    target = None
+
+    def cb(hwnd, _):
+        nonlocal target
+        if win32gui.IsWindowVisible(hwnd) and "Cubism Editor" in win32gui.GetWindowText(hwnd):
+            target = hwnd
+
+    win32gui.EnumWindows(cb, None)
+    if target:
+        win32gui.SetForegroundWindow(target)
+        time.sleep(0.5)
+        return target
+    return None
+
+
+def run_script(path):
+    """Execute a JSON list of operations: click/rclick/dblclick/drag/key/wait."""
+    import json
+
+    focus_cubism()
+    with io.open(path, encoding="utf-8") as f:
+        ops = json.load(f)
+    for op in ops:
+        kind = op["op"]
+        if kind == "click":
+            click(op["x"], op["y"], op.get("button", "left"))
+        elif kind == "ctrlclick":
+            modifier_click(op["x"], op["y"], VK_CONTROL)
+        elif kind == "shiftclick":
+            modifier_click(op["x"], op["y"], VK_SHIFT)
+        elif kind == "dblclick":
+            double_click(op["x"], op["y"])
+        elif kind == "drag":
+            drag(op["x1"], op["y1"], op["x2"], op["y2"], op.get("steps", 24))
+        elif kind == "key":
+            key(op["name"], op.get("times", 1))
+        elif kind == "wheel":
+            wheel(op["x"], op["y"], op.get("delta", -3))
+        elif kind == "chord":
+            chord(op.get("mods", ["ctrl"]), op["name"])
+        elif kind == "text":
+            type_text(op["text"])
+        elif kind == "wait":
+            time.sleep(op.get("seconds", 0.5))
+        else:
+            raise ValueError(f"unknown op {kind}")
+    return f"ran {len(ops)} ops"
+
+
 def main():
     cmd = sys.argv[1]
     if cmd == "click":
@@ -163,6 +277,10 @@ def main():
         print(resize_window(sys.argv[2], int(sys.argv[3]), int(sys.argv[4])))
     elif cmd == "key":
         key(sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 1)
+    elif cmd == "wheel":
+        wheel(int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]))
+    elif cmd == "script":
+        print(run_script(sys.argv[2]))
     elif cmd == "windows":
         for hwnd, rect, text in list_windows():
             print(f"{hwnd}|{rect}|{text}")

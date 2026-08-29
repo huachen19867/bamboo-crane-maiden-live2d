@@ -62,3 +62,7 @@ dist/
 *.tmp
 .DS_Store
 Thumbs.db
+ECHO 处于打开状态。
+# Cubism external API token and working captures  
+pipeline/.cubism-api-token.local  
+exports/_*.png  
