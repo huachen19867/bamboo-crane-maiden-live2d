@@ -15,12 +15,16 @@ V4 仍不把生成 PNG 当作成品原画。新 PSD 的第一道职责只是建�
 | V4 清理母版 | `assets/source/rebuild-v4/character-master-front-clean.png` | 1024×1536，alpha bbox `(118,12)–(893,1507)` |
 | 头部细节指南 | `assets/source/rebuild-v4/head-detail-guide-v1.png` | 1254×1254，已缩小首稿过大的双眼，只作隐藏重绘参考 |
 | V4 源 PSD | `model/cubism-v4/bamboo-crane-maiden-v4-source.psd` | 11 个实际裁层，中性实心 RGB 零差异 |
+| V4 中性 CMO3 | `model/cubism-v4/bamboo-crane-maiden-v4-neutral-import.cmo3` | Cubism Editor 5.4 alpha1 实际导入并另存；尚无生产绑定 |
 | 构建报告 | `exports/v4-source-psd-report.json` | 未分配像素 0，分区重建差异 0 |
+| Cubism API 结构报告 | `exports/v4-cubism-api-model-report.json` | API 1.1.0 实读；12 个 ArtMesh 当前均仅 4 顶点 |
 | 中性预览 | `exports/v4-source-neutral.png` | 权威清理母版，不是黑底图 |
 
 ## PSD 分层路线
 
 第一阶段已经完成几何粗分区：头、双手袖口、双脚、躯干腰封、左右袖、左中右裙。它的目的只是避免再次从整幅场景图开始，不允许直接进入动作验收。
+
+Cubism 5.4 alpha1 的外部编辑 API 已在该 PSD 的真实导入模型上通过连接、授权、结构读取和回滚事务测试。后续可以用 API 批量建立 Part、参数、关键形槽位、Rotation/Warp 和父子结构；但 API 不能写 ArtMesh 顶点或 Warp 控制点。当前自动导入 ArtMesh 只有 4 个顶点，必须先在 Editor 中生成并人工修正沿轮廓、眼睑、衣纹和关节布点的网格。禁止因为 API 能创建 Deformer，就跳过网格与底绘直接套整层 Rotation。
 
 第二阶段必须把 `ArtHeadCombined` 重建为脸部生产层：后发、发髻、前发、左右侧发、脸底、左右眼白/虹膜/瞳孔/高光、上下眼睑、睫毛、眉、鼻影、嘴闭/开、口腔、牙齿/舌。闭眼与开口差分必须来自同一张脸，不允许用肤色椭圆盖眼或拉伸整张嘴。
 

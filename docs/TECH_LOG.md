@@ -1,5 +1,13 @@
 # 技术日志
 
+## 2026-08-29｜Cubism 5.4 alpha1 外部编辑 API 实机验证与 V4 中性导入点
+
+本机 `tools/alpha/CubismEditor5.exe` 经文件版本核对为 `Live2D Cubism Editor 5.4.00 alpha1`，不是此前主线使用的 5.3.03。该版本的外部编辑 API 为 `1.1.0`，使用本机 WebSocket `ws://127.0.0.1:22033`；必须先在 `[文件] → [外部应用程序集成的设置]` 打开连接开关，再分别授予“权限”和“编辑”权限。远程连接保持关闭。对 V4 PSD 实际连接后，`GetCurrentModelUID / GetParameterStructure / GetPartStructure / GetDeformerStructure` 均成功；探针读到 28 个参数条目、18 个 Part/ArtMesh 结构条目和 13 个变形器结构条目。随后执行 `EditBegin → EditSendLog → EditEnd(Cancel=true)`，事务正常回滚，证明可以把后续一组结构编辑做成原子操作，而不再依赖逐次 UI 点击。
+
+V4 PSD 已由 5.4 alpha1 正式导入并另存为 `model/cubism-v4/bamboo-crane-maiden-v4-neutral-import.cmo3`，源 PSD和旧 V3 均未覆盖。API 全量只读报告为 `exports/v4-cubism-api-model-report.json`。报告确认当前有 12 个 ArtMesh，其中包含隐藏指南 `ReferenceMasterFront`；所有导入 ArtMesh 的 `GetObject` 结果目前都只有 4 个顶点，并且 11 个生产层仍是粗分区，`ArtHeadCombined` 尚未拆眼口发。因此这个 CMO3 只是干净中性导入点，不是可直接绑定的模型。API 可以自动创建 Part、参数、关键形槽位、Rotation/Warp 层级、父子关系和绘制属性，但 `1.1.0` 不能创建 ArtMesh、写 ArtMesh 顶点/三角形/UV、写 Warp 控制点或创建物理设置；它能显著加速结构搭建，不能替代网格生成、隐藏底绘和极值修形。
+
+首次导入时进度窗口约持续半分钟，Editor 主标题在导入完成前保持空白；进程实际仍在工作。以后不能仅凭暂时没有标题或 API 端口尚未监听就判断崩溃，应同时检查 Java 进程、进度窗口和 CPU，再等到模型标题与画布出现。命令行参数对 PSD 的打开不稳定，可靠流程仍是启动 Editor 后用 `Ctrl+O` 打开；路径含空格时使用完整绝对路径。外部 API 开关默认关闭，端口未监听不代表版本不支持。
+
 ## 2026-08-29｜V4 清晰母版生成、真实 alpha 审计与首轮源 PSD
 
 为处理“旧原图人物有效像素和遮挡条件不足”的输入风险，使用内置 imagegen，以旧参考图为身份、服装、发型和配色参考，生成正面全身母版。提示词强制双臂离体、双手五指和双脚完整、无仙鹤/竹林/水印、青绿靛蓝鹤竹纹汉服和正常大小绿眼。首稿把棋盘格烘进 RGB；第二次背景提取得到真 RGBA；第三次去光晕又退回烘焙棋盘格，因此只保留第二次输出 `assets/source/rebuild-v4/character-master-front.png`，两份失败稿删除。可复用判断是：图片看起来像棋盘格不等于有 alpha，必须实际读取 mode、alpha 最小/最大值和透明像素数。

@@ -1,0 +1,722 @@
+{
+  "generatedAt": "2026-08-29T09:31:02.120Z",
+  "modelUid": "2b2842f5f70543898c9a6cdeb9018e28",
+  "parameters": {
+    "ParameterStructure": {
+      "GroupName": "Root",
+      "Id": "ParamGroupRoot",
+      "Entries": [
+        {
+          "EntryType": "Parameter",
+          "Name": "角度 X",
+          "Id": "ParamAngleX",
+          "Min": -30,
+          "Default": 0,
+          "Max": 30,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "角度 Y",
+          "Id": "ParamAngleY",
+          "Min": -30,
+          "Default": 0,
+          "Max": 30,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "角度 Z",
+          "Id": "ParamAngleZ",
+          "Min": -30,
+          "Default": 0,
+          "Max": 30,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "左眼 开闭",
+          "Id": "ParamEyeLOpen",
+          "Min": 0,
+          "Default": 1,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "左眼 微笑",
+          "Id": "ParamEyeLSmile",
+          "Min": 0,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "右眼 开闭",
+          "Id": "ParamEyeROpen",
+          "Min": 0,
+          "Default": 1,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "右眼 微笑",
+          "Id": "ParamEyeRSmile",
+          "Min": 0,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "眼珠 X",
+          "Id": "ParamEyeBallX",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "眼珠 Y",
+          "Id": "ParamEyeBallY",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "左眉 上下",
+          "Id": "ParamBrowLY",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "右眉 上下",
+          "Id": "ParamBrowRY",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "左眉 左右",
+          "Id": "ParamBrowLX",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "右眉 左右",
+          "Id": "ParamBrowRX",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "左眉 角度",
+          "Id": "ParamBrowLAngle",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "右眉 角度",
+          "Id": "ParamBrowRAngle",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "左眉 変形",
+          "Id": "ParamBrowLForm",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "右眉 変形",
+          "Id": "ParamBrowRForm",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "嘴 变形",
+          "Id": "ParamMouthForm",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "嘴 开闭",
+          "Id": "ParamMouthOpenY",
+          "Min": 0,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "脸颊泛红",
+          "Id": "ParamCheek",
+          "Min": 0,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "身体旋转 X",
+          "Id": "ParamBodyAngleX",
+          "Min": -10,
+          "Default": 0,
+          "Max": 10,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "身体旋转 Y",
+          "Id": "ParamBodyAngleY",
+          "Min": -10,
+          "Default": 0,
+          "Max": 10,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "身体旋转 Z",
+          "Id": "ParamBodyAngleZ",
+          "Min": -10,
+          "Default": 0,
+          "Max": 10,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "呼吸",
+          "Id": "ParamBreath",
+          "Min": 0,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "摇动 前发",
+          "Id": "ParamHairFront",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "摇动 侧发",
+          "Id": "ParamHairSide",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        },
+        {
+          "EntryType": "Parameter",
+          "Name": "摇动 后发",
+          "Id": "ParamHairBack",
+          "Min": -1,
+          "Default": 0,
+          "Max": 1,
+          "Repeat": false,
+          "Type": 0
+        }
+      ]
+    }
+  },
+  "parts": {
+    "PartStructure": {
+      "Children": [
+        {
+          "Children": [],
+          "Id": "Part",
+          "Name": "90_UNDERPAINT_TODO",
+          "Type": "Part"
+        },
+        {
+          "Children": [
+            {
+              "Id": "ArtSkirtC",
+              "Name": "ArtSkirtC",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtSkirtR",
+              "Name": "ArtSkirtR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtSkirtL",
+              "Name": "ArtSkirtL",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtSleeveR",
+              "Name": "ArtSleeveR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtSleeveL",
+              "Name": "ArtSleeveL",
+              "Type": "ArtMesh"
+            }
+          ],
+          "Id": "Part2",
+          "Name": "30_DYNAMIC_GARMENT",
+          "Type": "Part"
+        },
+        {
+          "Children": [
+            {
+              "Id": "ArtTorsoWaist",
+              "Name": "ArtTorsoWaist",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtFootR",
+              "Name": "ArtFootR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtFootL",
+              "Name": "ArtFootL",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtHandCuffR",
+              "Name": "ArtHandCuffR",
+              "Type": "ArtMesh"
+            },
+            {
+              "Id": "ArtHandCuffL",
+              "Name": "ArtHandCuffL",
+              "Type": "ArtMesh"
+            }
+          ],
+          "Id": "Part3",
+          "Name": "20_BODY",
+          "Type": "Part"
+        },
+        {
+          "Children": [
+            {
+              "Id": "ArtHeadCombined",
+              "Name": "ArtHeadCombined",
+              "Type": "ArtMesh"
+            }
+          ],
+          "Id": "Part4",
+          "Name": "10_HEAD",
+          "Type": "Part"
+        },
+        {
+          "Children": [
+            {
+              "Id": "ReferenceMasterFront",
+              "Name": "ReferenceMasterFront",
+              "Type": "ArtMesh"
+            }
+          ],
+          "Id": "Part5",
+          "Name": "00_GUIDE_DO_NOT_RIG",
+          "Type": "Part"
+        }
+      ],
+      "Id": "%Root",
+      "Name": "Root Part",
+      "Type": "Part"
+    }
+  },
+  "deformers": {
+    "DeformerStructure": [
+      {
+        "Name": "root",
+        "Id": "%Root",
+        "Type": null,
+        "Children": [
+          {
+            "Name": "ArtSkirtC",
+            "Id": "ArtSkirtC",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtSkirtR",
+            "Id": "ArtSkirtR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtSkirtL",
+            "Id": "ArtSkirtL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtSleeveR",
+            "Id": "ArtSleeveR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtSleeveL",
+            "Id": "ArtSleeveL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtTorsoWaist",
+            "Id": "ArtTorsoWaist",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtFootR",
+            "Id": "ArtFootR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtFootL",
+            "Id": "ArtFootL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtHandCuffR",
+            "Id": "ArtHandCuffR",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtHandCuffL",
+            "Id": "ArtHandCuffL",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ArtHeadCombined",
+            "Id": "ArtHeadCombined",
+            "Type": "ArtMesh"
+          },
+          {
+            "Name": "ReferenceMasterFront",
+            "Id": "ReferenceMasterFront",
+            "Type": "ArtMesh"
+          }
+        ]
+      }
+    ]
+  },
+  "objects": {
+    "ArtSkirtC": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtSkirtC",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtSkirtC",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part2",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtSkirtR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtSkirtR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtSkirtR",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part2",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtSkirtL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtSkirtL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtSkirtL",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part2",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtSleeveR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtSleeveR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtSleeveR",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part2",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtSleeveL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtSleeveL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtSleeveL",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part2",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtTorsoWaist": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtTorsoWaist",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtTorsoWaist",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part3",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtFootR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtFootR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtFootR",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part3",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtFootL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtFootL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtFootL",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part3",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtHandCuffR": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtHandCuffR",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtHandCuffR",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part3",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtHandCuffL": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtHandCuffL",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtHandCuffL",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part3",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ArtHeadCombined": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ArtHeadCombined",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ArtHeadCombined",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part4",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    },
+    "ReferenceMasterFront": {
+      "Data": {
+        "AlphaBlend": "over",
+        "ClippingIds": [],
+        "ColorBlend": "normal",
+        "DrawOrder": 500,
+        "Id": "ReferenceMasterFront",
+        "IsCulling": false,
+        "IsReverseMask": false,
+        "LabelColorType": "undefined",
+        "LabelCustomColor": "#FFFFFF",
+        "MultiplyColor": "#FFFFFF",
+        "Name": "ReferenceMasterFront",
+        "Opacity": 100,
+        "ParentDeformerId": "%Root",
+        "ParentId": "Part5",
+        "ScreenColor": "#000000",
+        "Vertices": 4
+      },
+      "Result": true,
+      "Type": "ArtMesh"
+    }
+  }
+}
