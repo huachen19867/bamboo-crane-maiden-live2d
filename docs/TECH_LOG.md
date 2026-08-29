@@ -1,5 +1,25 @@
 # 技术日志
 
+## 2026-08-30｜V2 头部生产 PSD 在 5.4 alpha1 完成导入验收与自动网格生成
+
+V2 生产 PSD 已在 `tools/alpha/CubismEditor5.exe`（5.4.00 alpha1）完成正式导入并另存为 `model/cubism-v4/bamboo-crane-maiden-v4-head-production-v2-import.cmo3`（15,967,463 字节，SHA-256 `2A5A52C7A01797F169A706CEBD706AF69532B8D6F89A0F209B0923680037247D`，日志 Verify after save : SUCCESS）。源 PSD、V1 拒绝稿和 V4 中性导入点均未被改动。
+
+导入结构验收用外部编辑 API 只读探针完成（`pipeline/v4/cubism_api_probe.mjs`，报告 `exports/v4-head-production-import-probe-before-mesh.json`）：33 个 ArtMesh（32 个生产层 + 隐藏指南 `ReferenceMasterHeadProduction`），导入默认全部只有 4 个顶点，0 个变形器，28 个标准参数，Part 分组 00/10/20/30/90 齐全，与 V2 PSD 的 22 头层 + 10 身体层清单一一对应。随后用建模模式快捷键 `Ctrl+Shift+A`（`CMD_GENERATE_MESH_IN_MODELING_MODE`，默认快捷键已从 jar 内 `default_shortcut40_win.xml` 核实）对全部 ArtMesh 执行「自动生成网格」。复测报告 `exports/v4-head-production-import-probe-after-mesh.json` 显示 32 个生产层全部变为轮廓网格，顶点数 6–84、合计 776，只有隐藏指南保留 4 点角网格。总验收报告 `exports/v4-head-production-import-acceptance-report.json` 三项门（数量对应、生产层 >4 顶点、指南层保持角网格）全部为 true。网格参数保留 Cubism 标准变形预设值：点间距离外/内 100、边界余量 20、边界最少点数 5、Alpha 阈值 0。
+
+必须如实记录的边界：编辑 API `GetObject`（1.1.0）实际只返回 `Vertices` 数，不返回 Rectangle 或顶点坐标，因此"真实 alpha bbox"的依据是 V2 构建脚本把每层按自身 alpha 包围盒裁切写入 PSD（`exports/v4-head-production-report-v2.json` 的逐层像素表），加上 Editor 画布上各 ArtMesh 选择框与所在区域吻合的目视核对；这不能被表述为"API 读回 bbox 逐层相等"。本阶段没有做任何 ArtMesh 顶点手工修正、没有眼口差分关键形、没有变形器和参数创建、指南层未触碰；自动网格只解决"可进入网格阶段"，下一步仍是人工修正眼、口、前后发网格并做眨眼差分，再谈右臂链。
+
+本轮沉淀的可复用工具与坑（全部围绕同一台 Java/AWT 应用）：
+
+- ZCode 桌面控制对该应用的**所有坐标派发都失败**（窗口帧报 identity mismatch、全屏帧报 stale/pixel owner changed）。排查并临时结束过 Nahimic3、ClickToDo（全屏"单击以执行"叠加层）、TextInputHost、PixPin、cc-switch 后依旧复现，说明叠加层不是根因，属派发器与该应用窗口 z 序的兼容问题。绕行方案是 `pipeline/v4/native_input.py`：用受控 Python（pywin32 的 `mouse_event`/`keybd_event`）直接发原生事件，脚本内做了 DPI 虚拟化探测（raster 坐标 ×4/3），`windows/click/rclick/dblclick/drag/resize/key` 子命令全部实测有效。
+- 试用期弹窗（标题"确定"）的**默认按钮是"立即购买"**，无脑回车会打开 Edge 的 Live2D 商店标签页；正确处置是点"继续使用"（1280×800 raster 约 (672,442)，或 Tab+Space）。误开的商店标签页已关闭。
+- 首次导入时应用在「模型设置」对话框空闲约 1 分钟后**干净退出**（日志 `successfully exited`，无崩溃转储、无应用错误事件）；第二次尝试一次通过。结论：不要让 PSD 导入向导长时间空闲，导入中断时先查 `%APPDATA%\Live2D\Cubism5.4alpha_Editor\logs\log.txt` 尾部与 Java 进程，再判断崩溃。
+- 「自动网格生成」对话框在 alpha1 的 150% UI 缩放下**不渲染 OK/Cancel 按钮**（Tab 循环确认按钮不存在，ResizeWindow 也无法让布局重排），实测它是**实时应用**对话框：参数一变即对当前选中 ArtMesh 生效，直接点 X 关闭即保留结果。编辑「点间距离（外侧）」字段即可驱动生成。
+- 外部 API 的按令牌授权：每次新注册插件都要在 `[文件] → [外部应用程序集成的设置]` 里重新勾选该行的"权限"和"编辑"复选框（对话框行位置稳定：raster (661,407) 与 (700,407)）；连接开关与端口 22033 的设置跨会话持久。探针会等待授权 150 秒，勾选后自动继续。
+- 「文件」菜单键盘导航可靠：点开菜单后按住下箭头 N 次+回车（外部 API 设置=13、键盘快捷键=12、环境设置=11）。Java 菜单对合成 Alt/F10 助记符无响应。环境设置中不存在"PSD 导入默认网格"选项；主页「新建 → 从 PSD 文件创建」向导在本版本同样直接导入、不出网格页。
+- 自动生成网格过程中曾误触参数面板滑块（摇动 侧发 0.8），已 Ctrl+Z 恢复 0 后才继续；保存前确认了参数面板全部默认值。
+
+本轮结束时 Editor 内文档即该导入检查点（无未保存修改）。工作区新增内容已提交本地 Git，未推送远端。
+
 ## 2026-08-29｜Cubism 5.4 alpha1 外部编辑 API 实机验证与 V4 中性导入点
 
 本机 `tools/alpha/CubismEditor5.exe` 经文件版本核对为 `Live2D Cubism Editor 5.4.00 alpha1`，不是此前主线使用的 5.3.03。该版本的外部编辑 API 为 `1.1.0`，使用本机 WebSocket `ws://127.0.0.1:22033`；必须先在 `[文件] → [外部应用程序集成的设置]` 打开连接开关，再分别授予“权限”和“编辑”权限。远程连接保持关闭。对 V4 PSD 实际连接后，`GetCurrentModelUID / GetParameterStructure / GetPartStructure / GetDeformerStructure` 均成功；探针读到 28 个参数条目、18 个 Part/ArtMesh 结构条目和 13 个变形器结构条目。随后执行 `EditBegin → EditSendLog → EditEnd(Cancel=true)`，事务正常回滚，证明可以把后续一组结构编辑做成原子操作，而不再依赖逐次 UI 点击。

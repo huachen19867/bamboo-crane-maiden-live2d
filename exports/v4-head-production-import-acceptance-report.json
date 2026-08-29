@@ -1,0 +1,492 @@
+{
+  "schema": "bamboo-crane-maiden-v4-head-production-import-acceptance/v1",
+  "generatedAt": "2026-08-30T00:30:38",
+  "editor": "Live2D Cubism Editor 5.4.00 alpha1 (tools/alpha, external edit API 1.1.0)",
+  "source_psd": {
+    "path": "model/cubism-v4/bamboo-crane-maiden-v4-head-production-v2.psd",
+    "sha256": "6BE1E3D44F17D7E67179EBE5EF2AFA72CCA2173FB204841C51056130D233834C",
+    "canvas": [
+      2048,
+      3072
+    ]
+  },
+  "saved_cmo3": {
+    "path": "model/cubism-v4/bamboo-crane-maiden-v4-head-production-v2-import.cmo3",
+    "bytes": 15967463,
+    "sha256": "2A5A52C7A01797F169A706CEBD706AF69532B8D6F89A0F209B0923680037247D"
+  },
+  "artmesh_count": 33,
+  "part_groups_expected": [
+    "00_GUIDE_DO_NOT_RIG",
+    "10_HEAD_PRODUCTION",
+    "20_BODY",
+    "30_DYNAMIC_GARMENT",
+    "90_UNDERPAINT_TODO"
+  ],
+  "api_limitation": "GetObject in edit API 1.1.0 returns Vertices count but no Rectangle/vertex positions; alpha-bbox ground truth is taken from the PSD layers, which the V2 build script already crops to each layer's real alpha bbox before writing. Editor visual selection boxes matched those regions.",
+  "vertices_total_before": 132,
+  "vertices_total_after": 776,
+  "mesh_generation": {
+    "method": "Editor 自动生成网格 (Ctrl+Shift+A, CMD_GENERATE_MESH_IN_MODELING_MODE), all ArtMeshes selected, live-apply dialog, 点间距离(外/内)=100, 边界余量=20, 边界最少点数=5, Alpha阈值=0 (Cubism standard deformation preset values)",
+    "note": "The 自动网格生成 dialog in 5.4 alpha1 renders without OK/Cancel buttons; it applies settings live to the selected ArtMeshes, so closing it (X) keeps the generated meshes."
+  },
+  "per_mesh": [
+    {
+      "id": "ArtBrowL",
+      "psd_alpha_bbox": {
+        "left": 904,
+        "top": 377,
+        "right": 972,
+        "bottom": 400,
+        "width": 68,
+        "height": 23
+      },
+      "vertices_before": 4,
+      "vertices_after": 13,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtBrowR",
+      "psd_alpha_bbox": {
+        "left": 1055,
+        "top": 379,
+        "right": 1126,
+        "bottom": 400,
+        "width": 71,
+        "height": 21
+      },
+      "vertices_before": 4,
+      "vertices_after": 13,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtEarringL",
+      "psd_alpha_bbox": {
+        "left": 803,
+        "top": 487,
+        "right": 895,
+        "bottom": 616,
+        "width": 92,
+        "height": 129
+      },
+      "vertices_before": 4,
+      "vertices_after": 27,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtEarringR",
+      "psd_alpha_bbox": {
+        "left": 1133,
+        "top": 487,
+        "right": 1223,
+        "bottom": 612,
+        "width": 90,
+        "height": 125
+      },
+      "vertices_before": 4,
+      "vertices_after": 26,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtEyeWhiteL",
+      "psd_alpha_bbox": {
+        "left": 893,
+        "top": 407,
+        "right": 985,
+        "bottom": 450,
+        "width": 92,
+        "height": 43
+      },
+      "vertices_before": 4,
+      "vertices_after": 24,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtEyeWhiteR",
+      "psd_alpha_bbox": {
+        "left": 1043,
+        "top": 407,
+        "right": 1116,
+        "bottom": 451,
+        "width": 73,
+        "height": 44
+      },
+      "vertices_before": 4,
+      "vertices_after": 9,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtFaceBase",
+      "psd_alpha_bbox": {
+        "left": 854,
+        "top": 311,
+        "right": 1176,
+        "bottom": 703,
+        "width": 322,
+        "height": 392
+      },
+      "vertices_before": 4,
+      "vertices_after": 32,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtFootL",
+      "psd_alpha_bbox": {
+        "left": 700,
+        "top": 2780,
+        "right": 1031,
+        "bottom": 3019,
+        "width": 331,
+        "height": 239
+      },
+      "vertices_before": 4,
+      "vertices_after": 34,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtFootR",
+      "psd_alpha_bbox": {
+        "left": 1031,
+        "top": 2780,
+        "right": 1321,
+        "bottom": 3015,
+        "width": 290,
+        "height": 235
+      },
+      "vertices_before": 4,
+      "vertices_after": 27,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtHairBack",
+      "psd_alpha_bbox": {
+        "left": 761,
+        "top": 24,
+        "right": 1232,
+        "bottom": 672,
+        "width": 471,
+        "height": 648
+      },
+      "vertices_before": 4,
+      "vertices_after": 64,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtHairFront",
+      "psd_alpha_bbox": {
+        "left": 767,
+        "top": 216,
+        "right": 1252,
+        "bottom": 587,
+        "width": 485,
+        "height": 371
+      },
+      "vertices_before": 4,
+      "vertices_after": 84,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtHandCuffL",
+      "psd_alpha_bbox": {
+        "left": 248,
+        "top": 1140,
+        "right": 511,
+        "bottom": 1501,
+        "width": 263,
+        "height": 361
+      },
+      "vertices_before": 4,
+      "vertices_after": 29,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtHandCuffR",
+      "psd_alpha_bbox": {
+        "left": 1540,
+        "top": 1140,
+        "right": 1773,
+        "bottom": 1501,
+        "width": 233,
+        "height": 361
+      },
+      "vertices_before": 4,
+      "vertices_after": 27,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtHeadOrnament",
+      "psd_alpha_bbox": {
+        "left": 871,
+        "top": 68,
+        "right": 1151,
+        "bottom": 221,
+        "width": 280,
+        "height": 153
+      },
+      "vertices_before": 4,
+      "vertices_after": 25,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtHighlightL",
+      "psd_alpha_bbox": {
+        "left": 925,
+        "top": 412,
+        "right": 958,
+        "bottom": 434,
+        "width": 33,
+        "height": 22
+      },
+      "vertices_before": 4,
+      "vertices_after": 7,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtHighlightR",
+      "psd_alpha_bbox": {
+        "left": 1068,
+        "top": 412,
+        "right": 1106,
+        "bottom": 441,
+        "width": 38,
+        "height": 29
+      },
+      "vertices_before": 4,
+      "vertices_after": 17,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtIrisL",
+      "psd_alpha_bbox": {
+        "left": 924,
+        "top": 423,
+        "right": 967,
+        "bottom": 449,
+        "width": 43,
+        "height": 26
+      },
+      "vertices_before": 4,
+      "vertices_after": 13,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtIrisR",
+      "psd_alpha_bbox": {
+        "left": 1060,
+        "top": 423,
+        "right": 1101,
+        "bottom": 448,
+        "width": 41,
+        "height": 25
+      },
+      "vertices_before": 4,
+      "vertices_after": 13,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtLowerLidL",
+      "psd_alpha_bbox": {
+        "left": 889,
+        "top": 433,
+        "right": 978,
+        "bottom": 458,
+        "width": 89,
+        "height": 25
+      },
+      "vertices_before": 4,
+      "vertices_after": 13,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtLowerLidR",
+      "psd_alpha_bbox": {
+        "left": 1049,
+        "top": 434,
+        "right": 1140,
+        "bottom": 458,
+        "width": 91,
+        "height": 24
+      },
+      "vertices_before": 4,
+      "vertices_after": 13,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtMouthClosed",
+      "psd_alpha_bbox": {
+        "left": 989,
+        "top": 524,
+        "right": 1041,
+        "bottom": 541,
+        "width": 52,
+        "height": 17
+      },
+      "vertices_before": 4,
+      "vertices_after": 13,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtNose",
+      "psd_alpha_bbox": {
+        "left": 1007,
+        "top": 486,
+        "right": 1020,
+        "bottom": 503,
+        "width": 13,
+        "height": 17
+      },
+      "vertices_before": 4,
+      "vertices_after": 6,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtPupilL",
+      "psd_alpha_bbox": {
+        "left": 921,
+        "top": 415,
+        "right": 962,
+        "bottom": 450,
+        "width": 41,
+        "height": 35
+      },
+      "vertices_before": 4,
+      "vertices_after": 13,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtPupilR",
+      "psd_alpha_bbox": {
+        "left": 1068,
+        "top": 414,
+        "right": 1109,
+        "bottom": 450,
+        "width": 41,
+        "height": 36
+      },
+      "vertices_before": 4,
+      "vertices_after": 8,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtSkirtC",
+      "psd_alpha_bbox": {
+        "left": 861,
+        "top": 1441,
+        "right": 1188,
+        "bottom": 2780,
+        "width": 327,
+        "height": 1339
+      },
+      "vertices_before": 4,
+      "vertices_after": 26,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtSkirtL",
+      "psd_alpha_bbox": {
+        "left": 232,
+        "top": 1653,
+        "right": 861,
+        "bottom": 2871,
+        "width": 629,
+        "height": 1218
+      },
+      "vertices_before": 4,
+      "vertices_after": 38,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtSkirtR",
+      "psd_alpha_bbox": {
+        "left": 1188,
+        "top": 1653,
+        "right": 1790,
+        "bottom": 2871,
+        "width": 602,
+        "height": 1218
+      },
+      "vertices_before": 4,
+      "vertices_after": 34,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtSleeveL",
+      "psd_alpha_bbox": {
+        "left": 395,
+        "top": 690,
+        "right": 1001,
+        "bottom": 2161,
+        "width": 606,
+        "height": 1471
+      },
+      "vertices_before": 4,
+      "vertices_after": 32,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtSleeveR",
+      "psd_alpha_bbox": {
+        "left": 1048,
+        "top": 694,
+        "right": 1628,
+        "bottom": 2161,
+        "width": 580,
+        "height": 1467
+      },
+      "vertices_before": 4,
+      "vertices_after": 33,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtTorsoWaist",
+      "psd_alpha_bbox": {
+        "left": 697,
+        "top": 661,
+        "right": 1329,
+        "bottom": 1441,
+        "width": 632,
+        "height": 780
+      },
+      "vertices_before": 4,
+      "vertices_after": 41,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtUpperLidL",
+      "psd_alpha_bbox": {
+        "left": 882,
+        "top": 411,
+        "right": 977,
+        "bottom": 443,
+        "width": 95,
+        "height": 32
+      },
+      "vertices_before": 4,
+      "vertices_after": 9,
+      "vertices_gt4": true
+    },
+    {
+      "id": "ArtUpperLidR",
+      "psd_alpha_bbox": {
+        "left": 1050,
+        "top": 413,
+        "right": 1147,
+        "bottom": 443,
+        "width": 97,
+        "height": 30
+      },
+      "vertices_before": 4,
+      "vertices_after": 9,
+      "vertices_gt4": true
+    }
+  ],
+  "guide_layers_meshed_at_import": [
+    "ReferenceMasterHeadProduction"
+  ],
+  "gate": {
+    "artmesh_count_matches_psd_layers": true,
+    "all_production_meshes_gt4_vertices": true,
+    "hidden_guide_kept_corner_mesh": true,
+    "all_pass": true
+  }
+}
