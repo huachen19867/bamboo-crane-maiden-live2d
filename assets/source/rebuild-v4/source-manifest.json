@@ -1,0 +1,36 @@
+{
+  "schema": "bamboo-crane-maiden-v4-source-manifest/v1",
+  "created": "2026-08-29",
+  "generator": "Codex built-in imagegen",
+  "assets": [
+    {
+      "path": "assets/source/rebuild-v4/character-master-front.png",
+      "sha256": "0790D02B1A0ECC65EAAB1B54D5ACBC05FF6B0CA717AD54CD5746CA9D8F12B2E1",
+      "role": "selected full-body front master before deterministic alpha cleanup",
+      "reference_inputs": [
+        "assets/source/reference.png"
+      ]
+    },
+    {
+      "path": "assets/source/rebuild-v4/character-master-front-clean.png",
+      "sha256": "C3341CD2A8D35F1C6E35175CD9F8DC2CB078312A28A5E177D1F09E58DAC1FB80",
+      "role": "authoritative neutral texture master for V4 PSD",
+      "derived_by": "pipeline/v4/build_source_psd.py"
+    },
+    {
+      "path": "assets/source/rebuild-v4/head-detail-guide-v1.png",
+      "sha256": "50E25B16F65A6DD6D238FC34051942C0B874256427B7F49C8212F2CFA6D46F51",
+      "role": "hidden 1254x1254 redraw guide; not an aligned texture layer",
+      "reference_inputs": [
+        "assets/source/reference.png",
+        "assets/source/rebuild-v4/character-master-front.png"
+      ],
+      "accepted_edit": "reduced both eyes approximately 18% in width and 15% in height to reject the doll-eye first draft"
+    }
+  ],
+  "rejected_outputs": [
+    "full-body draft with checkerboard baked into RGB",
+    "third alpha-clean attempt with checkerboard baked into RGB",
+    "first head-detail draft with oversized eyes"
+  ]
+}

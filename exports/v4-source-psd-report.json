@@ -1,0 +1,162 @@
+{
+  "schema": "bamboo-crane-maiden-v4-source-psd-report/v1",
+  "source": "assets/source/rebuild-v4/character-master-front.png",
+  "source_sha256": "0790D02B1A0ECC65EAAB1B54D5ACBC05FF6B0CA717AD54CD5746CA9D8F12B2E1",
+  "clean_master": "assets/source/rebuild-v4/character-master-front-clean.png",
+  "clean_master_sha256": "C3341CD2A8D35F1C6E35175CD9F8DC2CB078312A28A5E177D1F09E58DAC1FB80",
+  "psd": "model/cubism-v4/bamboo-crane-maiden-v4-source.psd",
+  "psd_sha256": "946F400C101BBD06B6FA1EE97E6B2D26CD2830ACBB48BBB629E1DD1E525DF684",
+  "canvas": [
+    1024,
+    1536
+  ],
+  "clean_alpha_bbox": [
+    118,
+    12,
+    893,
+    1507
+  ],
+  "clean_visible_pixels": 640029,
+  "layer_count": 11,
+  "layers": [
+    {
+      "group": "20_BODY",
+      "name": "ArtHandCuffL",
+      "bbox": [
+        126,
+        570,
+        256,
+        751
+      ],
+      "opaque_or_edge_pixels": 11888,
+      "png": "assets/source/rebuild-v4/layers/ArtHandCuffL.png"
+    },
+    {
+      "group": "20_BODY",
+      "name": "ArtHandCuffR",
+      "bbox": [
+        770,
+        570,
+        884,
+        751
+      ],
+      "opaque_or_edge_pixels": 9213,
+      "png": "assets/source/rebuild-v4/layers/ArtHandCuffR.png"
+    },
+    {
+      "group": "20_BODY",
+      "name": "ArtFootL",
+      "bbox": [
+        350,
+        1390,
+        516,
+        1507
+      ],
+      "opaque_or_edge_pixels": 10149,
+      "png": "assets/source/rebuild-v4/layers/ArtFootL.png"
+    },
+    {
+      "group": "20_BODY",
+      "name": "ArtFootR",
+      "bbox": [
+        516,
+        1390,
+        658,
+        1505
+      ],
+      "opaque_or_edge_pixels": 8492,
+      "png": "assets/source/rebuild-v4/layers/ArtFootR.png"
+    },
+    {
+      "group": "10_HEAD",
+      "name": "ArtHeadCombined",
+      "bbox": [
+        374,
+        12,
+        639,
+        331
+      ],
+      "opaque_or_edge_pixels": 45863,
+      "png": "assets/source/rebuild-v4/layers/ArtHeadCombined.png"
+    },
+    {
+      "group": "30_DYNAMIC_GARMENT",
+      "name": "ArtSleeveL",
+      "bbox": [
+        200,
+        346,
+        501,
+        1081
+      ],
+      "opaque_or_edge_pixels": 135528,
+      "png": "assets/source/rebuild-v4/layers/ArtSleeveL.png"
+    },
+    {
+      "group": "30_DYNAMIC_GARMENT",
+      "name": "ArtSleeveR",
+      "bbox": [
+        524,
+        348,
+        812,
+        1081
+      ],
+      "opaque_or_edge_pixels": 128332,
+      "png": "assets/source/rebuild-v4/layers/ArtSleeveR.png"
+    },
+    {
+      "group": "20_BODY",
+      "name": "ArtTorsoWaist",
+      "bbox": [
+        351,
+        331,
+        662,
+        721
+      ],
+      "opaque_or_edge_pixels": 20960,
+      "png": "assets/source/rebuild-v4/layers/ArtTorsoWaist.png"
+    },
+    {
+      "group": "30_DYNAMIC_GARMENT",
+      "name": "ArtSkirtL",
+      "bbox": [
+        118,
+        827,
+        431,
+        1433
+      ],
+      "opaque_or_edge_pixels": 83611,
+      "png": "assets/source/rebuild-v4/layers/ArtSkirtL.png"
+    },
+    {
+      "group": "30_DYNAMIC_GARMENT",
+      "name": "ArtSkirtR",
+      "bbox": [
+        594,
+        827,
+        893,
+        1434
+      ],
+      "opaque_or_edge_pixels": 81504,
+      "png": "assets/source/rebuild-v4/layers/ArtSkirtR.png"
+    },
+    {
+      "group": "30_DYNAMIC_GARMENT",
+      "name": "ArtSkirtC",
+      "bbox": [
+        431,
+        721,
+        594,
+        1390
+      ],
+      "opaque_or_edge_pixels": 104489,
+      "png": "assets/source/rebuild-v4/layers/ArtSkirtC.png"
+    }
+  ],
+  "partition_unassigned_pixels": 0,
+  "partition_reconstruction_diff_pixels": 0,
+  "staged_composite_solid_rgb_diff_pixels": 0,
+  "staged_composite_solid_max_channel_error": 0,
+  "antialiased_edge_pixels": 6599,
+  "preview": "exports/v4-source-neutral.png",
+  "quality_boundary": "This is a pixel-exact neutral scaffold from the new front master. Head facial features, joint underpaint, sleeve articulation, hair strands, and eye/mouth difference art are not yet production-ready."
+}
