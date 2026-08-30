@@ -1,5 +1,13 @@
 # 技术日志
 
+## 2026-08-30｜V3 眨眼验收复测：撤回未通过的键形尝试，恢复可追溯检查点
+
+本轮按正式验收顺序在 Cubism 5.4 alpha1 对 V3 导入工程做了“保存 → 关闭进程 → 重开 → GUI 参数拨动”的复测。结论是否定的：虽然 `GetParameterKeys` 可以列出眼内容层及上眼睑的 `0 / 0.5 / 1` 槽位，但把左右眼开闭都拨到 `0` 后，重开工程的画面仍显示睁眼；槽位存在不能作为实际眨眼成立的证据。此前把 API 键位、参数面板数值或截图文件名当作“已闭眼”是不充分的，后续必须以同一已保存 CMO3、无遮挡网格的 GUI 画面作为最终门。
+
+为避免提交视觉回归，所有本轮 API 加键、透明度重写及单侧网格拖动尝试均未进入正式文件。尝试后的二进制已保存在忽略目录 `tmp/cubism-v4-acceptance-preserve/bamboo-crane-maiden-v4-head-production-v3-import-failed-blink-key-attempt-E1A42B3B.cmo3`（SHA-256 `E1A42B3B56EE5DA1F405AB55EEDCB1C084916E4BA3B5D3BCE2562786C0E2EAB2`），仅供复现，不得交付。正式路径已恢复到 Git 中可追溯的 `model/cubism-v4/bamboo-crane-maiden-v4-head-production-v3-import.cmo3`，SHA-256 `53F5D8E94B2A9AE34CAFAF3EC054750BF04D46666A641ABB8D4BC0E39CC76BFD`。
+
+调试残留共 51 个未跟踪 `exports/v4-*` JSON/PNG 已移动到忽略目录 `exports/authoring-archive/2026-08-30-blink-debug/`，包括不能作为干净交付证据的闭眼截图。下一次修复前，先从 PSD 逐层复核“上眼睑、下眼睑、眼白、虹膜、瞳孔、高光”各自在参数 0/0.5/1 的可见像素来源，再在 Editor 内建立参数键形并立即做 GUI 视觉验证；只有闭眼后眼白、虹膜、瞳孔和高光全消失且上睑/下睑形成连续弧线，才允许保存 CMO3。
+
 ## 2026-08-30（夜）｜V3 眼部背景板修复 + 双眼淡出眨眼差分绑定落地
 
 **资产根因修复（V3）**：V2 头部生产 PSD 的脸底层把完整睁开的眼（巩膜+虹膜+瞳仁+高光+睫毛）烘在了脸底里——把四层眼内结构全部隐藏后眼睛依然可见即为实锤。任何眨眼绑定都会与烘焙眼"打架"。修复走构建脚本而非在 CMO3 里涂改：`pipeline/v4/build_head_production_psd.py` 升级为 v3，把虹膜/瞳仁/高光区按行取周围巩膜中位色回填、睫毛带用其正上方皮肤逐列下抹（`eye_backdrop: sclera_fill=4074, lash_skin_fill=9806`），填充严格限制在绑定层的 dilate(3) 蒙版内，因此中性合成与质量指标不变（2.9030 / 97.81%）。产物 `model/cubism-v4/bamboo-crane-maiden-v4-head-production-v3.psd`（SHA-256 `5844EA59E1BF3AB1E99252CADCFC487FF16E7A6032C39E79007281CEC53A8335`）。
